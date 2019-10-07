@@ -7,17 +7,13 @@ import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.tuga.konum.R
 import kotlinx.android.synthetic.main.fragment_phone_number.*
 import java.util.regex.Pattern
 
 class PhoneNumberFragment : Fragment(), View.OnClickListener {
-
-    lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,15 +26,18 @@ class PhoneNumberFragment : Fragment(), View.OnClickListener {
         when (v.id) {
             R.id.btnNext -> {
                 val phoneNumber = textPhoneNumber.text.toString()
-                val bundle = bundleOf("phoneNumber" to phoneNumber)
-                navController.navigate(R.id.action_phoneNumberFragment_to_passwordFragment, bundle)
+                val navController = v.findNavController()
+                navController.navigate(
+                    PhoneNumberFragmentDirections.actionPhoneNumberFragmentToPasswordFragment(
+                        phoneNumber
+                    )
+                )
             }
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
         btnNext.setOnClickListener(this)
 
         setupLegalDescriptionLink()

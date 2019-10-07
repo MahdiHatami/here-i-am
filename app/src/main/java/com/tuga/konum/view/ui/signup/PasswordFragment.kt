@@ -5,26 +5,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.tuga.konum.R
-import timber.log.Timber
 
 class PasswordFragment : Fragment() {
-
-    lateinit var phoneNumber: String
+    private val args: PasswordFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        phoneNumber = arguments!!.getString("phoneNumber").toString()
+        val phoneNumber = args.phoneNumber
 
-        Timber.d(phoneNumber)
+        Toast.makeText(activity, phoneNumber, Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_password, container, false)
     }
 

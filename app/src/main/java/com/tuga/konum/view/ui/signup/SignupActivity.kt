@@ -9,10 +9,11 @@ class SignupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
-        initializeUI()
-    }
-
-    private fun initializeUI() {
 
     }
+
+//    override fun onSupportNavigateUp(): Boolean {
+//        findNavController(R.id.nav_host_signup_fragment).navigateUp()
+//        return super.onSupportNavigateUp()
+//    }
 }
