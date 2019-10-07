@@ -3,5 +3,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next">Next</string>
     <string name="enter_your_phone_number">Enter your phone number</string>
-    <string name="terms_of_service">By signing up to accedp</string>
+    <string name="terms_and_policy">By signing up you accept our Terms of Service and Privacy Policy</string>
+    <string name="terms_link">http://tuga.com.tr/yonetici-gizlilik-sozlesmesi.html</string>
+    <string name="privacy_link">http://tuga.com.tr/yonetici-gizlilik-sozlesmesi.html</string>
+    <string name="terms_of_service_text">Terms of Service</string>
+    <string name="privacy_policy_text">Privacy Policy</string>
 </resources>

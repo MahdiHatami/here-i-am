@@ -16,7 +16,27 @@
 
         <activity
             android:name=".view.ui.signup.SignupActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="tuga.com.tr"
+                    android:pathPattern="/.*"
+                    android:scheme="http" />
+                <data
+                    android:host="tuga.com.tr"
+                    android:pathPattern="/.*"
+                    android:scheme="https" />
+                <data
+                    android:host="example.com"
+                    android:pathPattern="/.*"
+                    android:scheme="android-app" />
+            </intent-filter>
+        </activity>
 
         <activity android:name=".view.ui.main.MainActivity">
             <intent-filter>

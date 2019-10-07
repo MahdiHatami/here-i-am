@@ -25,15 +25,15 @@
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintBottom_toTopOf="@+id/legalDescription"
             tools:layout_editor_absoluteX="16dp" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/legalDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="200dp"
-            android:text="@string/terms_of_service"
+            android:text="@string/terms_and_policy"
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/btnNext" />
 
