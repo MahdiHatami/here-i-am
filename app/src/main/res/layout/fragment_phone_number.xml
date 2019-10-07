@@ -37,10 +37,11 @@
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/btnNext" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/ShapeAppearance.MaterialComponents.LargeComponent"
             android:text="@string/next"
             android:theme="@style/AppTheme.Button"
             app:layout_constraintBottom_toBottomOf="parent" />
