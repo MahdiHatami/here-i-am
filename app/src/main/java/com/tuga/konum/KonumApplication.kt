@@ -9,21 +9,20 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
-
 class KonumApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
+  override fun onCreate() {
+    super.onCreate()
 
-        startKoin {
-            androidContext(this@KonumApplication)
-            modules(viewModelModule)
-            modules(repositoryModule)
-        }
-
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
-
-        Stetho.initializeWithDefaults(this)
+    startKoin {
+      androidContext(this@KonumApplication)
+      modules(viewModelModule)
+      modules(repositoryModule)
     }
+
+    if (BuildConfig.DEBUG) {
+      Timber.plant(Timber.DebugTree())
+    }
+
+    Stetho.initializeWithDefaults(this)
+  }
 }

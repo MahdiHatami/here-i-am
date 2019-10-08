@@ -1,52 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
-    <data>
+  <data>
 
-        <variable
-            name="viewModel"
-            type="com.tuga.konum.view.ui.signup.SignupActivityViewModel" />
-    </data>
+    <variable
+        name="viewModel"
+        type="com.tuga.konum.view.ui.signup.SignupActivityViewModel"
+        />
+  </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <EditText
+        android:id="@+id/textPhoneNumber"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:hint="@string/enter_your_phone_number"
+        android:importantForAutofill="no"
+        android:inputType="phone"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:text="@={viewModel.phoneNumber}"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/legalDescription"
+        tools:layout_editor_absoluteX="16dp"
+        />
 
-        <EditText
-            android:id="@+id/textPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            android:hint="@string/enter_your_phone_number"
-            android:importantForAutofill="no"
-            android:inputType="phone"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:text="@={viewModel.phoneNumber}"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/legalDescription"
-            tools:layout_editor_absoluteX="16dp" />
+    <TextView
+        android:id="@+id/legalDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="200dp"
+        android:text="@string/terms_and_policy"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        />
 
-        <TextView
-            android:id="@+id/legalDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="200dp"
-            android:text="@string/terms_and_policy"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toTopOf="@+id/btnNext" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnNext"
-            style="@style/ShapeAppearance.MaterialComponents.SmallComponent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/next"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNext"
+        style="@style/ShapeAppearance.MaterialComponents.SmallComponent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

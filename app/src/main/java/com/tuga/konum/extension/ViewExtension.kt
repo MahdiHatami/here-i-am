@@ -11,44 +11,44 @@ import com.bumptech.glide.request.target.Target
 import com.tuga.konum.R
 
 fun View.visible() {
-    visibility = View.VISIBLE
+  visibility = View.VISIBLE
 }
 
 fun View.requestGlideListener(): RequestListener<Drawable> {
-    return object : RequestListener<Drawable> {
-        override fun onLoadFailed(
-            e: GlideException?,
-            model: Any?,
-            target: Target<Drawable>?,
-            isFirstResource: Boolean
-        ): Boolean {
-            return false
-        }
-
-        override fun onResourceReady(
-            resource: Drawable?,
-            model: Any?,
-            target: Target<Drawable>?,
-            dataSource: DataSource?,
-            isFirstResource: Boolean
-        ): Boolean {
-            circularRevealedAtCenter()
-            return false
-        }
+  return object : RequestListener<Drawable> {
+    override fun onLoadFailed(
+      e: GlideException?,
+      model: Any?,
+      target: Target<Drawable>?,
+      isFirstResource: Boolean
+    ): Boolean {
+      return false
     }
+
+    override fun onResourceReady(
+      resource: Drawable?,
+      model: Any?,
+      target: Target<Drawable>?,
+      dataSource: DataSource?,
+      isFirstResource: Boolean
+    ): Boolean {
+      circularRevealedAtCenter()
+      return false
+    }
+  }
 }
 
 fun View.circularRevealedAtCenter() {
-    val view = this
-    val cx = (view.left + view.right) / 2
-    val cy = (view.top + view.bottom) / 2
-    val finalRadius = Math.max(view.width, view.height)
+  val view = this
+  val cx = (view.left + view.right) / 2
+  val cy = (view.top + view.bottom) / 2
+  val finalRadius = Math.max(view.width, view.height)
 
-    if (checkIsMaterialVersion() && view.isAttachedToWindow) {
-        val anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0f, finalRadius.toFloat())
-        view.visible()
-        view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.background))
-        anim.duration = 550
-        anim.start()
-    }
+  if (checkIsMaterialVersion() && view.isAttachedToWindow) {
+    val anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0f, finalRadius.toFloat())
+    view.visible()
+    view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.background))
+    anim.duration = 550
+    anim.start()
+  }
 }

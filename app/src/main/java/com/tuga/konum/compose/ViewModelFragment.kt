@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 
 open class ViewModelFragment : Fragment() {
 
-    protected inline fun <reified T : ViewDataBinding> binding(
-        inflater: LayoutInflater,
-        resId: Int,
-        container: ViewGroup?
-    ): T = DataBindingUtil.inflate(inflater, resId, container, false)
+  protected inline fun <reified T : ViewDataBinding> binding(
+    inflater: LayoutInflater,
+    resId: Int,
+    container: ViewGroup?
+  ): T = DataBindingUtil.inflate(inflater, resId, container, false)
 }

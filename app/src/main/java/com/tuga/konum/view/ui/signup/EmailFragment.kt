@@ -1,6 +1,5 @@
 package com.tuga.konum.view.ui.signup
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,21 +11,22 @@ import com.tuga.konum.R
 
 class EmailFragment : Fragment() {
 
-    private val args: EmailFragmentArgs by navArgs()
+  private val args: EmailFragmentArgs by navArgs()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val password: String = args.password
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    val password: String = args.password
 
-        Toast.makeText(activity, password, Toast.LENGTH_LONG).show()
-    }
+    Toast.makeText(activity, password, Toast.LENGTH_LONG)
+        .show()
+  }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_email, container, false)
-    }
-
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    return inflater.inflate(R.layout.fragment_email, container, false)
+  }
 
 }
