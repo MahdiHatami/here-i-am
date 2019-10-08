@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tuga.konum.R
+import com.tuga.konum.compose.ViewModelFragment
 import kotlinx.android.synthetic.main.fragment_password.*
 
-class PasswordFragment : Fragment(), View.OnClickListener {
+class PasswordFragment : ViewModelFragment(), View.OnClickListener {
     private val args: PasswordFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {

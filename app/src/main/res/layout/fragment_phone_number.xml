@@ -24,6 +24,7 @@
             android:inputType="phone"
             android:selectAllOnFocus="true"
             android:singleLine="true"
+            android:text="@={viewModel.phoneNumber}"
             android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/legalDescription"
             tools:layout_editor_absoluteX="16dp" />
