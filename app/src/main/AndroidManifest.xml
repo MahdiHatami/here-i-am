@@ -17,6 +17,12 @@
         <activity
             android:name=".view.ui.signup.SignupActivity"
             android:windowSoftInputMode="adjustResize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -38,12 +44,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.ui.main.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".view.ui.main.MainActivity" />
     </application>
 
 </manifest>

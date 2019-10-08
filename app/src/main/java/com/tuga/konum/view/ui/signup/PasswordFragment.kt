@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tuga.konum.R
+import kotlinx.android.synthetic.main.fragment_password.*
 
-class PasswordFragment : Fragment() {
+class PasswordFragment : Fragment(), View.OnClickListener {
     private val args: PasswordFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,5 +29,23 @@ class PasswordFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_password, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        btnPasswordNext.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.btnPasswordNext -> {
+                val password: String = textPassword.text.toString()
+                val navController = v.findNavController()
+                navController.navigate(
+                    PasswordFragmentDirections.actionPasswordFragmentToEmailFragment(
+                        password
+                    )
+                )
+            }
+        }
+    }
 
 }

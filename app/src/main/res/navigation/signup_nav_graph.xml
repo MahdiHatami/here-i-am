@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/phoneNumberFragment"
         android:name="com.tuga.konum.view.ui.signup.PhoneNumberFragment"
-        android:label="fragment_phone_number"
+        android:label="@string/phone_number_title"
         tools:layout="@layout/fragment_phone_number">
         <action
             android:id="@+id/action_phoneNumberFragment_to_passwordFragment"
@@ -25,15 +25,16 @@
     <fragment
         android:id="@+id/passwordFragment"
         android:name="com.tuga.konum.view.ui.signup.PasswordFragment"
-        android:label="fragment_password"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"
+        android:label="@string/password_title"
+
         tools:layout="@layout/fragment_password">
         <action
             android:id="@+id/action_passwordFragment_to_emailFragment"
-            app:destination="@id/emailFragment" />
+            app:destination="@id/emailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="phoneNumber"
             app:argType="string" />
@@ -43,7 +44,7 @@
     <fragment
         android:id="@+id/emailFragment"
         android:name="com.tuga.konum.view.ui.signup.EmailFragment"
-        android:label="fragment_email"
+        android:label="@string/email_title"
         tools:layout="@layout/fragment_email">
 
         <action
@@ -53,16 +54,61 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <argument
+            android:name="password"
+            app:argType="string" />
     </fragment>
 
     <!-- Profile -->
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.tuga.konum.view.ui.signup.ProfileFragment"
-        android:label="fragment_profile"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"
-        tools:layout="@layout/fragment_profile" />
+        android:label="@string/profile_title"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_locationPermissionFragment"
+            app:destination="@id/locationPermissionFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Location Permission -->
+    <fragment
+        android:id="@+id/locationPermissionFragment"
+        android:name="com.tuga.konum.view.ui.signup.LocationPermissionFragment"
+        android:label="@string/location_permission_title"
+        tools:layout="@layout/fragment_location_permission">
+        <action
+            android:id="@+id/action_locationPermissionFragment_to_joinCircleFragment"
+            app:destination="@id/joinCircleFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Join Circle Or Create new Circle -->
+    <fragment
+        android:id="@+id/joinCircleFragment"
+        android:name="com.tuga.konum.view.ui.signup.JoinCircleFragment"
+        android:label="@string/join_circle_title"
+        tools:layout="@layout/fragment_join_circle">
+        <action
+            android:id="@+id/action_joinCircleFragment_to_createCircleFragment"
+            app:destination="@id/createCircleFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <!-- Create Circle -->
+    <fragment
+        android:id="@+id/createCircleFragment"
+        android:name="com.tuga.konum.view.ui.signup.CreateCircleFragment"
+        android:label="@string/create_circle_title"
+        tools:layout="@layout/fragment_create_circle" />
 </navigation>

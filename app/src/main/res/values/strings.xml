@@ -8,4 +8,13 @@
     <string name="privacy_link">http://tuga.com.tr/yonetici-gizlilik-sozlesmesi.html</string>
     <string name="terms_of_service_text">Terms of Service</string>
     <string name="privacy_policy_text">Privacy Policy</string>
+    <string name="phone_number_title">Phone Number</string>
+    <string name="password_title">Password</string>
+    <string name="email_title">Email</string>
+    <string name="profile_title">Profile</string>
+    <string name="location_permission_title">Location Permission</string>
+    <string name="join_circle_title">Join Circle</string>
+    <string name="create_circle_title">Create Circle</string>
+    <string name="password_description_text">password must be at least 6</string>
+    <string name="create_password_title">Create Password</string>
 </resources>
