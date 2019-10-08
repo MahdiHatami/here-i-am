@@ -18,8 +18,11 @@ import java.util.regex.Pattern
 class PhoneNumberFragment : ViewModelFragment(), View.OnClickListener {
 
   private val viewModel by viewModel<SignupActivityViewModel>()
-
   private lateinit var binding: FragmentPhoneNumberBinding
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -32,20 +35,6 @@ class PhoneNumberFragment : ViewModelFragment(), View.OnClickListener {
     return binding.root
   }
 
-  override fun onClick(v: View) {
-    when (v.id) {
-      R.id.btnNext -> {
-        val phoneNumber = textPhoneNumber.text.toString()
-        val navController = v.findNavController()
-        navController.navigate(
-            PhoneNumberFragmentDirections.actionPhoneNumberFragmentToPasswordFragment(
-                phoneNumber
-            )
-        )
-      }
-    }
-  }
-
   override fun onAttach(context: Context) {
     super.onAttach(context)
     observePhoneNumber()
@@ -56,9 +45,24 @@ class PhoneNumberFragment : ViewModelFragment(), View.OnClickListener {
     savedInstanceState: Bundle?
   ) {
     super.onViewCreated(view, savedInstanceState)
+    ccp.registerCarrierNumberEditText(edtPhoneNumber)
     btnNext.setOnClickListener(this)
 
     setupLegalDescriptionLink()
+  }
+
+  override fun onClick(v: View) {
+    when (v.id) {
+      R.id.btnNext -> {
+        val phoneNumber = edtPhoneNumber.text.toString()
+        val navController = v.findNavController()
+        navController.navigate(
+            PhoneNumberFragmentDirections.actionPhoneNumberFragmentToPasswordFragment(
+                phoneNumber
+            )
+        )
+      }
+    }
   }
 
   private fun setupLegalDescriptionLink() {
@@ -85,4 +89,5 @@ class PhoneNumberFragment : ViewModelFragment(), View.OnClickListener {
 
     })
   }
+
 }
