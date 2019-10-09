@@ -1,8 +1,11 @@
 package com.tuga.konum.extension
 
 import android.graphics.drawable.Drawable
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.ViewAnimationUtils
+import android.widget.EditText
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -51,4 +54,17 @@ fun View.circularRevealedAtCenter() {
     anim.duration = 550
     anim.start()
   }
+}
+fun EditText.onTextChanged(action: (CharSequence) -> Unit) {
+  addTextChangedListener(object : TextWatcher {
+    override fun afterTextChanged(string: Editable?) = Unit
+    override fun beforeTextChanged(string: CharSequence?, start: Int, count: Int, after: Int) = Unit
+    override fun onTextChanged(string: CharSequence?, start: Int, before: Int, count: Int) {
+      action(string ?: "")
+    }
+  })
+}
+
+fun EditText.clearOnTextChangedListener() {
+  onTextChanged {}
 }

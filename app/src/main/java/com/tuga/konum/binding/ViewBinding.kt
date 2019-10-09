@@ -1,24 +1,33 @@
 package com.tuga.konum.binding
 
-import androidx.databinding.BindingAdapter
 import android.text.TextUtils
 import android.widget.EditText
-
-
+import androidx.databinding.BindingAdapter
 
 @BindingAdapter("phoneNumberValidator")
-fun passwordValidator(
+fun bindPhoneNumberValidator(
   editText: EditText,
-  password: String
+  phoneNumber: String?
 ) {
-  val minimumLength = 5
-  if (TextUtils.isEmpty(password)) {
+  val minimumLength = 10
+  if (TextUtils.isEmpty(phoneNumber)) {
     editText.error = null
     return
   }
-  if (editText.text.toString().length < minimumLength) {
-    editText.error = "Password must be minimum $minimumLength length"
+  if (editText.text.toString().length != minimumLength) {
+    editText.error = "Phone Number must be minimum $minimumLength length"
   } else
     editText.error = null
 }
 
+@BindingAdapter(value = ["inputText", "errorText"], requireAll = false)
+fun setInputWithError(
+  editText: EditText,
+  input: String,
+  error: String
+) {
+  if (TextUtils.isEmpty(input))
+    editText.error = error
+  else
+    editText.error = null
+}

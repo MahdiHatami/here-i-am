@@ -7,6 +7,7 @@ import android.text.util.Linkify
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.tuga.konum.R
 import com.tuga.konum.compose.ViewModelFragment
@@ -20,10 +21,6 @@ class PhoneNumberFragment : ViewModelFragment(), View.OnClickListener {
   private val viewModel by viewModel<SignupActivityViewModel>()
   private lateinit var binding: FragmentPhoneNumberBinding
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-  }
-
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -35,11 +32,6 @@ class PhoneNumberFragment : ViewModelFragment(), View.OnClickListener {
     return binding.root
   }
 
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    observePhoneNumber()
-  }
-
   override fun onViewCreated(
     view: View,
     savedInstanceState: Bundle?
@@ -47,8 +39,6 @@ class PhoneNumberFragment : ViewModelFragment(), View.OnClickListener {
     super.onViewCreated(view, savedInstanceState)
     ccp.registerCarrierNumberEditText(edtPhoneNumber)
     btnNext.setOnClickListener(this)
-
-    setupLegalDescriptionLink()
   }
 
   override fun onClick(v: View) {
@@ -57,37 +47,11 @@ class PhoneNumberFragment : ViewModelFragment(), View.OnClickListener {
         val phoneNumber = edtPhoneNumber.text.toString()
         val navController = v.findNavController()
         navController.navigate(
-            PhoneNumberFragmentDirections.actionPhoneNumberFragmentToPasswordFragment(
-                phoneNumber
-            )
+          PhoneNumberFragmentDirections.actionPhoneNumberFragmentToPasswordFragment(
+            phoneNumber
+          )
         )
       }
     }
   }
-
-  private fun setupLegalDescriptionLink() {
-    val terms = getString(R.string.terms_of_service_text)
-    val privacyPolicy = getString(R.string.privacy_policy_text)
-
-    legalDescription.text = String.format(
-        getString(R.string.terms_and_policy), terms, privacyPolicy
-    )
-
-    legalDescription.movementMethod = LinkMovementMethod.getInstance()
-
-    val termsMatcher = Pattern.compile(terms)
-    Linkify.addLinks(
-        legalDescription, termsMatcher, getString(R.string.terms_link)
-    )
-
-    val privacyPolicyMatcher = Pattern.compile(privacyPolicy)
-    Linkify.addLinks(legalDescription, privacyPolicyMatcher, getString(R.string.privacy_link))
-  }
-
-  private fun observePhoneNumber() {
-    this.viewModel.phoneNumber.observe(this, androidx.lifecycle.Observer {
-
-    })
-  }
-
 }
