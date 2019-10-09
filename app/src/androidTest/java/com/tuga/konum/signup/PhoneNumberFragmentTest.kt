@@ -8,6 +8,8 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
@@ -16,6 +18,7 @@ import com.tuga.konum.R.string
 import com.tuga.konum.view.ui.signup.PhoneNumberFragment
 import com.tuga.konum.view.ui.signup.PhoneNumberFragmentArgs
 import com.tuga.konum.view.ui.signup.PhoneNumberFragmentDirections
+import org.hamcrest.CoreMatchers.not
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
@@ -47,6 +50,21 @@ class PhoneNumberFragmentTest {
     verify(navController).navigate(
         PhoneNumberFragmentDirections.actionPhoneNumberFragmentToPasswordFragment(validPhoneNumber)
     )
+
+  }
+
+  @Test
+  fun wrongPhoneNumber_couldDisableButton(){
+    // GIVEN - on the phone number fragment screen
+    val navController = mock(NavController::class.java)
+    launchFragment(navController)
+
+    // WHEN = valid phone number entered and click next
+    val validPhoneNumber = "5070933799999"
+    onView(withId(R.id.edtPhoneNumber)).perform(replaceText(validPhoneNumber))
+
+    // THEN - verify the button is disabled
+    onView(withId(R.id.btnNext)).check(matches(not((isEnabled()))))
 
   }
 
