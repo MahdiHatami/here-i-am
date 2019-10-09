@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.tuga.konum.R
 import com.tuga.konum.compose.ViewModelFragment
 import kotlinx.android.synthetic.main.fragment_password.*
+import org.jetbrains.anko.support.v4.toast
 
 class PasswordFragment : ViewModelFragment(), View.OnClickListener {
   private val args: PasswordFragmentArgs by navArgs()
@@ -18,8 +19,7 @@ class PasswordFragment : ViewModelFragment(), View.OnClickListener {
     super.onCreate(savedInstanceState)
     val phoneNumber = args.phoneNumber
 
-    Toast.makeText(activity, phoneNumber, Toast.LENGTH_LONG)
-        .show()
+    toast(phoneNumber)
   }
 
   override fun onCreateView(
@@ -44,9 +44,9 @@ class PasswordFragment : ViewModelFragment(), View.OnClickListener {
         val password: String = textPassword.text.toString()
         val navController = v.findNavController()
         navController.navigate(
-            PasswordFragmentDirections.actionPasswordFragmentToEmailFragment(
-                password
-            )
+          PasswordFragmentDirections.actionPasswordFragmentToEmailFragment(
+            password
+          )
         )
       }
     }
