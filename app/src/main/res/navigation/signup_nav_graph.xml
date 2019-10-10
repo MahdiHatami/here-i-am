@@ -20,9 +20,6 @@
         app:popExitAnim="@anim/slide_out_right"
         app:popUpTo="@layout/fragment_phone_number"
         app:popUpToInclusive="true" />
-    <argument
-        android:name="title"
-        app:argType="string" />
   </fragment>
   <!-- Password   -->
   <fragment

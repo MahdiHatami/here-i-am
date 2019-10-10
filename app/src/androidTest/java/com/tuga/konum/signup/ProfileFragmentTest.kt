@@ -20,7 +20,7 @@ import com.tuga.konum.models.entity.User
 import com.tuga.konum.view.ui.signup.PasswordFragment
 import com.tuga.konum.view.ui.signup.PasswordFragmentArgs
 import com.tuga.konum.view.ui.signup.PasswordFragmentDirections
-import kotlinx.android.synthetic.main.fragment_password.view.edtPassword
+import com.tuga.konum.view.ui.signup.ProfileFragmentDirections
 import org.hamcrest.CoreMatchers
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,44 +29,44 @@ import org.mockito.Mockito.verify
 import org.robolectric.annotation.TextLayoutMode
 
 /**
- * Integration test for the password fragment
+ * Integration test for the profile fragment
  */
 @MediumTest
 @TextLayoutMode(TextLayoutMode.Mode.REALISTIC)
 @RunWith(AndroidJUnit4::class)
-class PasswordFragmentTest {
+class ProfileFragmentTest {
 
   private var user: User = User()
 
   @Test
-  fun validPassword_navigateToEmailFragment() {
-    // GIVEN - on the choose password screen
+  fun validUsername_navigateToLocationFragment() {
+    // GIVEN - on the profile screen
     val navController = mock(NavController::class.java)
     launchFragment(navController)
 
-    // WHEN - enter valid password length should navigate to email fragment
-    val validPass = "123456"
-    onView(withId(R.id.edtPassword)).perform(replaceText(validPass))
-    onView(withId(R.id.btnPasswordNext)).perform(click())
+    // WHEN - enter valid username length should navigate to location fragment
+    user.username = "Mahdi"
+    onView(withId(R.id.edtUsername)).perform(replaceText(user.username))
+    onView(withId(R.id.btnProfileNext)).perform(click())
 
-    // THEN - verify that we navigate to email fragment
+    // THEN - verify that we navigate to location fragment
     verify(navController).navigate(
-      PasswordFragmentDirections.actionPasswordFragmentToEmailFragment(user)
+      ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment()
     )
   }
 
   @Test
   fun unValidPassword_couldDisableButton() {
-    // GIVEN - on the phone number fragment screen
+    // GIVEN - on the profile fragment screen
     val navController = mock(NavController::class.java)
     launchFragment(navController)
 
-    // WHEN = valid phone number entered and click next
-    val unValidPassword = "123"
-    onView(withId(R.id.edtPassword)).perform(replaceText(unValidPassword))
+    // WHEN = unValid username entered and click next
+    val unValidUsername = ""
+    onView(withId(R.id.edtPassword)).perform(replaceText(unValidUsername))
 
     // THEN - verify the button is disabled
-    onView(withId(R.id.btnPasswordNext))
+    onView(withId(R.id.btnProfileNext))
       .check(ViewAssertions.matches(CoreMatchers.not((ViewMatchers.isEnabled()))))
 
   }
