@@ -47,10 +47,10 @@
           android:importantForAutofill="no"
           android:inputType="phone"
           android:maxLength="15"
+          android:onTextChanged="@{viewModel::onPhoneNumberChanged}"
           android:selectAllOnFocus="true"
           android:singleLine="true"
           android:text="@={viewModel.phoneNumber}"
-          android:onTextChanged="@{viewModel::onPhoneNumberChanged}"
           />
 
     </LinearLayout>
@@ -72,8 +72,8 @@
         style="@style/ShapeAppearance.MaterialComponents.SmallComponent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/next"
         android:enabled="@{viewModel.phoneNumber.length() == 10}"
+        android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
