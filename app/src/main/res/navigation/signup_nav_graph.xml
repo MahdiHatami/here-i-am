@@ -39,8 +39,8 @@
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right" />
     <argument
-        android:name="phoneNumber"
-        app:argType="string" />
+        android:name="user"
+        app:argType="com.tuga.konum.models.entity.User" />
   </fragment>
 
   <!-- Email   -->
@@ -59,8 +59,8 @@
         app:popExitAnim="@anim/slide_out_right" />
 
     <argument
-        android:name="password"
-        app:argType="string" />
+        android:name="user"
+        app:argType="com.tuga.konum.models.entity.User" />
   </fragment>
 
   <!-- Profile -->
@@ -76,9 +76,10 @@
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right" />
+
     <argument
-        android:name="email"
-        app:argType="string" />
+        android:name="user"
+        app:argType="com.tuga.konum.models.entity.User" />
   </fragment>
 
   <!-- Location Permission -->

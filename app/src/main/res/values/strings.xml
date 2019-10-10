@@ -24,4 +24,6 @@
   <string name="create_password_title">Create Password</string>
   <string name="email_description_text">Add your email to make sure you can recover your password if you forget it</string>
   <string name="enter_email_address">Enter your email address</string>
+  <string name="profile_description_text">This is how your appear on your map</string>
+  <string name="enter_your_name">Enter your name</string>
 </resources>

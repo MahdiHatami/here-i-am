@@ -9,22 +9,24 @@ import androidx.navigation.fragment.navArgs
 import com.tuga.konum.R
 import com.tuga.konum.compose.ViewModelFragment
 import com.tuga.konum.databinding.FragmentEmailBinding
+import com.tuga.konum.models.entity.User
 import kotlinx.android.synthetic.main.fragment_email.btnEmailNext
 import kotlinx.android.synthetic.main.fragment_email.edtEmail
 import org.jetbrains.anko.support.v4.toast
 import org.koin.android.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class EmailFragment : ViewModelFragment(), View.OnClickListener {
 
   private val viewModel by viewModel<SignupActivityViewModel>()
   private lateinit var binding: FragmentEmailBinding
   private val args: EmailFragmentArgs by navArgs()
+  private lateinit var user: User
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val password: String = args.password
-
-    toast(password)
+    user = args.user
+    Timber.d(user.toString())
   }
 
   override fun onCreateView(
@@ -50,9 +52,10 @@ class EmailFragment : ViewModelFragment(), View.OnClickListener {
     when (v.id) {
       R.id.btnEmailNext -> {
         val email = edtEmail.text.toString()
+        user.email = email
         val navController = v.findNavController()
         navController.navigate(
-          EmailFragmentDirections.actionEmailFragmentToProfileFragment(email)
+          EmailFragmentDirections.actionEmailFragmentToProfileFragment(user)
         )
       }
     }

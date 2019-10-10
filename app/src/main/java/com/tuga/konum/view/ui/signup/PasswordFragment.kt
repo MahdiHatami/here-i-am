@@ -9,20 +9,23 @@ import androidx.navigation.fragment.navArgs
 import com.tuga.konum.R
 import com.tuga.konum.compose.ViewModelFragment
 import com.tuga.konum.databinding.FragmentPasswordBinding
+import com.tuga.konum.models.entity.User
 import kotlinx.android.synthetic.main.fragment_password.*
 import org.jetbrains.anko.support.v4.toast
 import org.koin.android.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class PasswordFragment : ViewModelFragment(), View.OnClickListener {
 
   private val viewModel by viewModel<SignupActivityViewModel>()
   private lateinit var binding: FragmentPasswordBinding
   private val args: PasswordFragmentArgs by navArgs()
+  private lateinit var user: User
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val phoneNumber = args.phoneNumber
-    toast(phoneNumber)
+    user = args.user
+    Timber.d(user.toString())
   }
 
   override fun onCreateView(
@@ -48,11 +51,10 @@ class PasswordFragment : ViewModelFragment(), View.OnClickListener {
     when (v?.id) {
       R.id.btnPasswordNext -> {
         val password: String = edtPassword.text.toString()
+        user.password = password
         val navController = v.findNavController()
         navController.navigate(
-          PasswordFragmentDirections.actionPasswordFragmentToEmailFragment(
-            password
-          )
+          PasswordFragmentDirections.actionPasswordFragmentToEmailFragment(user)
         )
       }
     }

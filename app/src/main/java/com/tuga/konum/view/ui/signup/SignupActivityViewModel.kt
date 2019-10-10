@@ -14,11 +14,13 @@ constructor(
   var phoneNumber: ObservableField<String>? = null
   var password: ObservableField<String>? = null
   var email: ObservableField<String>? = null
+  var username: ObservableField<String>? = null
 
   init {
     Timber.d("injection SignupActivityViewModel")
     phoneNumber = ObservableField("")
     password = ObservableField("")
     email = ObservableField("")
+    username = ObservableField("")
   }
 }
