@@ -22,4 +22,6 @@
   <string name="create_circle_title">Create Circle</string>
   <string name="password_description_text">password must be at least 6</string>
   <string name="create_password_title">Create Password</string>
+  <string name="email_description_text">Add your email to make sure you can recover your password if you forget it</string>
+  <string name="enter_email_address">Enter your email address</string>
 </resources>

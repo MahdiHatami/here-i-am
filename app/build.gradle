@@ -47,7 +47,7 @@ android {
   }
 
   flavorDimensions "default"
-  
+
   // If you need to add more flavors, consider using flavor dimensions.
   productFlavors {
     mock {
@@ -91,7 +91,6 @@ android {
     correctErrorTypes = true
   }
 
-
   dataBinding {
     enabled = true
     enabledForTests = true
@@ -100,7 +99,6 @@ android {
   androidExtensions {
     experimental = true
   }
-
 }
 
 dependencies {

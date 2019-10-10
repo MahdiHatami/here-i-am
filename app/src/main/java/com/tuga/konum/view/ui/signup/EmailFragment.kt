@@ -4,21 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tuga.konum.R
+import com.tuga.konum.compose.ViewModelFragment
+import com.tuga.konum.databinding.FragmentEmailBinding
+import kotlinx.android.synthetic.main.fragment_email.btnEmailNext
+import kotlinx.android.synthetic.main.fragment_email.edtEmail
+import org.jetbrains.anko.support.v4.toast
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class EmailFragment : Fragment() {
+class EmailFragment : ViewModelFragment(), View.OnClickListener {
 
+  private val viewModel by viewModel<SignupActivityViewModel>()
+  private lateinit var binding: FragmentEmailBinding
   private val args: EmailFragmentArgs by navArgs()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val password: String = args.password
 
-    Toast.makeText(activity, password, Toast.LENGTH_LONG)
-        .show()
+    toast(password)
   }
 
   override fun onCreateView(
@@ -26,7 +32,29 @@ class EmailFragment : Fragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    return inflater.inflate(R.layout.fragment_email, container, false)
+    binding = binding(inflater, R.layout.fragment_email, container)
+    binding.viewModel = viewModel
+    binding.lifecycleOwner = this
+    return binding.root
   }
 
+  override fun onViewCreated(
+    view: View,
+    savedInstanceState: Bundle?
+  ) {
+    super.onViewCreated(view, savedInstanceState)
+    btnEmailNext.setOnClickListener(this)
+  }
+
+  override fun onClick(v: View) {
+    when (v.id) {
+      R.id.btnEmailNext -> {
+        val email = edtEmail.text.toString()
+        val navController = v.findNavController()
+        navController.navigate(
+          EmailFragmentDirections.actionEmailFragmentToProfileFragment(email)
+        )
+      }
+    }
+  }
 }

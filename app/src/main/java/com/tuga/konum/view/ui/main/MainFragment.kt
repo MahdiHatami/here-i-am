@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.tuga.konum.R
+import com.tuga.konum.compose.ViewModelFragment
 import com.tuga.konum.view.ui.signup.SignupActivity
 
-class MainFragment : Fragment() {
+class MainFragment : ViewModelFragment() {
+
 
   companion object {
     fun newInstance() = MainFragment()

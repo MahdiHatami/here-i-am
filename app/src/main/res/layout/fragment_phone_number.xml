@@ -47,7 +47,6 @@
           android:importantForAutofill="no"
           android:inputType="phone"
           android:maxLength="15"
-          android:onTextChanged="@{viewModel::onPhoneNumberChanged}"
           android:selectAllOnFocus="true"
           android:singleLine="true"
           android:text="@={viewModel.phoneNumber}"

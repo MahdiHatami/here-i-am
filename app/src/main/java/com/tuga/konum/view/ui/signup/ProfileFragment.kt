@@ -9,6 +9,8 @@ import com.tuga.konum.R
 
 class ProfileFragment : Fragment() {
 
+//  private lateinit var binding: ProfileFragmentBin
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,

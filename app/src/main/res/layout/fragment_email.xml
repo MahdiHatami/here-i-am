@@ -1,16 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.ui.signup.EmailFragment"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-  <!-- TODO: Update blank fragment layout -->
-  <TextView
+  <data>
+    <variable
+        name="viewModel"
+        type="com.tuga.konum.view.ui.signup.SignupActivityViewModel"
+        />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:text="@string/hello_blank_fragment"
-      />
+      >
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/edtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="@string/enter_email_address"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:maxLength="30"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:text="@={viewModel.email}"
+        app:layout_constraintBottom_toTopOf="@id/emailDescription"
+        />
+
+    <TextView
+        android:id="@+id/emailDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="200dp"
+        android:text="@string/email_description_text"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/btnEmailNext"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnEmailNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="@{android.util.Patterns.EMAIL_ADDRESS.matcher(viewModel.email).matches()}"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
