@@ -5,15 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import androidx.annotation.NonNull
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.tuga.konum.R
 import com.tuga.konum.compose.ViewModelFragment
 import com.tuga.konum.databinding.FragmentProfileBinding
 import com.tuga.konum.models.entity.User
+import com.tuga.konum.view.custom.RoundedBottomSheetDialogFragment
+import kotlinx.android.synthetic.main.choose_photo_source.bottomSheetImagePicker
+import kotlinx.android.synthetic.main.choose_photo_source.view.bottomSheetImagePicker
 import kotlinx.android.synthetic.main.fragment_profile.btnProfileNext
 import kotlinx.android.synthetic.main.fragment_profile.edtUsername
-import org.jetbrains.anko.support.v4.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -22,11 +26,13 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
   private val viewModel by viewModel<SignupActivityViewModel>()
   private lateinit var binding: FragmentProfileBinding
   private val args: ProfileFragmentArgs by navArgs()
-  private lateinit var user: User
+  private var user: User = User()
+
+  private lateinit var mBottomSheetBehavior: BottomSheetBehavior<*>
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    user = args.user
+//    user = args?.user
     Timber.d(user.toString())
   }
 
@@ -47,6 +53,20 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
   ) {
     super.onViewCreated(view, savedInstanceState)
     btnProfileNext.setOnClickListener(this)
+    setupBottomSheet(view)
+  }
+
+  private fun setupBottomSheet(view: View) {
+    mBottomSheetBehavior
+    mBottomSheetBehavior = BottomSheetBehavior.from<View>(bottomSheetImagePicker)
+    mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+    mBottomSheetBehavior.addBottomSheetCallback(
+      object : BottomSheetBehavior.BottomSheetCallback() {
+        override fun onSlide(@NonNull bottomSheet: View, slideOffset: Float) {}
+
+        override fun onStateChanged(@NonNull bottomSheet: View, newState: Int) {}
+      })
   }
 
   override fun onClick(v: View) {

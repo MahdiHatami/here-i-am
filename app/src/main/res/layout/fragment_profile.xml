@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     >
 
   <data>
@@ -14,11 +15,38 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       >
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/circle"
+        android:contentDescription="@string/profile_image"
+        android:onClick="@{() -> viewModel.selectImage()}"
+        android:padding="12dp"
+        android:src="@drawable/ic_user_add"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/add_photo"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewProfile"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/imageViewProfile"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewProfile"
+        />
 
     <EditText
         android:id="@+id/edtUsername"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:hint="@string/enter_your_name"
         android:importantForAutofill="no"
@@ -27,19 +55,18 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:text="@={viewModel.username}"
-        app:layout_constraintBottom_toTopOf="@id/profileDescription"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="-16dp"
         />
-
     <TextView
         android:id="@+id/profileDescription"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="200dp"
+        android:layout_height="0dp"
         android:text="@string/profile_description_text"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/btnProfileNext"
+        app:layout_constraintTop_toBottomOf="@+id/edtUsername"
+        tools:layout_editor_absoluteX="16dp"
         />
 
     <com.google.android.material.button.MaterialButton
@@ -52,6 +79,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
+
+    <include layout="@layout/choose_photo_source" />
+
   </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

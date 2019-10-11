@@ -10,6 +10,8 @@
   <color name="background900">#212121</color>
   <color name="HintText">#87ffffff</color>
   <color name="preview">#b0abb0</color>
+  <color name="smoothGrey">#D1D1D1</color>
+  <color name="divider">#BDBDBD</color>
   <color name="white">#ffffff</color>
   <color name="cay">#00BCD4</color>
 </resources>
