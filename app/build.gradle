@@ -106,6 +106,7 @@ dependencies {
   implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
   implementation "org.jetbrains.anko:anko:$ankoVersion"
   implementation 'com.mlsdev.rximagepicker:library:2.0.0'
+  implementation 'org.greenrobot:eventbus:3.1.1'
 
   // App dependencies
   implementation 'androidx.appcompat:appcompat:1.1.0'
