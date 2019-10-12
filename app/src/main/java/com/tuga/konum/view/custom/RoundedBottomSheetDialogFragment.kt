@@ -23,11 +23,4 @@ open class RoundedBottomSheetDialogFragment : BottomSheetDialogFragment() {
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
     BottomSheetDialog(requireContext(), theme)
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.choose_photo_source, container); }
-
 }

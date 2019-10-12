@@ -1,8 +1,10 @@
 package com.tuga.konum.binding
 
 import android.text.TextUtils
+import android.view.View
 import android.widget.EditText
 import androidx.databinding.BindingAdapter
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 @BindingAdapter("phoneNumberValidator")
 fun bindPhoneNumberValidator(
@@ -30,4 +32,10 @@ fun setInputWithError(
     editText.error = error
   else
     editText.error = null
+}
+
+@BindingAdapter("bottomSheetBehaviorState")
+fun setState(v: View, bottomSheetBehaviorState: Int) {
+  val viewBottomSheetBehavior = BottomSheetBehavior.from(v)
+  viewBottomSheetBehavior.state = bottomSheetBehaviorState
 }

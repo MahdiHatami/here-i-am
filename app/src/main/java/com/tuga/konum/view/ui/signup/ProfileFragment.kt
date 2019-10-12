@@ -53,21 +53,8 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
   ) {
     super.onViewCreated(view, savedInstanceState)
     btnProfileNext.setOnClickListener(this)
-    setupBottomSheet(view)
   }
 
-  private fun setupBottomSheet(view: View) {
-    mBottomSheetBehavior
-    mBottomSheetBehavior = BottomSheetBehavior.from<View>(bottomSheetImagePicker)
-    mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-
-    mBottomSheetBehavior.addBottomSheetCallback(
-      object : BottomSheetBehavior.BottomSheetCallback() {
-        override fun onSlide(@NonNull bottomSheet: View, slideOffset: Float) {}
-
-        override fun onStateChanged(@NonNull bottomSheet: View, newState: Int) {}
-      })
-  }
 
   override fun onClick(v: View) {
     when (v.id) {
@@ -83,5 +70,7 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
       }
     }
   }
+
+
 
 }
