@@ -3,8 +3,11 @@ package com.tuga.konum.binding
 import android.text.TextUtils
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import java.io.File
 
 @BindingAdapter("phoneNumberValidator")
 fun bindPhoneNumberValidator(
@@ -38,4 +41,13 @@ fun setInputWithError(
 fun setState(v: View, bottomSheetBehaviorState: Int) {
   val viewBottomSheetBehavior = BottomSheetBehavior.from(v)
   viewBottomSheetBehavior.state = bottomSheetBehaviorState
+}
+
+@BindingAdapter("imagePath")
+fun loadImage(imageView: ImageView, imagePath: String?) {
+  if (imagePath != null) {
+    Glide.with(imageView).load(File(imagePath)).into(imageView)
+  } else {
+    imageView.setImageDrawable(null)
+  }
 }

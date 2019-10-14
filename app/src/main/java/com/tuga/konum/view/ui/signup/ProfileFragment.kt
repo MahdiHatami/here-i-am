@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.mlsdev.rximagepicker.RxImageConverters
 import com.mlsdev.rximagepicker.RxImagePicker
 import com.tuga.konum.R
@@ -121,10 +122,9 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
     RxImagePicker.with(activity).requestImage(event.source).flatMap { uri ->
       RxImageConverters.uriToFile(activity, uri, File.createTempFile("image", ".jpg"))
     }.subscribe {
-      //      frameImageSection.hide()
-//      imageSelected.show()
-//      Glide.with(this).load(it).asBitmap().into(imageSelected)
-//      mFile = it
+      imageSelected.show()
+      Glide.with(this).load(it).thumbnail().into(imageSelected)
+      mFile = it
     }.dispose()
   }
 }
