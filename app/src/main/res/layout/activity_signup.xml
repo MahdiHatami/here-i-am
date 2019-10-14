@@ -1,29 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-  <data>
-    <variable
-        name="viewModel"
-        type="com.tuga.konum.view.ui.signup.SignupActivityViewModel"
-        />
-  </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.ui.signup.SignupActivity"
+    >
 
-  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
+  <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbar"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="vertical"
-      tools:context=".view.ui.signup.SignupActivity"
-      >
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        />
+      android:layout_height="wrap_content"
+      android:background="?attr/colorPrimary"
+      android:minHeight="?attr/actionBarSize"
+      android:theme="?attr/actionBarTheme"
+      />
 
   <fragment
       android:id="@+id/nav_host_signup_fragment"
@@ -38,6 +30,5 @@
       app:navGraph="@navigation/signup_nav_graph"
       />
 
-  </LinearLayout>
+</LinearLayout>
 
-</layout>

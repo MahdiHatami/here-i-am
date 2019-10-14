@@ -1,22 +1,18 @@
 package com.tuga.konum.view.ui.signup
 
-import androidx.databinding.BaseObservable
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
-import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.mlsdev.rximagepicker.RxImageConverters
-import com.mlsdev.rximagepicker.RxImagePicker
 import com.mlsdev.rximagepicker.Sources
 import com.mlsdev.rximagepicker.Sources.GALLERY
 import com.tuga.konum.compose.DispatchViewModel
+import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.permission.PermissionStatus
 import com.tuga.konum.permission.PermissionStatus.CAN_ASK_PERMISSION
 import com.tuga.konum.permission.PermissionStatus.PERMISSION_GRANTED
 import com.tuga.konum.repository.UserRepository
 import org.greenrobot.eventbus.EventBus
-import java.io.File
 
 class SignupActivityViewModel
 constructor(
@@ -65,24 +61,12 @@ constructor(
 
   private fun pickImage(source: Sources) {
     bottomSheetBehaviorState.set(BottomSheetBehavior.STATE_HIDDEN)
-//    RxImagePicker.with(this).requestImage(source).flatMap { uri ->
-//      RxImageConverters.uriToFile(this, uri, File.createTempFile("image", ".jpg"))
-//    }.subscribe {
-//      frameImageSection.hide()
-//      imageSelected.show()
-//      Glide.with(this).load(it).asBitmap().into(imageSelected)
-//      mFile = it
-//    }
+    EventBus.getDefault().post(RequestGalleryImagePicker(source))
   }
 
   fun setStoragePermissionStatus(newPermissionStatus: PermissionStatus) {
     if (storagePermissionStatus !== newPermissionStatus) {
       storagePermissionStatus = newPermissionStatus
-      if (storagePermissionStatus === PERMISSION_GRANTED) {
-        pickImage(GALLERY)
-      } else {
-        EventBus.getDefault().post(RequestStoragePermissionEvent())
-      }
     }
   }
 
