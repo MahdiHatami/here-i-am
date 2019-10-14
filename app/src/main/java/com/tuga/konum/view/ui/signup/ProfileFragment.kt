@@ -23,7 +23,6 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
   private val args: ProfileFragmentArgs by navArgs()
   private var user: User = User()
 
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 //    user = args?.user
@@ -63,7 +62,5 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
       }
     }
   }
-
-
 
 }

@@ -3,38 +3,35 @@ package com.tuga.konum.view.ui.signup
 import android.Manifest
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.tuga.konum.R
+import com.tuga.konum.compose.ViewModelActivity
+import com.tuga.konum.databinding.ActivitySignupBinding
+import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.permission.PermissionManager
 import kotlinx.android.synthetic.main.activity_signup.nav_host_signup_fragment
 import kotlinx.android.synthetic.main.activity_signup.toolbar
 import org.greenrobot.eventbus.EventBus
-import org.koin.android.viewmodel.ext.android.viewModel
-import androidx.annotation.NonNull
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import com.tuga.konum.event.RequestStoragePermissionEvent
-import com.tuga.konum.view.ui.signup.SignupActivityViewModel.Companion
 import org.greenrobot.eventbus.Subscribe
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class SignupActivity : AppCompatActivity() {
+class SignupActivity : ViewModelActivity() {
+
   private val REQUEST_CODE_READ_EXTERNAL_STORAGE: Int = 100
+
+  private val viewModel by viewModel<SignupActivityViewModel>()
+  private val binding by binding<ActivitySignupBinding>(R.layout.activity_signup)
 
   private val navController: NavController
     get() = findNavController(R.id.nav_host_signup_fragment)
 
-  private val viewModel by viewModel<SignupActivityViewModel>()
-
-  private lateinit var eventBus: EventBus
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_signup)
-    eventBus = EventBus()
+    binding.viewModel = viewModel
 
     // use label in nav_host for setting fragments title
     navController.addOnDestinationChangedListener { controller, destination, arguments ->
@@ -62,32 +59,26 @@ class SignupActivity : AppCompatActivity() {
 
   override fun onStart() {
     super.onStart()
-    eventBus.register(this)
-    SignupActivityViewModel.setStoragePermissionStatus(
-      viewModel, PermissionManager().getPermissionStatus(
-        this,
-        Manifest.permission.READ_EXTERNAL_STORAGE
-      )
-    )
-
+    EventBus.getDefault().register(this)
   }
 
   override fun onStop() {
     super.onStop()
-    eventBus.unregister(this)
+    EventBus.getDefault().unregister(this)
   }
 
   override fun onRequestPermissionsResult(
     requestCode: Int,
-    @NonNull permissions: Array<String>,
-    @NonNull grantResults: IntArray
+    permissions: Array<out String>,
+    grantResults: IntArray
   ) {
     when (requestCode) {
-      REQUEST_CODE_READ_EXTERNAL_STORAGE -> viewModel.storagePermissionStatus =
+      REQUEST_CODE_READ_EXTERNAL_STORAGE -> viewModel.setStoragePermissionStatus(
         PermissionManager().getPermissionStatus(
           this,
           Manifest.permission.READ_EXTERNAL_STORAGE
         )
+      )
 
       else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }

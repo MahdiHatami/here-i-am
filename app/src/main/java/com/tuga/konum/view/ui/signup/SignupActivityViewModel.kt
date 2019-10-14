@@ -1,8 +1,12 @@
 package com.tuga.konum.view.ui.signup
 
+import androidx.databinding.BaseObservable
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.mlsdev.rximagepicker.RxImageConverters
+import com.mlsdev.rximagepicker.RxImagePicker
 import com.mlsdev.rximagepicker.Sources
 import com.mlsdev.rximagepicker.Sources.GALLERY
 import com.tuga.konum.compose.DispatchViewModel
@@ -12,14 +16,14 @@ import com.tuga.konum.permission.PermissionStatus.CAN_ASK_PERMISSION
 import com.tuga.konum.permission.PermissionStatus.PERMISSION_GRANTED
 import com.tuga.konum.repository.UserRepository
 import org.greenrobot.eventbus.EventBus
+import java.io.File
 
 class SignupActivityViewModel
 constructor(
-  userRepository: UserRepository
+  private val userRepository: UserRepository
 ) : DispatchViewModel() {
-
-  var storagePermissionStatus: PermissionStatus = CAN_ASK_PERMISSION
-  var cameraPermissionStatus: PermissionStatus? = null
+  private var storagePermissionStatus: PermissionStatus = CAN_ASK_PERMISSION
+  private var cameraPermissionStatus: PermissionStatus = CAN_ASK_PERMISSION
 
   var phoneNumber: ObservableField<String>? = null
   var password: ObservableField<String>? = null
@@ -51,8 +55,12 @@ constructor(
     if (storagePermissionStatus == CAN_ASK_PERMISSION) {
       EventBus.getDefault().post(RequestStoragePermissionEvent())
     } else {
-      pickImage(Sources.GALLERY)
+      pickImage(GALLERY)
     }
+  }
+
+  fun imageCancelOnClick() {
+    bottomSheetBehaviorState.set(BottomSheetBehavior.STATE_HIDDEN)
   }
 
   private fun pickImage(source: Sources) {
@@ -67,17 +75,13 @@ constructor(
 //    }
   }
 
-  companion object {
-    fun setStoragePermissionStatus(
-      signupActivityViewModel: SignupActivityViewModel,
-      newPermissionStatus: PermissionStatus
-    ) {
-      if (signupActivityViewModel.storagePermissionStatus !== newPermissionStatus) {
-        signupActivityViewModel.storagePermissionStatus = newPermissionStatus
-        if (signupActivityViewModel.storagePermissionStatus === PERMISSION_GRANTED) {
-          signupActivityViewModel.pickImage(GALLERY)
-        }
-        //      notifyChange()
+  fun setStoragePermissionStatus(newPermissionStatus: PermissionStatus) {
+    if (storagePermissionStatus !== newPermissionStatus) {
+      storagePermissionStatus = newPermissionStatus
+      if (storagePermissionStatus === PERMISSION_GRANTED) {
+        pickImage(GALLERY)
+      } else {
+        EventBus.getDefault().post(RequestStoragePermissionEvent())
       }
     }
   }

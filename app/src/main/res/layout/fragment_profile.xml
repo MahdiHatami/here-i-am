@@ -142,6 +142,7 @@
           android:layout_height="wrap_content"
           android:drawablePadding="16dp"
           android:gravity="center_vertical"
+          android:onClick="@{() -> viewModel.imageCancelOnClick()}"
           android:padding="16dp"
           android:text="@string/cancel"
           />
