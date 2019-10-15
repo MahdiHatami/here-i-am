@@ -9,7 +9,7 @@ import org.junit.Before
 
 class SignupActivityViewModelTest{
   private lateinit var signupActivityViewModel: SignupActivityViewModel
-  private lateinit var userRepository: UserRepository
+//  private lateinit var userRepository: UserRepository()
 
   @Before
   fun setupViewModel(){
