@@ -8,5 +8,7 @@ data class User(
   var username: String = "",
   var phoneNumber: String = "",
   var password: String = "",
-  var email: String = ""
+  var email: String = "",
+  var image: String = ""
+
 ) : Parcelable
