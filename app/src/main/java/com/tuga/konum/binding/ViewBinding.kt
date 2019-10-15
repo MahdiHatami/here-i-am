@@ -6,7 +6,10 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.tuga.konum.models.entity.User
+import timber.log.Timber
 import java.io.File
 
 @BindingAdapter("phoneNumberValidator")
@@ -43,11 +46,18 @@ fun setState(v: View, bottomSheetBehaviorState: Int) {
   viewBottomSheetBehavior.state = bottomSheetBehaviorState
 }
 
+@BindingAdapter("bindBackDrop")
+fun bindBackDrop(view: ImageView, user: User) {
+  Glide.with(view.context).load(user.image)
+    .apply(RequestOptions().circleCrop())
+    .into(view)
+}
+
 @BindingAdapter("imagePath")
-fun loadImage(imageView: ImageView, imagePath: String?) {
-  if (imagePath != null) {
-    Glide.with(imageView).load(File(imagePath)).into(imageView)
-  } else {
-    imageView.setImageDrawable(null)
+fun loadImage(view: ImageView, imagePath: String) {
+  if (imagePath.isNotEmpty()) {
+    Glide.with(view.context).load(File(imagePath))
+      .apply(RequestOptions().circleCrop())
+      .into(view)
   }
 }

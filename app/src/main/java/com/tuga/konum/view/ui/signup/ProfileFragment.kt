@@ -1,6 +1,7 @@
 package com.tuga.konum.view.ui.signup
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.mlsdev.rximagepicker.RxImageConverters
 import com.mlsdev.rximagepicker.RxImagePicker
+import com.theartofdev.edmodo.cropper.CropImage
 import com.tuga.konum.R
 import com.tuga.konum.compose.ViewModelFragment
 import com.tuga.konum.databinding.FragmentProfileBinding
@@ -26,6 +28,10 @@ import org.greenrobot.eventbus.Subscribe
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.io.File
+import android.app.Activity.RESULT_OK
+import android.net.Uri
+import kotlinx.android.synthetic.main.fragment_profile.imageViewProfile
+import java.net.URL
 
 class ProfileFragment : ViewModelFragment(), OnClickListener {
   private val REQUEST_CODE_READ_EXTERNAL_STORAGE: Int = 100
@@ -108,6 +114,18 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
     }
   }
 
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    if (requestCode === CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+      val result = CropImage.getActivityResult(data)
+      if (resultCode === RESULT_OK) {
+        val resultUri = result.uri.path
+        viewModel.userProfileImage.postValue(resultUri!!)
+      } else if (resultCode === CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+        val error = result.error
+      }
+    }
+  }
+
   @Subscribe
   fun onRequestStoragePermissionEvent(event: RequestStoragePermissionEvent) {
     ActivityCompat.requestPermissions(
@@ -119,12 +137,6 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
 
   @Subscribe
   fun onRequestGalleryImagePicker(event: RequestGalleryImagePicker) {
-    RxImagePicker.with(activity).requestImage(event.source).flatMap { uri ->
-      RxImageConverters.uriToFile(activity, uri, File.createTempFile("image", ".jpg"))
-    }.subscribe {
-      imageSelected.show()
-      Glide.with(this).load(it).thumbnail().into(imageSelected)
-      mFile = it
-    }.dispose()
+    CropImage.activity().start(activity!!, this);
   }
 }
