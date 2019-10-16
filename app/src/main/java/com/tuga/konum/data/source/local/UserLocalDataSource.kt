@@ -13,6 +13,10 @@ import java.lang.Exception
 class UserLocalDataSource internal constructor(
   private val userDao: UserDao
 ) : UserDataSource {
+  override suspend fun deleteUser(phoneNumber: String) {
+    userDao.deleteUser(phoneNumber)
+  }
+
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 
   override suspend fun getUser(): Result<User> = withContext(ioDispatcher) {

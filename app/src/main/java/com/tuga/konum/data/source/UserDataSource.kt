@@ -10,4 +10,5 @@ interface UserDataSource {
 
   suspend fun getUser(): Result<User>
   suspend fun saveUser(user: User)
+  suspend fun deleteUser(phoneNumber: String)
 }
