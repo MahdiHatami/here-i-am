@@ -18,9 +18,10 @@ import kotlinx.coroutines.withContext
  */
 class UserRepositoryImpl(
   private val userLocalDataSource: UserLocalDataSource,
-  private val userRemoteDataSource: UserRemoteDataSource,
-  private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+  private val userRemoteDataSource: UserRemoteDataSource
 ) : UserRepository {
+
+  private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 
   override suspend fun saveUser(user: User) {
     coroutineScope {

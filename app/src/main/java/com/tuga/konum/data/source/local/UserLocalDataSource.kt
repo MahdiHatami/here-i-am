@@ -11,9 +11,9 @@ import com.tuga.konum.data.Result.Error
 import java.lang.Exception
 
 class UserLocalDataSource internal constructor(
-  private val userDao: UserDao,
-  private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+  private val userDao: UserDao
 ) : UserDataSource {
+  private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 
   override suspend fun getUser(): Result<User> = withContext(ioDispatcher) {
     return@withContext try {

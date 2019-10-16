@@ -63,4 +63,9 @@ ext {
 
   // jvm test
   fragmentVersion = '1.2.0-beta01'
+
+  // network
+  retrofitVersion = '2.6.0'
+  okhttpVersion = '4.1.0'
+  gsonVersion = '2.8.5'
 }

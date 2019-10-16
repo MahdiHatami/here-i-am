@@ -7,11 +7,11 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mlsdev.rximagepicker.Sources
 import com.mlsdev.rximagepicker.Sources.GALLERY
 import com.tuga.konum.compose.DispatchViewModel
+import com.tuga.konum.data.source.UserRepository
 import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.permission.PermissionStatus
 import com.tuga.konum.permission.PermissionStatus.CAN_ASK_PERMISSION
-import com.tuga.konum.repository.UserRepository
 import org.greenrobot.eventbus.EventBus
 
 class SignupActivityViewModel
