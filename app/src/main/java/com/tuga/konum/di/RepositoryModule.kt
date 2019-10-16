@@ -1,8 +1,8 @@
 package com.tuga.konum.di
 
-import com.tuga.konum.repository.UserRepository
+import com.tuga.konum.data.source.UserRepositoryImpl
 import org.koin.dsl.module
 
 val repositoryModule = module {
-  single(createdAtStart = false) { UserRepository() }
+  single(createdAtStart = false) { UserRepositoryImpl(get(), get(), get()) }
 }
