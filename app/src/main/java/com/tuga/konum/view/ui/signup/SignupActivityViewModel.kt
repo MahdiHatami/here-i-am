@@ -13,6 +13,11 @@ import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.permission.PermissionStatus
 import com.tuga.konum.permission.PermissionStatus.CAN_ASK_PERMISSION
 import org.greenrobot.eventbus.EventBus
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.R
+import android.util.Base64
+import java.io.ByteArrayOutputStream
 
 class SignupActivityViewModel
 constructor(
@@ -27,14 +32,14 @@ constructor(
   var password: ObservableField<String>? = null
   var email: ObservableField<String>? = null
   var username: ObservableField<String>? = null
-  var userProfileImage: MutableLiveData<String>
+  var userProfileImagePath: MutableLiveData<String>
 
   init {
     phoneNumber = ObservableField("")
     password = ObservableField("")
     email = ObservableField("")
     username = ObservableField("")
-    userProfileImage = MutableLiveData("")
+    userProfileImagePath = MutableLiveData("")
   }
 
   fun selectImage(state: Int) {
@@ -72,4 +77,5 @@ constructor(
       storagePermissionStatus = newPermissionStatus
     }
   }
+
 }

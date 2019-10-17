@@ -30,7 +30,7 @@
           android:onClick="@{() -> viewModel.selectImage(viewModel.bottomSheetBehaviorState)}"
           android:padding="8dp"
           android:src="@drawable/ic_user_add"
-          bind:imagePath="@{viewModel.userProfileImage}"
+          bind:imagePath="@{viewModel.userProfileImagePath}"
           app:layout_constraintLeft_toLeftOf="parent"
           app:layout_constraintRight_toRightOf="parent"
           app:layout_constraintTop_toTopOf="parent"

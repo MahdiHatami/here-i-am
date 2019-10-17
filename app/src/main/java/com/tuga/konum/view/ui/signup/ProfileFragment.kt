@@ -10,9 +10,6 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.Glide
-import com.mlsdev.rximagepicker.RxImageConverters
-import com.mlsdev.rximagepicker.RxImagePicker
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tuga.konum.R
 import com.tuga.konum.compose.ViewModelFragment
@@ -27,11 +24,14 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import java.io.File
 import android.app.Activity.RESULT_OK
-import android.net.Uri
-import kotlinx.android.synthetic.main.fragment_profile.imageViewProfile
-import java.net.URL
+import android.provider.MediaStore
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import java.io.File
+import android.R.attr.bitmap
+import java.io.ByteArrayOutputStream
+import android.util.Base64
 
 class ProfileFragment : ViewModelFragment(), OnClickListener {
   private val REQUEST_CODE_READ_EXTERNAL_STORAGE: Int = 100
@@ -87,12 +87,11 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
       R.id.btnProfileNext -> {
         val username = edtUsername.text.toString()
         user.username = username
-        // todo create user profile and sync to server
-
-        val navController = v.findNavController()
-        navController.navigate(
-          ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment()
-        )
+        Timber.d(user.toString())
+//        val navController = v.findNavController()
+//        navController.navigate(
+//          ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment()
+//        )
       }
     }
   }
@@ -115,12 +114,23 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    if (requestCode === CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+    if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
       val result = CropImage.getActivityResult(data)
-      if (resultCode === RESULT_OK) {
+      if (resultCode == RESULT_OK) {
         val resultUri = result.uri.path
-        viewModel.userProfileImage.postValue(resultUri!!)
-      } else if (resultCode === CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+        val bitmap = if (android.os.Build.VERSION.SDK_INT >= 29) {
+          val file = File(resultUri)
+          ImageDecoder.decodeBitmap(ImageDecoder.createSource(file))
+        } else {
+          MediaStore.Images.Media.getBitmap(activity!!.contentResolver, result.uri)
+        }
+        viewModel.userProfileImagePath.postValue(resultUri!!)
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
+        val encoded = Base64.encodeToString(byteArray, Base64.DEFAULT)
+        user.image = encoded
+      } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
         val error = result.error
       }
     }
