@@ -11,6 +11,10 @@ import java.lang.Exception
  *
  */
 class FakeUserRepository : UserRepository {
+  override suspend fun deleteUsers() {
+    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+  }
+
   var userServiceData = User()
   private var shouldReturnError = false
 

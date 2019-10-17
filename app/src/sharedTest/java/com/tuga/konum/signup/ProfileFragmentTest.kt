@@ -1,10 +1,8 @@
 package com.tuga.konum.signup
 
-import android.content.Context
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
@@ -14,12 +12,10 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.tuga.konum.R
-import com.tuga.konum.R.string
 import com.tuga.konum.R.style
 import com.tuga.konum.models.entity.User
-import com.tuga.konum.view.ui.signup.PasswordFragment
-import com.tuga.konum.view.ui.signup.PasswordFragmentArgs
-import com.tuga.konum.view.ui.signup.PasswordFragmentDirections
+import com.tuga.konum.view.ui.signup.ProfileFragment
+import com.tuga.konum.view.ui.signup.ProfileFragmentArgs
 import com.tuga.konum.view.ui.signup.ProfileFragmentDirections
 import org.hamcrest.CoreMatchers
 import org.junit.Test
@@ -56,14 +52,14 @@ class ProfileFragmentTest {
   }
 
   @Test
-  fun unValidPassword_couldDisableButton() {
+  fun unValidUsername_shouldDisableButton() {
     // GIVEN - on the profile fragment screen
     val navController = mock(NavController::class.java)
     launchFragment(navController)
 
     // WHEN = unValid username entered and click next
     val unValidUsername = ""
-    onView(withId(R.id.edtPassword)).perform(replaceText(unValidUsername))
+    onView(withId(R.id.edtUsername)).perform(replaceText(unValidUsername))
 
     // THEN - verify the button is disabled
     onView(withId(R.id.btnProfileNext))
@@ -72,8 +68,8 @@ class ProfileFragmentTest {
   }
 
   private fun launchFragment(navController: NavController?) {
-    val bundle = PasswordFragmentArgs(user).toBundle()
-    val scenario = launchFragmentInContainer<PasswordFragment>(bundle, style.MaterialTheme)
+    val bundle = ProfileFragmentArgs(user).toBundle()
+    val scenario = launchFragmentInContainer<ProfileFragment>(bundle, style.MaterialTheme)
     scenario.onFragment {
       Navigation.setViewNavController(it.view!!, navController)
     }
