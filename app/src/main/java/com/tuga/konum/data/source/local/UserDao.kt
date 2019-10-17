@@ -16,6 +16,9 @@ interface UserDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun insertUser(user: User)
 
-  @Query("DELETE FROM user WHERE phoneNumber = :phoneNumber")
+  @Query("DELETE FROM USER WHERE phoneNumber = :phoneNumber")
   suspend fun deleteUser(phoneNumber: String)
+
+  @Query("DELETE FROM USER")
+  suspend fun deleteUsers()
 }

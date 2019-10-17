@@ -81,6 +81,7 @@
           android:layout_height="wrap_content"
           android:enabled="@{viewModel.username.length() > 0}"
           android:text="@string/next"
+          android:onClick="@{() -> viewModel.finishSignup()}"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"

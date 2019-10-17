@@ -8,6 +8,10 @@ import com.tuga.konum.models.entity.User
 class UserRemoteDataSource internal constructor(
   userDao: UserDao
 ) : UserDataSource {
+  override suspend fun deleteUsers() {
+    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+  }
+
   override suspend fun deleteUser(phoneNumber: String) {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }

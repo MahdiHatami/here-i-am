@@ -13,6 +13,10 @@ import java.lang.Exception
 class UserLocalDataSource internal constructor(
   private val userDao: UserDao
 ) : UserDataSource {
+  override suspend fun deleteUsers() = withContext(ioDispatcher) {
+    userDao.deleteUsers()
+  }
+
   override suspend fun deleteUser(phoneNumber: String) {
     userDao.deleteUser(phoneNumber)
   }
@@ -28,6 +32,7 @@ class UserLocalDataSource internal constructor(
   }
 
   override suspend fun saveUser(user: User) = withContext(ioDispatcher) {
+    userDao.deleteUsers()
     userDao.insertUser(user)
   }
 }

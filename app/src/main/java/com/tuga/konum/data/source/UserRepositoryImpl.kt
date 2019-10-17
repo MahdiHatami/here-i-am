@@ -20,6 +20,11 @@ class UserRepositoryImpl(
   private val userLocalDataSource: UserLocalDataSource,
   private val userRemoteDataSource: UserRemoteDataSource
 ) : UserRepository {
+  override suspend fun deleteUsers() {
+    coroutineScope{
+      launch { userLocalDataSource.deleteUsers() }
+    }
+  }
 
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 

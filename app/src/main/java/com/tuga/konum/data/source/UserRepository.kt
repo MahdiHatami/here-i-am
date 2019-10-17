@@ -7,4 +7,5 @@ interface UserRepository {
 
   suspend fun getUser(): Result<User>
   suspend fun saveUser(user: User)
+  suspend fun deleteUsers();
 }

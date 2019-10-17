@@ -17,28 +17,43 @@ import android.graphics.BitmapFactory
 import android.graphics.Bitmap
 import android.R
 import android.util.Base64
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
+import com.tuga.konum.Event
+import com.tuga.konum.models.entity.User
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.io.ByteArrayOutputStream
 
 class SignupActivityViewModel
 constructor(
   private val userRepository: UserRepository
 ) : DispatchViewModel() {
+
   private var storagePermissionStatus: PermissionStatus = CAN_ASK_PERMISSION
   private var cameraPermissionStatus: PermissionStatus = CAN_ASK_PERMISSION
 
+  private var user: User
+
   val bottomSheetBehaviorState = ObservableInt(BottomSheetBehavior.STATE_HIDDEN)
+
+  val username = MutableLiveData<String>()
+
+  private val _signupCompleted = MutableLiveData<Event<Unit>>()
+  val signupCompletedEvent: LiveData<Event<Unit>> = _signupCompleted
 
   var phoneNumber: ObservableField<String>? = null
   var password: ObservableField<String>? = null
   var email: ObservableField<String>? = null
-  var username: ObservableField<String>? = null
+  //  var username: ObservableField<String>? = null
   var userProfileImagePath: MutableLiveData<String>
 
   init {
+    user = User()
     phoneNumber = ObservableField("")
     password = ObservableField("")
     email = ObservableField("")
-    username = ObservableField("")
+//    username = ObservableField("")
     userProfileImagePath = MutableLiveData("")
   }
 
@@ -76,6 +91,19 @@ constructor(
     if (storagePermissionStatus !== newPermissionStatus) {
       storagePermissionStatus = newPermissionStatus
     }
+  }
+
+  // Called on Profile next clicked
+  fun finishSignup() {
+    user.username = username.value!!
+    viewModelScope.launch {
+      userRepository.saveUser(user)
+      _signupCompleted.value = Event(Unit)
+    }
+  }
+
+  fun setUser(user: User) {
+    this.user = user
   }
 
 }

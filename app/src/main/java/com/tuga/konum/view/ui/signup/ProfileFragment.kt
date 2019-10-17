@@ -32,8 +32,10 @@ import java.io.File
 import android.R.attr.bitmap
 import java.io.ByteArrayOutputStream
 import android.util.Base64
+import androidx.navigation.fragment.findNavController
+import com.tuga.konum.EventObserver
 
-class ProfileFragment : ViewModelFragment(), OnClickListener {
+class ProfileFragment : ViewModelFragment() {
   private val REQUEST_CODE_READ_EXTERNAL_STORAGE: Int = 100
 
   private val viewModel by viewModel<SignupActivityViewModel>()
@@ -43,8 +45,7 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-//    user = args?.user
-    Timber.d(user.toString())
+    args.user?.let { viewModel.setUser(it) }
   }
 
   override fun onCreateView(
@@ -56,14 +57,6 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
     binding.viewModel = viewModel
     binding.lifecycleOwner = this
     return binding.root
-  }
-
-  override fun onViewCreated(
-    view: View,
-    savedInstanceState: Bundle?
-  ) {
-    super.onViewCreated(view, savedInstanceState)
-    btnProfileNext.setOnClickListener(this)
   }
 
   override fun onStart() {
@@ -80,20 +73,6 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
   override fun onStop() {
     super.onStop()
     EventBus.getDefault().unregister(this)
-  }
-
-  override fun onClick(v: View) {
-    when (v.id) {
-      R.id.btnProfileNext -> {
-        val username = edtUsername.text.toString()
-        user.username = username
-        Timber.d(user.toString())
-//        val navController = v.findNavController()
-//        navController.navigate(
-//          ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment()
-//        )
-      }
-    }
   }
 
   override fun onRequestPermissionsResult(
@@ -134,6 +113,14 @@ class ProfileFragment : ViewModelFragment(), OnClickListener {
         val error = result.error
       }
     }
+  }
+
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    viewModel.signupCompletedEvent.observe(this, EventObserver {
+      val action = ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment()
+      findNavController().navigate(action)
+    })
   }
 
   @Subscribe
