@@ -21,8 +21,7 @@ import org.junit.runner.RunWith
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-class UserDaoTest {
-  private lateinit var database: KonumDatabase
+class UserDaoTest : DbTest() {
 
   // Set the main coroutines dispatcher for unit testing.
   @ExperimentalCoroutinesApi
@@ -33,30 +32,17 @@ class UserDaoTest {
   @get:Rule
   var instantExecutorRule = InstantTaskExecutorRule()
 
-  @Before
-  fun initDb() {
-    // using an in-memory database because the information stored here disappears when the
-    // process is killed
-    database = Room.inMemoryDatabaseBuilder(
-      ApplicationProvider.getApplicationContext(),
-      KonumDatabase::class.java
-    ).allowMainThreadQueries().build()
-  }
-
-  @After
-  fun closeDb() = database.close()
-
   @Test
   fun insertUserAndGetUser() = runBlockingTest {
     // GIVEN - insert user
     val user = User("99999999", "mahdi")
-    database.userDao().insertUser(user)
+    db.userDao().insertUser(user)
 
-    // WHEN - get user from database
-    var loaded = database.userDao().getUser()
+    // WHEN - get user fromdb
+    val loaded = db.userDao().getUser()
 
     // THEN - the loaded data contains the expected value
-    assertThat<User>(loaded as User, notNullValue())
+    assertThat<User>(loaded, notNullValue())
     assertThat(loaded.phoneNumber, `is`(user.phoneNumber))
     assertThat(loaded.username, `is`(user.username))
     assertThat(loaded.email, `is`(user.email))
