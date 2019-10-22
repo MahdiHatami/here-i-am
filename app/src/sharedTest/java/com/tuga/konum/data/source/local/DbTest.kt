@@ -22,9 +22,10 @@ import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.After
 import org.junit.Before
 import org.junit.runner.RunWith
+import org.koin.test.AutoCloseKoinTest
 
 @RunWith(AndroidJUnit4::class)
-abstract class DbTest {
+abstract class DbTest: AutoCloseKoinTest() {
   lateinit var db: KonumDatabase
 
   @Before
