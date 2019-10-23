@@ -28,8 +28,9 @@ import org.junit.runner.RunWith
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @MediumTest
-class UserLocalDataSourceTest : DbTest() {
+class UserLocalDataSourceTest {
   private lateinit var localDataSource: UserLocalDataSource
+  private lateinit var database: KonumDatabase
 
   // Set the main coroutines dispatcher for unit testing.
   @ExperimentalCoroutinesApi
@@ -42,7 +43,23 @@ class UserLocalDataSourceTest : DbTest() {
 
   @Before
   fun setup() {
-    localDataSource = UserLocalDataSource(db.userDao())
+    // using an in-memory database for testing, since it doesn't survive killing the process
+    database = Room.inMemoryDatabaseBuilder(
+      ApplicationProvider.getApplicationContext(),
+      KonumDatabase::class.java
+    )
+      .allowMainThreadQueries()
+      .build()
+
+//    figure it out how to do Dispatchers injection with koin di
+//    localDataSource = TasksLocalDataSource(database.taskDao(), Dispatchers.Main)
+
+    localDataSource = UserLocalDataSource(database.userDao())
+  }
+
+  @After
+  fun cleanUp() {
+    database.close()
   }
 
   @Test

@@ -17,11 +17,14 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.test.AutoCloseKoinTest
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-class UserDaoTest : DbTest() {
+class UserDaoTest : AutoCloseKoinTest() {
+
+  private lateinit var db: KonumDatabase
 
   // Set the main coroutines dispatcher for unit testing.
   @ExperimentalCoroutinesApi
@@ -31,6 +34,22 @@ class UserDaoTest : DbTest() {
   // Executes each task synchronously using Architecture Components.
   @get:Rule
   var instantExecutorRule = InstantTaskExecutorRule()
+
+  @Before
+  fun setup() {
+    // using an in-memory database for testing, since it doesn't survive killing the process
+    db = Room.inMemoryDatabaseBuilder(
+      ApplicationProvider.getApplicationContext(),
+      KonumDatabase::class.java
+    )
+      .allowMainThreadQueries()
+      .build()
+  }
+
+  @After
+  fun cleanUp() {
+    db.close()
+  }
 
   @Test
   fun insertUserAndGetUser() = runBlockingTest {

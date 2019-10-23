@@ -1,5 +1,6 @@
 package com.tuga.konum.signup
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -11,31 +12,52 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
+import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.R
 import com.tuga.konum.R.style
+import com.tuga.konum.di.viewModelModule
 import com.tuga.konum.models.entity.User
 import com.tuga.konum.view.ui.signup.EmailFragment
 import com.tuga.konum.view.ui.signup.EmailFragmentArgs
 import com.tuga.konum.view.ui.signup.EmailFragmentDirections
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.core.context.startKoin
+import org.koin.test.AutoCloseKoinTest
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
+import org.robolectric.annotation.LooperMode
 import org.robolectric.annotation.TextLayoutMode
 
 /**
  * Integration test for the email fragment
  */
-@MediumTest
-@TextLayoutMode(TextLayoutMode.Mode.REALISTIC)
 @RunWith(AndroidJUnit4::class)
-class EmailFragmentTest {
+@MediumTest
+@LooperMode(LooperMode.Mode.PAUSED)
+@TextLayoutMode(TextLayoutMode.Mode.REALISTIC)
+@ExperimentalCoroutinesApi
+class EmailFragmentTest: AutoCloseKoinTest() {
 
   private var user: User = User()
 
+  // Set the main coroutines dispatcher for unit testing.
+  @ExperimentalCoroutinesApi
+  @get:Rule
+  var mainCoroutineRule = MainCoroutineRule()
+
+  // Executes each task synchronously using Architecture Components.
+  @get:Rule
+  var instantExecutorRule = InstantTaskExecutorRule()
+
   @Test
-  fun validEmail_navigateToProfileFragment() {
+  fun validEmail_navigateToProfileFragment() = runBlockingTest {
     // GIVEN - on the choose email screen
     val navController = mock(NavController::class.java)
     launchFragment(navController)
@@ -52,7 +74,7 @@ class EmailFragmentTest {
   }
 
   @Test
-  fun unValidEmail_shouldDisableButton() {
+  fun unValidEmail_shouldDisableButton() = runBlockingTest {
     // GIVEN - on the email fragment screen
     val navController = mock(NavController::class.java)
     launchFragment(navController)
