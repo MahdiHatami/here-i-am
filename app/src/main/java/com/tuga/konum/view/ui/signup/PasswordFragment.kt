@@ -10,15 +10,14 @@ import com.tuga.konum.R
 import com.tuga.konum.compose.ViewModelFragment
 import com.tuga.konum.databinding.FragmentPasswordBinding
 import com.tuga.konum.models.entity.User
-import kotlinx.android.synthetic.main.fragment_password.*
-import org.jetbrains.anko.support.v4.toast
-import org.koin.android.viewmodel.ext.android.viewModel
+import com.tuga.konum.util.obtainViewModel
+import kotlinx.android.synthetic.main.fragment_password.btnPasswordNext
+import kotlinx.android.synthetic.main.fragment_password.edtPassword
 import timber.log.Timber
 
 class PasswordFragment : ViewModelFragment(), View.OnClickListener {
 
-  private val viewModel by viewModel<SignupActivityViewModel>()
-  private lateinit var binding: FragmentPasswordBinding
+  private lateinit var viewDataBinding: FragmentPasswordBinding
   private val args: PasswordFragmentArgs by navArgs()
   private lateinit var user: User
 
@@ -33,10 +32,10 @@ class PasswordFragment : ViewModelFragment(), View.OnClickListener {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    binding = binding(inflater, R.layout.fragment_password, container)
-    binding.viewModel = viewModel
-    binding.lifecycleOwner = this
-    return binding.root
+    viewDataBinding = FragmentPasswordBinding.inflate(inflater, container, false).apply {
+      viewModel = obtainViewModel(SignupActivityViewModel::class.java)
+    }
+    return viewDataBinding.root
   }
 
   override fun onViewCreated(

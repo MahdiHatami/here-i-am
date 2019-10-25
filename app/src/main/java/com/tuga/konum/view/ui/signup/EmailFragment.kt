@@ -10,16 +10,14 @@ import com.tuga.konum.R
 import com.tuga.konum.compose.ViewModelFragment
 import com.tuga.konum.databinding.FragmentEmailBinding
 import com.tuga.konum.models.entity.User
+import com.tuga.konum.util.obtainViewModel
 import kotlinx.android.synthetic.main.fragment_email.btnEmailNext
 import kotlinx.android.synthetic.main.fragment_email.edtEmail
-import org.jetbrains.anko.support.v4.toast
-import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 class EmailFragment : ViewModelFragment(), View.OnClickListener {
 
-  private val viewModel by viewModel<SignupActivityViewModel>()
-  private lateinit var binding: FragmentEmailBinding
+  private lateinit var viewDataBinding: FragmentEmailBinding
   private val args: EmailFragmentArgs by navArgs()
   private lateinit var user: User
 
@@ -34,10 +32,10 @@ class EmailFragment : ViewModelFragment(), View.OnClickListener {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    binding = binding(inflater, R.layout.fragment_email, container)
-    binding.viewModel = viewModel
-    binding.lifecycleOwner = this
-    return binding.root
+    viewDataBinding = FragmentEmailBinding.inflate(inflater, container, false).apply {
+      viewModel = obtainViewModel(SignupActivityViewModel::class.java)
+    }
+    return viewDataBinding.root
   }
 
   override fun onViewCreated(

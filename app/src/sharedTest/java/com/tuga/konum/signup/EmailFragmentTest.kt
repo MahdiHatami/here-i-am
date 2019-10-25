@@ -15,21 +15,16 @@ import androidx.test.filters.MediumTest
 import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.R
 import com.tuga.konum.R.style
-import com.tuga.konum.di.viewModelModule
 import com.tuga.konum.models.entity.User
 import com.tuga.konum.view.ui.signup.EmailFragment
 import com.tuga.konum.view.ui.signup.EmailFragmentArgs
 import com.tuga.konum.view.ui.signup.EmailFragmentDirections
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.core.context.startKoin
-import org.koin.test.AutoCloseKoinTest
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.robolectric.annotation.LooperMode
@@ -43,7 +38,7 @@ import org.robolectric.annotation.TextLayoutMode
 @LooperMode(LooperMode.Mode.PAUSED)
 @TextLayoutMode(TextLayoutMode.Mode.REALISTIC)
 @ExperimentalCoroutinesApi
-class EmailFragmentTest: AutoCloseKoinTest() {
+class EmailFragmentTest {
 
   private var user: User = User()
 

@@ -1,51 +1,45 @@
 package com.tuga.konum.view.ui.signup
 
 import android.Manifest
+import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.theartofdev.edmodo.cropper.CropImage
-import com.tuga.konum.R
+import com.tuga.konum.EventObserver
 import com.tuga.konum.compose.ViewModelFragment
 import com.tuga.konum.databinding.FragmentProfileBinding
 import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.models.entity.User
 import com.tuga.konum.permission.PermissionManager
-import kotlinx.android.synthetic.main.fragment_profile.btnProfileNext
-import kotlinx.android.synthetic.main.fragment_profile.edtUsername
+import com.tuga.konum.util.obtainViewModel
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import org.koin.android.viewmodel.ext.android.viewModel
-import timber.log.Timber
-import android.app.Activity.RESULT_OK
-import android.provider.MediaStore
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import java.io.File
-import android.R.attr.bitmap
 import java.io.ByteArrayOutputStream
-import android.util.Base64
-import androidx.navigation.fragment.findNavController
-import com.tuga.konum.EventObserver
+import java.io.File
 
 class ProfileFragment : ViewModelFragment() {
   private val REQUEST_CODE_READ_EXTERNAL_STORAGE: Int = 100
 
-  private val viewModel by viewModel<SignupActivityViewModel>()
-  private lateinit var binding: FragmentProfileBinding
+  private lateinit var viewDataBinding: FragmentProfileBinding
+  private lateinit var viewModel: SignupActivityViewModel
+
   private val args: ProfileFragmentArgs by navArgs()
   private var user: User = User()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    args.user?.let { viewModel.setUser(it) }
+    args.user?.let { user = it }
   }
 
   override fun onCreateView(
@@ -53,10 +47,11 @@ class ProfileFragment : ViewModelFragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    binding = binding(inflater, R.layout.fragment_profile, container)
-    binding.viewModel = viewModel
-    binding.lifecycleOwner = this
-    return binding.root
+    viewModel = obtainViewModel(SignupActivityViewModel::class.java)
+    viewDataBinding = FragmentProfileBinding.inflate(inflater, container, false).apply {
+      viewModel = viewModel
+    }
+    return viewDataBinding.root
   }
 
   override fun onStart() {

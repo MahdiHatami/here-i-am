@@ -133,10 +133,10 @@ dependencies {
 
 
   // Koin
-  implementation "org.koin:koin-android:$koin_version"
-  implementation "org.koin:koin-android-scope:$koin_version"
-  implementation "org.koin:koin-android-viewmodel:$koin_version"
-  implementation "org.koin:koin-android-ext:$koin_version"
+//  implementation "org.koin:koin-android:$koin_version"
+//  implementation "org.koin:koin-android-scope:$koin_version"
+//  implementation "org.koin:koin-android-viewmodel:$koin_version"
+//  implementation "org.koin:koin-android-ext:$koin_version"
 
   // coroutines
   implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
@@ -203,9 +203,9 @@ dependencies {
   androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:$espressoVersion"
   androidTestImplementation "org.robolectric:annotations:$robolectricVersion"
   implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
-  androidTestImplementation("org.koin:koin-test:$koin_version") {
-    exclude group: 'org.mockito'
-  }
+//  androidTestImplementation("org.koin:koin-test:$koin_version") {
+//    exclude group: 'org.mockito'
+//  }
 
   // Kotlin
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"

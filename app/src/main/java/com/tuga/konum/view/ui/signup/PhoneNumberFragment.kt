@@ -9,13 +9,14 @@ import com.tuga.konum.R
 import com.tuga.konum.compose.ViewModelFragment
 import com.tuga.konum.databinding.FragmentPhoneNumberBinding
 import com.tuga.konum.models.entity.User
-import kotlinx.android.synthetic.main.fragment_phone_number.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import com.tuga.konum.util.obtainViewModel
+import kotlinx.android.synthetic.main.fragment_phone_number.btnNext
+import kotlinx.android.synthetic.main.fragment_phone_number.ccp
+import kotlinx.android.synthetic.main.fragment_phone_number.edtPhoneNumber
 
 class PhoneNumberFragment : ViewModelFragment(), View.OnClickListener {
 
-  private val viewModel by viewModel<SignupActivityViewModel>()
-  private lateinit var binding: FragmentPhoneNumberBinding
+  private lateinit var viewDataBinding: FragmentPhoneNumberBinding
   private var user: User = User()
 
   override fun onCreateView(
@@ -23,10 +24,10 @@ class PhoneNumberFragment : ViewModelFragment(), View.OnClickListener {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    binding = binding(inflater, R.layout.fragment_phone_number, container)
-    binding.viewModel = viewModel
-    binding.lifecycleOwner = this
-    return binding.root
+    viewDataBinding = FragmentPhoneNumberBinding.inflate(inflater, container, false).apply {
+      viewModel = obtainViewModel(SignupActivityViewModel::class.java)
+    }
+    return viewDataBinding.root
   }
 
   override fun onViewCreated(

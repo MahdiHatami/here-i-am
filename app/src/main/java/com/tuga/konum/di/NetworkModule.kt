@@ -16,30 +16,30 @@
 
 package com.tuga.konum.di
 
-import com.facebook.stetho.okhttp3.StethoInterceptor
-import okhttp3.OkHttpClient
-import org.koin.dsl.module
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-
-val networkModule = module {
-  single {
-    OkHttpClient.Builder()
-      .addNetworkInterceptor(StethoInterceptor())
-      .build()
-  }
-
-  single {
-    Retrofit.Builder()
-      .client(get<OkHttpClient>())
-      .baseUrl("https://api.themoviedb.org/")
-      .addConverterFactory(GsonConverterFactory.create())
-      .build()
-  }
-
+//import com.facebook.stetho.okhttp3.StethoInterceptor
+//import okhttp3.OkHttpClient
+//import org.koin.dsl.module
+//import retrofit2.Retrofit
+//import retrofit2.converter.gson.GsonConverterFactory
+//
+//val networkModule = module {
+//  single {
+//    OkHttpClient.Builder()
+//      .addNetworkInterceptor(StethoInterceptor())
+//      .build()
+//  }
+//
+//  single {
+//    Retrofit.Builder()
+//      .client(get<OkHttpClient>())
+//      .baseUrl("https://api.themoviedb.org/")
+//      .addConverterFactory(GsonConverterFactory.create())
+//      .build()
+//  }
+//
 //  single(createdAtStart = false) {
 //    get<Retrofit>().create(UserService::class.java)
 //  }
 //
 //  single(createdAtStart = false) { UserClient(get()) }
-}
+//}

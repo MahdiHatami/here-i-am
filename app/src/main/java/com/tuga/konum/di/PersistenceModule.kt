@@ -16,18 +16,18 @@
 
 package com.tuga.konum.di
 
-import androidx.room.Room
-import com.tuga.konum.data.source.local.KonumDatabase
-import org.koin.android.ext.koin.androidApplication
-import org.koin.dsl.module
-
-val persistenceModule = module {
-  single {
-    Room
-      .databaseBuilder(androidApplication(), KonumDatabase::class.java, "konum.db")
-      .allowMainThreadQueries()
-      .build()
-  }
-
-  single(createdAtStart = false) { get<KonumDatabase>().userDao() }
-}
+//import androidx.room.Room
+//import com.tuga.konum.data.source.local.KonumDatabase
+//import org.koin.android.ext.koin.androidApplication
+//import org.koin.dsl.module
+//
+//val persistenceModule = module {
+//  single {
+//    Room
+//      .databaseBuilder(androidApplication(), KonumDatabase::class.java, "konum.db")
+//      .allowMainThreadQueries()
+//      .build()
+//  }
+//
+//  single(createdAtStart = false) { get<KonumDatabase>().userDao() }
+//}
