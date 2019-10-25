@@ -17,12 +17,11 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.test.AutoCloseKoinTest
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-class UserDaoTest : AutoCloseKoinTest() {
+class UserDaoTest{
 
   private lateinit var db: KonumDatabase
 
