@@ -17,7 +17,6 @@ import com.tuga.konum.binding.FragmentDataBindingComponent
 import com.tuga.konum.databinding.FragmentPhoneNumberBinding
 import com.tuga.konum.di.Injectable
 import com.tuga.konum.extension.onTextChanged
-import com.tuga.konum.models.entity.User
 import com.tuga.konum.util.autoCleared
 import kotlinx.android.synthetic.main.fragment_phone_number.ccp
 import kotlinx.android.synthetic.main.fragment_phone_number.edtPhoneNumber
@@ -36,8 +35,6 @@ class PhoneNumberFragment : Fragment(), Injectable {
   private val viewModel: SignupActivityViewModel by viewModels {
     viewModelFactory
   }
-
-  private var user: User = User()
 
   override fun onCreateView(
     inflater: LayoutInflater,

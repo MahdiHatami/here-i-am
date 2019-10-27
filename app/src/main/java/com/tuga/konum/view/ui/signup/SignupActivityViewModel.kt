@@ -1,5 +1,6 @@
 package com.tuga.konum.view.ui.signup
 
+import android.util.Patterns
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
@@ -19,6 +20,7 @@ import com.tuga.konum.permission.PermissionStatus
 import com.tuga.konum.permission.PermissionStatus.CAN_ASK_PERMISSION
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
+import timber.log.Timber
 import javax.inject.Inject
 
 @OpenForTesting
@@ -33,28 +35,38 @@ constructor(
   private var user: User
 
   val phoneNumber = MutableLiveData<String>()
+  val password = MutableLiveData<String>()
+  val email = MutableLiveData<String>()
   val firsname = MutableLiveData<String>()
 
   private val _isPhoneCorrect = MutableLiveData<Boolean>()
   val isPhoneCorrect: LiveData<Boolean> = _isPhoneCorrect
+
+  private val _isPasswordCorrect = MutableLiveData<Boolean>()
+  val isPasswordCorrect: LiveData<Boolean> = _isPasswordCorrect
+
+  private val _isEmailCorrect = MutableLiveData<Boolean>()
+  val isEmailCorrect: LiveData<Boolean> = _isEmailCorrect
 
   val bottomSheetBehaviorState = ObservableInt(BottomSheetBehavior.STATE_HIDDEN)
 
   private val _navigateToPasswordAction = MutableLiveData<Event<User>>()
   val navigateToPasswordAction: LiveData<Event<User>> = _navigateToPasswordAction
 
+  private val _navigateToEmailAction = MutableLiveData<Event<User>>()
+  val navigateToEmailAction: LiveData<Event<User>> = _navigateToEmailAction
+
+  private val _navigateToProfileAction = MutableLiveData<Event<User>>()
+  val navigateToProfileAction: LiveData<Event<User>> = _navigateToProfileAction
+
   private val _signupCompleted = MutableLiveData<Event<Unit>>()
   val signupCompletedEvent: LiveData<Event<Unit>> = _signupCompleted
 
-  var password: ObservableField<String>? = null
-  var email: ObservableField<String>? = null
   var username: ObservableField<String>? = null
   var userProfileImagePath: MutableLiveData<String>
 
   init {
     user = User()
-    password = ObservableField("")
-    email = ObservableField("")
     username = ObservableField("")
     userProfileImagePath = MutableLiveData("")
   }
@@ -109,12 +121,32 @@ constructor(
     _isPhoneCorrect.value = phone.length == 10
   }
 
+  fun onPasswordChanged(password: String) {
+    _isPasswordCorrect.value = password.length > 4
+  }
+
+  fun onEmailChanged(email: String) {
+    _isEmailCorrect.value = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+  }
+
   fun setUser(user: User) {
     this.user = user
+    Timber.d(user.toString())
   }
 
   fun phoneNextOnClick() {
+    user.phoneNumber = phoneNumber.value.toString()
     _navigateToPasswordAction.value = Event(user)
+  }
+
+  fun passwordNextOnClick() {
+    user.password = password.value.toString()
+    _navigateToEmailAction.value = Event(user)
+  }
+
+  fun emailNextOnClick() {
+    user.email = email.value.toString()
+    _navigateToProfileAction.value = Event(user)
   }
 
 }
