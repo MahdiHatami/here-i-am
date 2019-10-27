@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.tuga.konum.models.entity.User
-import timber.log.Timber
 import java.io.File
 
 @BindingAdapter("phoneNumberValidator")
@@ -54,8 +53,8 @@ fun bindBackDrop(view: ImageView, user: User) {
 }
 
 @BindingAdapter("imagePath")
-fun loadImage(view: ImageView, imagePath: String) {
-  if (imagePath.isNotEmpty()) {
+fun loadImage(view: ImageView, imagePath: String?) {
+  if (imagePath != null && imagePath.isNotEmpty()) {
     Glide.with(view.context).load(File(imagePath))
       .apply(RequestOptions().circleCrop())
       .into(view)

@@ -131,6 +131,15 @@ dependencies {
   implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
   implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
+  // Dagger
+  implementation "com.google.dagger:dagger:$dagger"
+  kapt "com.google.dagger:dagger-compiler:$dagger"
+
+  implementation "com.google.dagger:dagger-android:$dagger"
+  implementation "com.google.dagger:dagger-android-support:$dagger"
+  kapt "com.google.dagger:dagger-android-processor:$dagger"
+
+
 
   // Koin
 //  implementation "org.koin:koin-android:$koin_version"

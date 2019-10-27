@@ -1,16 +1,18 @@
 package com.tuga.konum.data.source.local
 
 import com.tuga.konum.data.Result
+import com.tuga.konum.data.Result.Error
 import com.tuga.konum.data.Result.Success
 import com.tuga.konum.data.source.UserDataSource
 import com.tuga.konum.models.entity.User
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import com.tuga.konum.data.Result.Error
-import java.lang.Exception
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class UserLocalDataSource internal constructor(
+@Singleton
+class UserLocalDataSource @Inject internal constructor(
   private val userDao: UserDao
 ) : UserDataSource {
   override suspend fun deleteUsers() = withContext(ioDispatcher) {

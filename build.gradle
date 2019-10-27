@@ -68,4 +68,7 @@ ext {
   retrofitVersion = '2.6.0'
   okhttpVersion = '4.2.2'
   gsonVersion = '2.8.5'
+
+  // dagger
+  dagger = '2.16'
 }

@@ -1,11 +1,21 @@
 package com.tuga.konum.di
 
-//import com.tuga.konum.view.ui.main.MainViewModel
-//import com.tuga.konum.view.ui.signup.SignupActivityViewModel
-//import org.koin.android.viewmodel.dsl.viewModel
-//import org.koin.dsl.module
-//
-//val viewModelModule = module {
-//  factory { MainViewModel(get()) }
-//  factory { SignupActivityViewModel(get()) }
-//}
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.tuga.konum.view.ui.signup.SignupActivityViewModel
+import com.tuga.konum.viewmodel.KonumViewModelFactory
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.IntoMap
+
+@Suppress("unused")
+@Module
+internal abstract class ViewModelModule {
+  @Binds
+  @IntoMap
+  @ViewModelKey(SignupActivityViewModel::class)
+  abstract fun bindSignupActivityViewModel(signupActivityViewModel: SignupActivityViewModel): ViewModel
+
+  @Binds
+  abstract fun bindViewModelFactory(factory: KonumViewModelFactory) : ViewModelProvider.Factory
+}

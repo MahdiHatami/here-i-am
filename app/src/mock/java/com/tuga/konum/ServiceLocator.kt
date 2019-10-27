@@ -18,16 +18,16 @@ object ServiceLocator {
   private val lock = Any()
   private var database: KonumDatabase? = null
   @Volatile
-  var userRepository: UserRepository? = null
+  var userRepository: UserRepositoryImpl? = null
     @VisibleForTesting set
 
-  fun provideUserRepository(context: Context): UserRepository {
+  fun provideUserRepository(context: Context): UserRepositoryImpl {
     synchronized(this) {
       return userRepository ?: userRepository ?: createUserRepository(context)
     }
   }
 
-  private fun createUserRepository(context: Context): UserRepository {
+  private fun createUserRepository(context: Context): UserRepositoryImpl {
     database = Room.databaseBuilder(
       context.applicationContext,
       KonumDatabase::class.java, "konum.db"
@@ -35,7 +35,7 @@ object ServiceLocator {
 
     return UserRepositoryImpl(
       UserLocalDataSource(database!!.userDao()),
-      UserRemoteDataSource
+      UserRemoteDataSource(database!!.userDao())
     )
   }
 

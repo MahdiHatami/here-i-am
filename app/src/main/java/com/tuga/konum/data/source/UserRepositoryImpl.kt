@@ -1,5 +1,6 @@
 package com.tuga.konum.data.source
 
+import com.tuga.konum.OpenForTesting
 import com.tuga.konum.data.Result
 import com.tuga.konum.data.Result.Error
 import com.tuga.konum.data.Result.Success
@@ -12,16 +13,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Concrete impl to load user from the data sources into a cache
  */
-class UserRepositoryImpl(
+@OpenForTesting
+@Singleton
+class UserRepositoryImpl @Inject constructor(
   private val userLocalDataSource: UserLocalDataSource,
   private val userRemoteDataSource: UserRemoteDataSource
 ) : UserRepository {
   override suspend fun deleteUsers() {
-    coroutineScope{
+    coroutineScope {
       launch { userLocalDataSource.deleteUsers() }
     }
   }

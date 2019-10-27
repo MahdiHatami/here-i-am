@@ -9,8 +9,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mlsdev.rximagepicker.Sources
 import com.mlsdev.rximagepicker.Sources.GALLERY
 import com.tuga.konum.Event
+import com.tuga.konum.OpenForTesting
 import com.tuga.konum.compose.DispatchViewModel
-import com.tuga.konum.data.source.UserRepository
+import com.tuga.konum.data.source.UserRepositoryImpl
 import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.models.entity.User
@@ -18,10 +19,12 @@ import com.tuga.konum.permission.PermissionStatus
 import com.tuga.konum.permission.PermissionStatus.CAN_ASK_PERMISSION
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
+import javax.inject.Inject
 
-class SignupActivityViewModel
+@OpenForTesting
+class SignupActivityViewModel @Inject
 constructor(
-  private val userRepository: UserRepository
+  private val userRepository: UserRepositoryImpl
 ) : DispatchViewModel() {
 
   private var storagePermissionStatus: PermissionStatus = CAN_ASK_PERMISSION
@@ -29,34 +32,40 @@ constructor(
 
   private var user: User
 
+  val phoneNumber = MutableLiveData<String>()
+  val firsname = MutableLiveData<String>()
+
+  private val _isPhoneCorrect = MutableLiveData<Boolean>()
+  val isPhoneCorrect: LiveData<Boolean> = _isPhoneCorrect
+
   val bottomSheetBehaviorState = ObservableInt(BottomSheetBehavior.STATE_HIDDEN)
 
-  val username = MutableLiveData<String>()
+  private val _navigateToPasswordAction = MutableLiveData<Event<User>>()
+  val navigateToPasswordAction: LiveData<Event<User>> = _navigateToPasswordAction
 
   private val _signupCompleted = MutableLiveData<Event<Unit>>()
   val signupCompletedEvent: LiveData<Event<Unit>> = _signupCompleted
 
-  var phoneNumber: ObservableField<String>? = null
   var password: ObservableField<String>? = null
   var email: ObservableField<String>? = null
-  //  var username: ObservableField<String>? = null
+  var username: ObservableField<String>? = null
   var userProfileImagePath: MutableLiveData<String>
 
   init {
     user = User()
-    phoneNumber = ObservableField("")
     password = ObservableField("")
     email = ObservableField("")
-//    username = ObservableField("")
+    username = ObservableField("")
     userProfileImagePath = MutableLiveData("")
   }
 
   fun selectImage(state: Int) {
     when (state) {
-      BottomSheetBehavior.STATE_EXPANDED -> bottomSheetBehaviorState.set(BottomSheetBehavior.STATE_COLLAPSED)
-      BottomSheetBehavior.STATE_HIDDEN, BottomSheetBehavior.STATE_COLLAPSED -> bottomSheetBehaviorState.set(
-        BottomSheetBehavior.STATE_EXPANDED
-      )
+      BottomSheetBehavior.STATE_EXPANDED ->
+        bottomSheetBehaviorState.set(BottomSheetBehavior.STATE_COLLAPSED)
+      BottomSheetBehavior.STATE_HIDDEN,
+      BottomSheetBehavior.STATE_COLLAPSED ->
+        bottomSheetBehaviorState.set(BottomSheetBehavior.STATE_EXPANDED)
     }
   }
 
@@ -89,15 +98,23 @@ constructor(
 
   // Called on Profile next clicked
   fun finishSignup() {
-    user.username = username.value!!
+    user.username = username.toString()
     viewModelScope.launch {
       userRepository.saveUser(user)
       _signupCompleted.value = Event(Unit)
     }
   }
 
+  fun onPhoneNumberChanged(phone: String) {
+    _isPhoneCorrect.value = phone.length == 10
+  }
+
   fun setUser(user: User) {
     this.user = user
+  }
+
+  fun phoneNextOnClick() {
+    _navigateToPasswordAction.value = Event(user)
   }
 
 }

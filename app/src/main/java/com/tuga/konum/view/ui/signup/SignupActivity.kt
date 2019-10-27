@@ -1,18 +1,24 @@
 package com.tuga.konum.view.ui.signup
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.tuga.konum.R
-import com.tuga.konum.compose.ViewModelActivity
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_signup.nav_host_signup_fragment
 import kotlinx.android.synthetic.main.activity_signup.toolbar
+import javax.inject.Inject
 
-class SignupActivity : ViewModelActivity() {
+class SignupActivity : AppCompatActivity(), HasSupportFragmentInjector {
+
+  @Inject
+  lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
   private val navController: NavController
     get() = findNavController(R.id.nav_host_signup_fragment)
@@ -45,8 +51,6 @@ class SignupActivity : ViewModelActivity() {
     return navController.navigateUp()
   }
 
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+  override fun supportFragmentInjector() = dispatchingAndroidInjector
 
-    super.onActivityResult(requestCode, resultCode, data)
-  }
 }

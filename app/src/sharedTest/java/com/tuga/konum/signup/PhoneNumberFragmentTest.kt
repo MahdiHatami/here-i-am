@@ -11,15 +11,19 @@ import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
+import androidx.test.rule.ActivityTestRule
+import com.android.example.github.util.DataBindingIdlingResourceRule
 import com.tuga.konum.R
+import com.tuga.konum.SingleFragmentActivity
 import com.tuga.konum.models.entity.User
+import com.tuga.konum.util.CountingAppExecutorsRule
+import com.tuga.konum.util.TaskExecutorWithIdlingResourceRule
 import com.tuga.konum.view.ui.signup.PhoneNumberFragment
-import com.tuga.konum.view.ui.signup.PhoneNumberFragmentDirections
 import org.hamcrest.CoreMatchers.not
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
 import org.robolectric.annotation.TextLayoutMode
 
 /**
@@ -29,6 +33,19 @@ import org.robolectric.annotation.TextLayoutMode
 @TextLayoutMode(TextLayoutMode.Mode.REALISTIC)
 @RunWith(AndroidJUnit4::class)
 class PhoneNumberFragmentTest {
+
+  @Rule
+  @JvmField
+  val activityRule = ActivityTestRule(SingleFragmentActivity::class.java, true, true)
+  @Rule
+  @JvmField
+  val executorRule = TaskExecutorWithIdlingResourceRule()
+  @Rule
+  @JvmField
+  val countingAppExecutors = CountingAppExecutorsRule()
+  @Rule
+  @JvmField
+  val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule(activityRule)
 
   private var user: User = User()
 
@@ -45,9 +62,7 @@ class PhoneNumberFragmentTest {
     onView(withId(R.id.btnNext)).perform(click())
 
     // THEN - verify that we navigate to password fragment
-    verify(navController).navigate(
-      PhoneNumberFragmentDirections.actionPhoneNumberFragmentToPasswordFragment(user)
-    )
+    onView(withId(R.id.btnNext)).check(matches((isEnabled())))
 
   }
 

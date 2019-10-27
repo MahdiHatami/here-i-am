@@ -17,7 +17,7 @@ package com.tuga.konum
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.tuga.konum.data.source.UserRepository
+import com.tuga.konum.data.source.UserRepositoryImpl
 import com.tuga.konum.view.ui.signup.SignupActivityViewModel
 
 /**
@@ -28,7 +28,7 @@ import com.tuga.konum.view.ui.signup.SignupActivityViewModel
  * actually necessary in this case, as the product ID can be passed in a public method.
  */
 class ViewModelFactory constructor(
-  private val userRepository: UserRepository
+  private val userRepository: UserRepositoryImpl
 ) : ViewModelProvider.NewInstanceFactory() {
 
   override fun <T : ViewModel> create(modelClass: Class<T>) =

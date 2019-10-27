@@ -8,10 +8,12 @@ import android.graphics.ImageDecoder
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.theartofdev.edmodo.cropper.CropImage
@@ -29,9 +31,11 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 
 class ProfileFragment : ViewModelFragment() {
+
   private val REQUEST_CODE_READ_EXTERNAL_STORAGE: Int = 100
 
   private lateinit var viewDataBinding: FragmentProfileBinding
+
   private lateinit var viewModel: SignupActivityViewModel
 
   private val args: ProfileFragmentArgs by navArgs()
@@ -112,9 +116,15 @@ class ProfileFragment : ViewModelFragment() {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
+    viewModel.setUser(user)
+
     viewModel.signupCompletedEvent.observe(this, EventObserver {
       val action = ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment()
       findNavController().navigate(action)
+    })
+
+    viewModel.firsname.observe(this, Observer {
+      Log.d(Companion.TAG, "onActivityCreated() called")
     })
   }
 
@@ -130,5 +140,9 @@ class ProfileFragment : ViewModelFragment() {
   @Subscribe
   fun onRequestGalleryImagePicker(event: RequestGalleryImagePicker) {
     CropImage.activity().start(activity!!, this);
+  }
+
+  companion object {
+    private const val TAG = "ProfileFragment"
   }
 }
