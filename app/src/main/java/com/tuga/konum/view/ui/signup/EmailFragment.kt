@@ -9,7 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.tuga.konum.EventObserver
+import com.tuga.konum.OpenForTesting
 import com.tuga.konum.R
 import com.tuga.konum.binding.FragmentDataBindingComponent
 import com.tuga.konum.databinding.FragmentEmailBinding
@@ -18,6 +21,7 @@ import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.util.autoCleared
 import javax.inject.Inject
 
+@OpenForTesting
 class EmailFragment : Fragment(), Injectable {
 
   @Inject
@@ -32,10 +36,6 @@ class EmailFragment : Fragment(), Injectable {
   }
 
   private val args: PasswordFragmentArgs by navArgs()
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-  }
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -53,6 +53,16 @@ class EmailFragment : Fragment(), Injectable {
     return binding.root
   }
 
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    binding.viewModel = viewModel
+
+    viewModel.navigateToProfileAction.observe(this, EventObserver { user ->
+      navController()
+        .navigate(EmailFragmentDirections.actionEmailFragmentToProfileFragment(user))
+    })
+  }
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     binding.lifecycleOwner = this
 
@@ -63,4 +73,6 @@ class EmailFragment : Fragment(), Injectable {
       viewModel.onEmailChanged(it.toString())
     }
   }
+
+  fun navController() = findNavController()
 }
