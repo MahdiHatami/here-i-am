@@ -1,7 +1,7 @@
 package com.tuga.konum.signup
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.fragment.app.testing.launchFragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
@@ -51,6 +51,7 @@ class EmailFragmentTest {
   @get:Rule
   var instantExecutorRule = InstantTaskExecutorRule()
 
+
   @Test
   fun validEmail_navigateToProfileFragment() = runBlockingTest {
     // GIVEN - on the choose email screen
@@ -86,9 +87,10 @@ class EmailFragmentTest {
 
   private fun launchFragment(navController: NavController?) {
     val bundle = EmailFragmentArgs(user).toBundle()
-    val scenario = launchFragmentInContainer<EmailFragment>(bundle, style.MaterialTheme)
+    val scenario = launchFragment<EmailFragment>(bundle, style.MaterialTheme)
     scenario.onFragment {
       Navigation.setViewNavController(it.view!!, navController)
     }
   }
+
 }

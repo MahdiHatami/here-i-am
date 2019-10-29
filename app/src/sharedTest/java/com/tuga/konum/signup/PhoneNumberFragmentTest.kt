@@ -12,11 +12,11 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import androidx.test.rule.ActivityTestRule
-import com.android.example.github.util.DataBindingIdlingResourceRule
 import com.tuga.konum.R
 import com.tuga.konum.SingleFragmentActivity
 import com.tuga.konum.models.entity.User
 import com.tuga.konum.util.CountingAppExecutorsRule
+import com.tuga.konum.util.DataBindingIdlingResourceRule
 import com.tuga.konum.util.TaskExecutorWithIdlingResourceRule
 import com.tuga.konum.view.ui.signup.PhoneNumberFragment
 import org.hamcrest.CoreMatchers.not

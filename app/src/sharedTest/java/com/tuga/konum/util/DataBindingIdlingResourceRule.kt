@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.example.github.util
+package com.tuga.konum.util
 
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.rule.ActivityTestRule
