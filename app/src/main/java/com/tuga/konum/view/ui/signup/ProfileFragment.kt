@@ -8,65 +8,100 @@ import android.graphics.ImageDecoder
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.Observer
+import androidx.databinding.DataBindingComponent
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tuga.konum.EventObserver
-import com.tuga.konum.compose.ViewModelFragment
+import com.tuga.konum.OpenForTesting
+import com.tuga.konum.R
+import com.tuga.konum.binding.FragmentDataBindingComponent
 import com.tuga.konum.databinding.FragmentProfileBinding
+import com.tuga.konum.di.Injectable
 import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
-import com.tuga.konum.models.entity.User
+import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.permission.PermissionManager
-import com.tuga.konum.util.obtainViewModel
+import com.tuga.konum.util.autoCleared
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.io.ByteArrayOutputStream
 import java.io.File
+import javax.inject.Inject
 
-class ProfileFragment : ViewModelFragment() {
+@OpenForTesting
+class ProfileFragment : Fragment(), Injectable {
 
   private val REQUEST_CODE_READ_EXTERNAL_STORAGE: Int = 100
 
-  private lateinit var viewDataBinding: FragmentProfileBinding
+  @Inject
+  lateinit var viewModelFactory: ViewModelProvider.Factory
 
-  private lateinit var viewModel: SignupActivityViewModel
+  var binding by autoCleared<FragmentProfileBinding>()
 
-  private val args: ProfileFragmentArgs by navArgs()
-  private var user: User = User()
+  var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    args.user?.let { user = it }
+  private val viewModel: SignupActivityViewModel by viewModels {
+    viewModelFactory
   }
+
+  private val args: PasswordFragmentArgs by navArgs()
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    viewModel = obtainViewModel(SignupActivityViewModel::class.java)
-    viewDataBinding = FragmentProfileBinding.inflate(inflater, container, false).apply {
-      viewModel = viewModel
-    }
-    return viewDataBinding.root
+    binding = DataBindingUtil.inflate(
+      inflater,
+      R.layout.fragment_profile,
+      container,
+      false,
+      dataBindingComponent
+    )
+
+    return binding.root
   }
 
-  override fun onStart() {
-    super.onStart()
-    EventBus.getDefault().register(this)
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
+    binding.viewModel = viewModel
+
+    viewModel.signupCompletedEvent.observe(this, EventObserver {
+      navController()
+        .navigate(ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment())
+    })
+
     viewModel.setStoragePermissionStatus(
       PermissionManager().getPermissionStatus(
         activity!!,
         Manifest.permission.READ_EXTERNAL_STORAGE
       )
     )
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    binding.lifecycleOwner = this
+
+    val user = args.user
+    viewModel.setUser(user)
+
+    binding.edtUsername.onTextChanged {
+      viewModel.onUsernameChanged(it.toString())
+    }
+  }
+
+  override fun onStart() {
+    super.onStart()
+    EventBus.getDefault().register(this)
   }
 
   override fun onStop() {
@@ -107,25 +142,11 @@ class ProfileFragment : ViewModelFragment() {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
         val byteArray = byteArrayOutputStream.toByteArray()
         val encoded = Base64.encodeToString(byteArray, Base64.DEFAULT)
-        user.image = encoded
+        viewModel.getUser().image = encoded
       } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
         val error = result.error
       }
     }
-  }
-
-  override fun onActivityCreated(savedInstanceState: Bundle?) {
-    super.onActivityCreated(savedInstanceState)
-    viewModel.setUser(user)
-
-    viewModel.signupCompletedEvent.observe(this, EventObserver {
-      val action = ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment()
-      findNavController().navigate(action)
-    })
-
-    viewModel.firsname.observe(this, Observer {
-      Log.d(Companion.TAG, "onActivityCreated() called")
-    })
   }
 
   @Subscribe
@@ -145,4 +166,6 @@ class ProfileFragment : ViewModelFragment() {
   companion object {
     private const val TAG = "ProfileFragment"
   }
+
+  fun navController() = findNavController()
 }

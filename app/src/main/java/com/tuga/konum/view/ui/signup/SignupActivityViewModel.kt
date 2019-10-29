@@ -113,14 +113,15 @@ constructor(
     }
   }
 
-  // Called on Profile next clicked
-  fun finishSignup() {
-    user.username = username.value.toString()
-    viewModelScope.launch {
-      userRepository.saveUser(user)
-      _signupCompleted.value = Event(Unit)
-    }
+  fun getUser(): User{
+    return this.user
   }
+
+  fun setUser(user: User) {
+    this.user = user
+    Timber.d(user.toString())
+  }
+
 
   fun onPhoneNumberChanged(phone: String) {
     _isPhoneCorrect.value = phone.length == 10
@@ -134,10 +135,10 @@ constructor(
     _isEmailCorrect.value = Patterns.EMAIL_ADDRESS.matcher(email).matches()
   }
 
-  fun setUser(user: User) {
-    this.user = user
-    Timber.d(user.toString())
+  fun onUsernameChanged(username: String) {
+    _isUsernameCorrect.value = username.length > 1
   }
+
 
   fun phoneNextOnClick() {
     user.phoneNumber = phoneNumber.value.toString()
@@ -152,6 +153,15 @@ constructor(
   fun emailNextOnClick() {
     user.email = email.value.toString()
     _navigateToProfileAction.value = Event(user)
+  }
+
+  // Called on Profile next clicked
+  fun finishSignup() {
+    user.username = username.value.toString()
+    viewModelScope.launch {
+      userRepository.saveUser(user)
+      _signupCompleted.value = Event(Unit)
+    }
   }
 
 }
