@@ -1,6 +1,7 @@
 package com.tuga.konum.di
 
 import com.tuga.konum.view.ui.signup.EmailFragment
+import com.tuga.konum.view.ui.signup.LocationPermissionFragment
 import com.tuga.konum.view.ui.signup.PasswordFragment
 import com.tuga.konum.view.ui.signup.PhoneNumberFragment
 import com.tuga.konum.view.ui.signup.ProfileFragment
@@ -22,4 +23,9 @@ abstract class FragmentBuildersModule {
 
   @ContributesAndroidInjector
   abstract fun contributeProfileFragment(): ProfileFragment
+
+  @ContributesAndroidInjector
+  abstract fun contributeLocationPermissionFragment(): LocationPermissionFragment
+
+
 }

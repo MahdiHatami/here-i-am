@@ -32,6 +32,8 @@ constructor(
 
   private var storagePermissionStatus: PermissionStatus = CAN_ASK_PERMISSION
   private var cameraPermissionStatus: PermissionStatus = CAN_ASK_PERMISSION
+  private var locationPermissionStatus: PermissionStatus = CAN_ASK_PERMISSION
+
   val bottomSheetBehaviorState = ObservableInt(BottomSheetBehavior.STATE_HIDDEN)
 
   private var user: User
@@ -59,6 +61,9 @@ constructor(
   private val _signupCompleted = MutableLiveData<Event<Unit>>()
   val signupCompletedEvent: LiveData<Event<Unit>> = _signupCompleted
 
+  private val _requestLocationEvent = MutableLiveData<Event<Unit>>()
+  val requestLocationPermissionEvent: LiveData<Event<Unit>> = _requestLocationEvent
+
   // navigation
   private val _navigateToPasswordAction = MutableLiveData<Event<User>>()
   val navigateToPasswordAction: LiveData<Event<User>> = _navigateToPasswordAction
@@ -69,8 +74,8 @@ constructor(
   private val _navigateToProfileAction = MutableLiveData<Event<User>>()
   val navigateToProfileAction: LiveData<Event<User>> = _navigateToProfileAction
 
-  private val _navigateToLocationAction = MutableLiveData<Event<User>>()
-  val navigateToLocationAction: LiveData<Event<User>> = _navigateToLocationAction
+  private val _navigateToCircle = MutableLiveData<Event<User>>()
+  val navigateToCircleAction: LiveData<Event<User>> = _navigateToCircle
 
   init {
     user = User()
@@ -113,7 +118,13 @@ constructor(
     }
   }
 
-  fun getUser(): User{
+  fun setLocationPermissionStatus(newPermissionStatus: PermissionStatus) {
+    if (locationPermissionStatus !== newPermissionStatus) {
+      locationPermissionStatus = newPermissionStatus
+    }
+  }
+
+  fun getUser(): User {
     return this.user
   }
 
@@ -121,7 +132,6 @@ constructor(
     this.user = user
     Timber.d(user.toString())
   }
-
 
   fun onPhoneNumberChanged(phone: String) {
     _isPhoneCorrect.value = phone.length == 10
@@ -138,7 +148,6 @@ constructor(
   fun onUsernameChanged(username: String) {
     _isUsernameCorrect.value = username.length > 1
   }
-
 
   fun phoneNextOnClick() {
     user.phoneNumber = phoneNumber.value.toString()
@@ -162,6 +171,10 @@ constructor(
       userRepository.saveUser(user)
       _signupCompleted.value = Event(Unit)
     }
+  }
+
+  fun locationPermissionOnClick() {
+    _requestLocationEvent.value = Event(Unit)
   }
 
 }
