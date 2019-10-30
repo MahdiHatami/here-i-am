@@ -5,7 +5,6 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.models.entity.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -24,11 +23,6 @@ import org.junit.runner.RunWith
 class UserDaoTest{
 
   private lateinit var db: KonumDatabase
-
-  // Set the main coroutines dispatcher for unit testing.
-  @ExperimentalCoroutinesApi
-  @get:Rule
-  var mainCoroutineRule = MainCoroutineRule()
 
   // Executes each task synchronously using Architecture Components.
   @get:Rule

@@ -14,18 +14,13 @@ android {
     versionCode 1
     versionName "1.0"
 
-    testInstrumentationRunner "com.tuga.konum.runner.AndroidJunitTestRunner"
+    testInstrumentationRunner "com.tuga.konum.util.KonumTestRunner"
   }
 
   android {
     sourceSets {
-      String sharedTestDir = 'src/sharedTest/java'
-      test {
-        java.srcDir sharedTestDir
-      }
-      androidTest {
-        java.srcDir sharedTestDir
-      }
+      androidTest.java.srcDirs += "src/test-common/java"
+      test.java.srcDirs += "src/test-common/java"
     }
   }
 
@@ -47,23 +42,8 @@ android {
   flavorDimensions "default"
 
   // If you need to add more flavors, consider using flavor dimensions.
-  productFlavors {
-    mock {
-      dimension "default"
-      applicationIdSuffix = ".mock"
-    }
-    prod {
-      dimension "default"
-    }
-  }
 
   // Remove mockRelease as it's not needed.
-  android.variantFilter { variant ->
-    if (variant.buildType.name == 'release'
-        && variant.getFlavors().get(0).name == 'mock') {
-      variant.setIgnore(true)
-    }
-  }
 
   // Always show the result of every unit test, even if it passes.
   testOptions.unitTests {
