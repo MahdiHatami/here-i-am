@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright (C) 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,21 @@
  * limitations under the License.
  */
 
-package com.tuga.konum.di
+package com.tuga.konum
+
+import com.tuga.konum.data.source.FakeUserRepository
+import com.tuga.konum.data.source.UserRepository
+import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
 
 /**
- * Marks an activity / fragment injectable.
+ * A replacement for [ApplicationModule] to be used in tests. It simply creates a [FakeUserRepository].
  */
-interface Injectable
+@Module
+class TestApplicationModule {
+
+  @Singleton
+  @Provides
+  fun provideRepository(): UserRepository = FakeUserRepository()
+}

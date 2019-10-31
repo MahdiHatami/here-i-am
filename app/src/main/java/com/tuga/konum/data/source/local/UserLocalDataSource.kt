@@ -11,9 +11,12 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class UserLocalDataSource @Inject internal constructor(
-  private val userDao: UserDao
+/**
+ * Concrete implementation of a data source as a db.
+ */
+class UserLocalDataSource internal constructor(
+  private val userDao: UserDao,
+  private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserDataSource {
   override suspend fun deleteUsers() = withContext(ioDispatcher) {
     userDao.deleteUsers()
@@ -22,8 +25,6 @@ class UserLocalDataSource @Inject internal constructor(
   override suspend fun deleteUser(phoneNumber: String) {
     userDao.deleteUser(phoneNumber)
   }
-
-  private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 
   override suspend fun getUser(): Result<User> = withContext(ioDispatcher) {
     return@withContext try {

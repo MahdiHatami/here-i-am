@@ -21,24 +21,22 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tuga.konum.EventObserver
-import com.tuga.konum.OpenForTesting
 import com.tuga.konum.R
 import com.tuga.konum.binding.FragmentDataBindingComponent
 import com.tuga.konum.databinding.FragmentProfileBinding
-import com.tuga.konum.di.Injectable
 import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.permission.PermissionManager
 import com.tuga.konum.util.autoCleared
+import dagger.android.support.DaggerFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.io.ByteArrayOutputStream
 import java.io.File
 import javax.inject.Inject
 
-@OpenForTesting
-class ProfileFragment : Fragment(), Injectable {
+class ProfileFragment :  DaggerFragment() {
 
   private val REQUEST_CODE_READ_EXTERNAL_STORAGE: Int = 100
 

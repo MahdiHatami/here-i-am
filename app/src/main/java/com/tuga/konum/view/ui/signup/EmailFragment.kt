@@ -12,17 +12,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tuga.konum.EventObserver
-import com.tuga.konum.OpenForTesting
 import com.tuga.konum.R
 import com.tuga.konum.binding.FragmentDataBindingComponent
 import com.tuga.konum.databinding.FragmentEmailBinding
-import com.tuga.konum.di.Injectable
 import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.util.autoCleared
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-@OpenForTesting
-class EmailFragment : Fragment(), Injectable {
+class EmailFragment : DaggerFragment() {
 
   @Inject
   lateinit var viewModelFactory: ViewModelProvider.Factory

@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Designed and developed by 2019 skydoves (Jaewoong Eum)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,10 +17,14 @@
 package com.tuga.konum
 
 import android.app.Application
+import android.content.Context
+import androidx.test.runner.AndroidJUnitRunner
 
 /**
- * We use a separate App for tests to prevent initializing dependency injection.
- *
- * See [com.android.example.github.util.GithubTestRunner].
+ * Custom runner to disable dependency injection.
  */
-class TestApp : Application()
+class KonumTestRunner : AndroidJUnitRunner() {
+  override fun newApplication(cl: ClassLoader, className: String, context: Context): Application {
+    return super.newApplication(cl, TestApplicationComponent::class.java.name, context)
+  }
+}

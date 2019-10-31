@@ -1,31 +1,27 @@
 package com.tuga.konum
 
-import android.app.Activity
-import android.app.Application
 import com.facebook.stetho.Stetho
-import com.tuga.konum.di.AppInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
+import com.tuga.konum.di.DaggerApplicationComponent
 import timber.log.Timber
-import javax.inject.Inject
 
-class KonumApplication : Application(), HasActivityInjector {
+/**
+ * An [Application] that uses Dagger for Dependency Injection.
+ *
+ * Also, sets up Timber in the DEBUG BuildConfig. Read Timber's documentation for production setups.
+ */
+open class KonumApplication : DaggerApplication() {
 
-  @Inject
-  lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+  override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+    return DaggerApplicationComponent.factory().create(applicationContext)
+  }
 
   override fun onCreate() {
     super.onCreate()
 
-    if (BuildConfig.DEBUG) {
-      Timber.plant(Timber.DebugTree())
-    }
-
-    AppInjector.init(this)
+    if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
 
     Stetho.initializeWithDefaults(this)
   }
-
-  override fun activityInjector() = dispatchingAndroidInjector
-
 }

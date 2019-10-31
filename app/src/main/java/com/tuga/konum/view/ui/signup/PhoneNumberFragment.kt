@@ -6,58 +6,48 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.tuga.konum.EventObserver
-import com.tuga.konum.OpenForTesting
 import com.tuga.konum.R
 import com.tuga.konum.binding.FragmentDataBindingComponent
 import com.tuga.konum.databinding.FragmentPhoneNumberBinding
-import com.tuga.konum.di.Injectable
 import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.util.autoCleared
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_phone_number.ccp
 import kotlinx.android.synthetic.main.fragment_phone_number.edtPhoneNumber
 import javax.inject.Inject
 
-@OpenForTesting
-class PhoneNumberFragment : Fragment(), Injectable {
+class PhoneNumberFragment : DaggerFragment() {
 
   @Inject
   lateinit var viewModelFactory: ViewModelProvider.Factory
 
-  var binding by autoCleared<FragmentPhoneNumberBinding>()
+  private val viewModel by viewModels<SignupActivityViewModel> { viewModelFactory }
 
-  var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
-
-  private val viewModel: SignupActivityViewModel by viewModels {
-    viewModelFactory
-  }
+  private lateinit var viewDataBinding: FragmentPhoneNumberBinding
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    binding = DataBindingUtil.inflate(
-      inflater,
-      R.layout.fragment_phone_number,
-      container,
-      false,
-      dataBindingComponent
-    )
-
-    return binding.root
+    val root = inflater.inflate(R.layout.fragment_phone_number, container, false)
+    viewDataBinding = FragmentPhoneNumberBinding.bind(root).apply {
+      this.viewModel = viewModel
+    }
+    // Set the lifecycle owner to the lifecycle of the view
+    viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
+    return viewDataBinding.root
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    binding.viewModel = viewModel
 
     viewModel.navigateToPasswordAction.observe(this, EventObserver { user ->
-      navController()
+      findNavController()
         .navigate(PhoneNumberFragmentDirections.actionPhoneNumberFragmentToPasswordFragment(user))
     })
   }
@@ -66,16 +56,10 @@ class PhoneNumberFragment : Fragment(), Injectable {
     view: View,
     savedInstanceState: Bundle?
   ) {
-    binding.lifecycleOwner = this
     ccp.registerCarrierNumberEditText(edtPhoneNumber)
 
-    binding.edtPhoneNumber.onTextChanged {
+    edtPhoneNumber.onTextChanged {
       viewModel.onPhoneNumberChanged(it.toString())
     }
   }
-
-  /**
-   * Created to be able to override in tests
-   */
-  fun navController() = findNavController()
 }

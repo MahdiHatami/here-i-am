@@ -15,10 +15,7 @@ import kotlinx.android.synthetic.main.activity_signup.nav_host_signup_fragment
 import kotlinx.android.synthetic.main.activity_signup.toolbar
 import javax.inject.Inject
 
-class SignupActivity : AppCompatActivity(), HasSupportFragmentInjector {
-
-  @Inject
-  lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+class SignupActivity : AppCompatActivity(){
 
   private val navController: NavController
     get() = findNavController(R.id.nav_host_signup_fragment)
@@ -50,7 +47,5 @@ class SignupActivity : AppCompatActivity(), HasSupportFragmentInjector {
   override fun onSupportNavigateUp(): Boolean {
     return navController.navigateUp()
   }
-
-  override fun supportFragmentInjector() = dispatchingAndroidInjector
 
 }

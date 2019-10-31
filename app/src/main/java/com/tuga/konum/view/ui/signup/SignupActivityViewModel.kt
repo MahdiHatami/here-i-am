@@ -9,7 +9,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mlsdev.rximagepicker.Sources
 import com.mlsdev.rximagepicker.Sources.GALLERY
 import com.tuga.konum.Event
-import com.tuga.konum.OpenForTesting
 import com.tuga.konum.compose.DispatchViewModel
 import com.tuga.konum.data.source.UserRepositoryImpl
 import com.tuga.konum.event.RequestGalleryImagePicker
@@ -22,9 +21,7 @@ import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 import javax.inject.Inject
 
-@OpenForTesting
-class SignupActivityViewModel @Inject
-constructor(
+class SignupActivityViewModel @Inject constructor(
   private val userRepository: UserRepositoryImpl
 ) : DispatchViewModel() {
 

@@ -8,22 +8,19 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.tuga.konum.EventObserver
-import com.tuga.konum.OpenForTesting
 import com.tuga.konum.R
 import com.tuga.konum.binding.FragmentDataBindingComponent
 import com.tuga.konum.databinding.FragmentLocationPermissionBinding
-import com.tuga.konum.di.Injectable
 import com.tuga.konum.permission.PermissionManager
 import com.tuga.konum.util.autoCleared
+import dagger.android.support.DaggerFragment
 import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
 
-@OpenForTesting
-class LocationPermissionFragment : Fragment(), Injectable {
+class LocationPermissionFragment : DaggerFragment(){
 
   private val REQUEST_CODE_ACCESS_FINE_LOCATION: Int = 100
 

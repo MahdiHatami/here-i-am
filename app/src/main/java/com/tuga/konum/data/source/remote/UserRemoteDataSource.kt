@@ -4,12 +4,14 @@ import com.tuga.konum.data.Result
 import com.tuga.konum.data.source.UserDataSource
 import com.tuga.konum.data.source.local.UserDao
 import com.tuga.konum.models.entity.User
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class UserRemoteDataSource @Inject constructor(
-  private val userDao: UserDao
+class UserRemoteDataSource internal constructor(
+  private val userDao: UserDao,
+  private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserDataSource {
   override suspend fun deleteUsers() {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
