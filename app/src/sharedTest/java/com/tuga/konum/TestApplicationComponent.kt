@@ -19,6 +19,7 @@ package com.tuga.konum
 import android.content.Context
 import com.tuga.konum.data.source.UserRepository
 import com.tuga.konum.di.ApplicationModule
+import com.tuga.konum.di.PhoneNumberModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -29,10 +30,11 @@ import javax.inject.Singleton
 @Component(
   modules = [
     ApplicationModule::class,
-    AndroidSupportInjectionModule::class
+    AndroidSupportInjectionModule::class,
+    PhoneNumberModule::class
   ]
 )
-interface TestApplicationComponent : AndroidInjector<TestApplicationComponent> {
+interface TestApplicationComponent : AndroidInjector<TestKonumApplication> {
 
   @Component.Factory
   interface Factory {

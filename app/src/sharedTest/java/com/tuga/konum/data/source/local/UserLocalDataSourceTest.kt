@@ -5,10 +5,12 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
+import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.data.Result
 import com.tuga.konum.data.Result.Success
 import com.tuga.konum.data.succeeded
 import com.tuga.konum.models.entity.User
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.`is`
@@ -27,9 +29,14 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @MediumTest
 class UserLocalDataSourceTest {
+
   private lateinit var localDataSource: UserLocalDataSource
   private lateinit var database: KonumDatabase
 
+  // Set the main coroutines dispatcher for unit testing.
+  @ExperimentalCoroutinesApi
+  @get:Rule
+  var mainCoroutineRule = MainCoroutineRule()
 
   // Executes each task synchronously using Architecture Components.
   @get:Rule
@@ -45,10 +52,8 @@ class UserLocalDataSourceTest {
       .allowMainThreadQueries()
       .build()
 
-//    figure it out how to do Dispatchers injection with koin di
-//    localDataSource = TasksLocalDataSource(database.taskDao(), Dispatchers.Main)
 
-    localDataSource = UserLocalDataSource(database.userDao())
+    localDataSource = UserLocalDataSource(database.userDao(), Dispatchers.Main)
   }
 
   @After
