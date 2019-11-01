@@ -6,6 +6,8 @@ import com.tuga.konum.models.entity.User
 interface UserRepository {
 
   suspend fun getUser(): Result<User>
+
   suspend fun saveUser(user: User)
-  suspend fun deleteUsers();
+
+  suspend fun deleteUsers()
 }

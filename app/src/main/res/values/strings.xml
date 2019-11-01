@@ -35,4 +35,5 @@
   <string name="okay">Okay</string>
   <string name="permission_for_location_des">IamHere needs access to your location to work properly</string>
   <string name="permission_location_title">Allow IamHere to access location</string>
+  <string name="enter_your_password">Enter your password</string>
 </resources>

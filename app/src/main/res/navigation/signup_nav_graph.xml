@@ -8,7 +8,7 @@
   <!-- Phone -->
   <fragment
       android:id="@+id/phoneNumberFragment"
-      android:name="com.tuga.konum.view.ui.signup.PhoneNumberFragment"
+      android:name="com.tuga.konum.view.ui.signup.phone.PhoneNumberFragment"
       android:label="@string/phone_number_title"
       tools:layout="@layout/fragment_phone_number">
     <action
@@ -24,7 +24,7 @@
   <!-- Password   -->
   <fragment
       android:id="@+id/passwordFragment"
-      android:name="com.tuga.konum.view.ui.signup.PasswordFragment"
+      android:name="com.tuga.konum.view.ui.signup.password.PasswordFragment"
       android:label="@string/password_title"
 
       tools:layout="@layout/fragment_password">
@@ -43,7 +43,7 @@
   <!-- Email   -->
   <fragment
       android:id="@+id/emailFragment"
-      android:name="com.tuga.konum.view.ui.signup.EmailFragment"
+      android:name="com.tuga.konum.view.ui.signup.email.EmailFragment"
       android:label="@string/email_title"
       tools:layout="@layout/fragment_email">
 
@@ -63,7 +63,7 @@
   <!-- Profile -->
   <fragment
       android:id="@+id/profileFragment"
-      android:name="com.tuga.konum.view.ui.signup.ProfileFragment"
+      android:name="com.tuga.konum.view.ui.signup.profile.ProfileFragment"
       android:label="@string/profile_title"
       tools:layout="@layout/fragment_profile">
     <action
@@ -76,15 +76,13 @@
 
     <argument
         android:name="user"
-        app:nullable="true"
-        android:defaultValue="@null"
         app:argType="com.tuga.konum.models.entity.User" />
   </fragment>
 
   <!-- Location Permission -->
   <fragment
       android:id="@+id/locationPermissionFragment"
-      android:name="com.tuga.konum.view.ui.signup.LocationPermissionFragment"
+      android:name="com.tuga.konum.view.ui.signup.locationPermission.LocationPermissionFragment"
       android:label="@string/location_permission_title"
       tools:layout="@layout/fragment_location_permission">
     <action

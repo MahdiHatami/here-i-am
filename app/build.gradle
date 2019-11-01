@@ -125,14 +125,6 @@ dependencies {
   kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
   kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
 
-
-
-  // Koin
-//  implementation "org.koin:koin-android:$koin_version"
-//  implementation "org.koin:koin-android-scope:$koin_version"
-//  implementation "org.koin:koin-android-viewmodel:$koin_version"
-//  implementation "org.koin:koin-android-ext:$koin_version"
-
   // coroutines
   implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
   implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
@@ -166,10 +158,6 @@ dependencies {
   testImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
   testImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
   testImplementation "com.google.truth:truth:$truthVersion"
-  // Koin for Unit tests
-  testImplementation("org.koin:koin-test:$koin_version"){
-    exclude group: 'org.mockito'
-  }
 
   // Dependencies for Android unit tests
   androidTestImplementation "junit:junit:$junitVersion"
@@ -204,4 +192,5 @@ dependencies {
 
   // Kotlin
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+  implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
 }

@@ -1,4 +1,4 @@
-package com.tuga.konum.view.ui.signup
+package com.tuga.konum.view.ui.signup.profile
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
@@ -12,9 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
-import androidx.databinding.DataBindingComponent
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -22,59 +19,51 @@ import androidx.navigation.fragment.navArgs
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tuga.konum.EventObserver
 import com.tuga.konum.R
-import com.tuga.konum.binding.FragmentDataBindingComponent
 import com.tuga.konum.databinding.FragmentProfileBinding
 import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.permission.PermissionManager
-import com.tuga.konum.util.autoCleared
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_profile.edtUsername
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.io.ByteArrayOutputStream
 import java.io.File
 import javax.inject.Inject
 
-class ProfileFragment :  DaggerFragment() {
+class ProfileFragment : DaggerFragment() {
 
   private val REQUEST_CODE_READ_EXTERNAL_STORAGE: Int = 100
 
   @Inject
   lateinit var viewModelFactory: ViewModelProvider.Factory
 
-  var binding by autoCleared<FragmentProfileBinding>()
+  private val viewModel by viewModels<ProfileViewModel> { viewModelFactory }
 
-  var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
+  private lateinit var viewDataBinding: FragmentProfileBinding
 
-  private val viewModel: SignupActivityViewModel by viewModels {
-    viewModelFactory
-  }
-
-  private val args: PasswordFragmentArgs by navArgs()
+  private val args: ProfileFragmentArgs by navArgs()
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    binding = DataBindingUtil.inflate(
-      inflater,
-      R.layout.fragment_profile,
-      container,
-      false,
-      dataBindingComponent
-    )
-
-    return binding.root
+    val root = inflater.inflate(R.layout.fragment_profile, container, false)
+    viewDataBinding = FragmentProfileBinding.bind(root).apply {
+      this.viewModel = viewModel
+    }
+    // Set the lifecycle owner to the lifecycle of the view
+    viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
+    return viewDataBinding.root
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    binding.viewModel = viewModel
 
     viewModel.signupCompletedEvent.observe(this, EventObserver {
-      navController()
+      findNavController()
         .navigate(ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment())
     })
 
@@ -87,12 +76,11 @@ class ProfileFragment :  DaggerFragment() {
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    binding.lifecycleOwner = this
 
     val user = args.user
     viewModel.setUser(user)
 
-    binding.edtUsername.onTextChanged {
+    edtUsername.onTextChanged {
       viewModel.onUsernameChanged(it.toString())
     }
   }
@@ -164,6 +152,4 @@ class ProfileFragment :  DaggerFragment() {
   companion object {
     private const val TAG = "ProfileFragment"
   }
-
-  fun navController() = findNavController()
 }

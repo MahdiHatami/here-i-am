@@ -1,4 +1,4 @@
-package com.tuga.konum.view.ui.signup
+package com.tuga.konum.view.ui.signup.locationPermission
 
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -6,54 +6,43 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
-import androidx.databinding.DataBindingComponent
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.tuga.konum.EventObserver
 import com.tuga.konum.R
-import com.tuga.konum.binding.FragmentDataBindingComponent
 import com.tuga.konum.databinding.FragmentLocationPermissionBinding
 import com.tuga.konum.permission.PermissionManager
-import com.tuga.konum.util.autoCleared
 import dagger.android.support.DaggerFragment
 import org.jetbrains.anko.support.v4.toast
 import javax.inject.Inject
 
-class LocationPermissionFragment : DaggerFragment(){
+class LocationPermissionFragment : DaggerFragment() {
 
   private val REQUEST_CODE_ACCESS_FINE_LOCATION: Int = 100
 
   @Inject
   lateinit var viewModelFactory: ViewModelProvider.Factory
 
-  var binding by autoCleared<FragmentLocationPermissionBinding>()
+  private lateinit var viewDataBinding: FragmentLocationPermissionBinding
 
-  var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
-
-  private val viewModel: SignupActivityViewModel by viewModels {
-    viewModelFactory
-  }
+  private val viewModel by viewModels<LocationPermissionViewModel> { viewModelFactory }
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    binding = DataBindingUtil.inflate(
-      inflater,
-      R.layout.fragment_location_permission,
-      container,
-      false,
-      dataBindingComponent
-    )
-    return binding.root
+    val root = inflater.inflate(R.layout.fragment_location_permission, container, false)
+    viewDataBinding = FragmentLocationPermissionBinding.bind(root).apply {
+      this.viewModel = viewModel
+    }
+    // Set the lifecycle owner to the lifecycle of the view
+    viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
+    return viewDataBinding.root
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-
-    binding.viewModel = viewModel
 
     viewModel.setLocationPermissionStatus(
       PermissionManager().getPermissionStatus(
@@ -69,10 +58,6 @@ class LocationPermissionFragment : DaggerFragment(){
         REQUEST_CODE_ACCESS_FINE_LOCATION
       )
     })
-  }
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    binding.lifecycleOwner = this
   }
 
   override fun onRequestPermissionsResult(

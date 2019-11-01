@@ -18,7 +18,7 @@ import javax.inject.Singleton
   modules = [
     ApplicationModule::class,
     AndroidSupportInjectionModule::class,
-    SignupModule::class
+    PhoneNumberModule::class
   ]
 )
 interface ApplicationComponent : AndroidInjector<KonumApplication> {

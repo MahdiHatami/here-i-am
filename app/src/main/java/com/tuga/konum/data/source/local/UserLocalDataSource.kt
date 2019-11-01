@@ -8,8 +8,6 @@ import com.tuga.konum.models.entity.User
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * Concrete implementation of a data source as a db.
@@ -18,6 +16,7 @@ class UserLocalDataSource internal constructor(
   private val userDao: UserDao,
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserDataSource {
+
   override suspend fun deleteUsers() = withContext(ioDispatcher) {
     userDao.deleteUsers()
   }

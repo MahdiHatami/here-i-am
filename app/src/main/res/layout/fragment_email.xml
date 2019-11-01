@@ -6,7 +6,7 @@
   <data>
     <variable
         name="viewModel"
-        type="com.tuga.konum.view.ui.signup.SignupActivityViewModel"
+        type="com.tuga.konum.view.ui.signup.email.EmailViewModel"
         />
   </data>
 

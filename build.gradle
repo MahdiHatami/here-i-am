@@ -71,4 +71,7 @@ ext {
 
   // dagger
   daggerVersion = '2.23.2'
+
+  fragmentKtxVersion = '1.1.0-rc01'
+
 }

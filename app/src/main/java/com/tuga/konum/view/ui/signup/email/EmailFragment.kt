@@ -1,23 +1,20 @@
-package com.tuga.konum.view.ui.signup
+package com.tuga.konum.view.ui.signup.email
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingComponent
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tuga.konum.EventObserver
 import com.tuga.konum.R
-import com.tuga.konum.binding.FragmentDataBindingComponent
 import com.tuga.konum.databinding.FragmentEmailBinding
 import com.tuga.konum.extension.onTextChanged
-import com.tuga.konum.util.autoCleared
+import com.tuga.konum.view.ui.signup.password.PasswordFragmentArgs
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_email.edtEmail
 import javax.inject.Inject
 
 class EmailFragment : DaggerFragment() {
@@ -25,13 +22,9 @@ class EmailFragment : DaggerFragment() {
   @Inject
   lateinit var viewModelFactory: ViewModelProvider.Factory
 
-  var binding by autoCleared<FragmentEmailBinding>()
+  private val viewModel by viewModels<EmailViewModel> { viewModelFactory }
 
-  var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
-
-  private val viewModel: SignupActivityViewModel by viewModels {
-    viewModelFactory
-  }
+  private lateinit var viewDataBinding: FragmentEmailBinding
 
   private val args: PasswordFragmentArgs by navArgs()
 
@@ -40,37 +33,37 @@ class EmailFragment : DaggerFragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    binding = DataBindingUtil.inflate(
-      inflater,
-      R.layout.fragment_email,
-      container,
-      false,
-      dataBindingComponent
-    )
-
-    return binding.root
+    val root = inflater.inflate(R.layout.fragment_email, container, false)
+    viewDataBinding = FragmentEmailBinding.bind(root).apply {
+      this.viewModel = viewModel
+    }
+    // Set the lifecycle owner to the lifecycle of the view
+    viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
+    return viewDataBinding.root
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    binding.viewModel = viewModel
 
     viewModel.navigateToProfileAction.observe(this, EventObserver { user ->
-      navController()
-        .navigate(EmailFragmentDirections.actionEmailFragmentToProfileFragment(user))
+      findNavController()
+        .navigate(
+          EmailFragmentDirections.actionEmailFragmentToProfileFragment(
+            user
+          )
+        )
     })
   }
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    binding.lifecycleOwner = this
-
+  override fun onViewCreated(
+    view: View,
+    savedInstanceState: Bundle?
+  ) {
     val user = args.user
     viewModel.setUser(user)
 
-    binding.edtEmail.onTextChanged {
+    edtEmail.onTextChanged {
       viewModel.onEmailChanged(it.toString())
     }
   }
-
-  fun navController() = findNavController()
 }

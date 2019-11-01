@@ -1,20 +1,16 @@
-package com.tuga.konum.view.ui.signup
+package com.tuga.konum.view.ui.signup.phone
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingComponent
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.tuga.konum.EventObserver
 import com.tuga.konum.R
-import com.tuga.konum.binding.FragmentDataBindingComponent
 import com.tuga.konum.databinding.FragmentPhoneNumberBinding
 import com.tuga.konum.extension.onTextChanged
-import com.tuga.konum.util.autoCleared
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_phone_number.ccp
 import kotlinx.android.synthetic.main.fragment_phone_number.edtPhoneNumber
@@ -25,7 +21,7 @@ class PhoneNumberFragment : DaggerFragment() {
   @Inject
   lateinit var viewModelFactory: ViewModelProvider.Factory
 
-  private val viewModel by viewModels<SignupActivityViewModel> { viewModelFactory }
+  private val viewModel by viewModels<PhoneNumberViewModel> { viewModelFactory }
 
   private lateinit var viewDataBinding: FragmentPhoneNumberBinding
 
@@ -48,7 +44,11 @@ class PhoneNumberFragment : DaggerFragment() {
 
     viewModel.navigateToPasswordAction.observe(this, EventObserver { user ->
       findNavController()
-        .navigate(PhoneNumberFragmentDirections.actionPhoneNumberFragmentToPasswordFragment(user))
+        .navigate(
+          PhoneNumberFragmentDirections.actionPhoneNumberFragmentToPasswordFragment(
+            user
+          )
+        )
     })
   }
 

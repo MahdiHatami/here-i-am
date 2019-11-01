@@ -3,9 +3,8 @@ package com.tuga.konum.data.source
 import com.tuga.konum.data.Result
 import com.tuga.konum.data.Result.Error
 import com.tuga.konum.data.Result.Success
-import com.tuga.konum.data.source.local.UserLocalDataSource
-import com.tuga.konum.data.source.remote.UserRemoteDataSource
-import com.tuga.konum.di.ApplicationModule
+import com.tuga.konum.di.ApplicationModule.UserLocalDataSource
+import com.tuga.konum.di.ApplicationModule.UserRemoteDataSource
 import com.tuga.konum.models.entity.User
 import com.tuga.konum.util.EspressoIdlingResource
 import kotlinx.coroutines.CoroutineDispatcher
@@ -22,8 +21,8 @@ import javax.inject.Inject
  * data source fails. Remote is the source of truth.
  */
 class UserRepositoryImpl @Inject constructor(
-  @ApplicationModule.UserLocalDataSource private val userLocalDataSource: UserLocalDataSource,
-  @ApplicationModule.UserRemoteDataSource private val userRemoteDataSource: UserRemoteDataSource,
+  @UserLocalDataSource private val userLocalDataSource: UserDataSource,
+  @UserRemoteDataSource private val userRemoteDataSource: UserDataSource,
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserRepository {
 
