@@ -17,7 +17,7 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 import kotlin.annotation.AnnotationRetention.RUNTIME
 
-@Module
+@Module(includes = [ApplicationModuleBinds::class])
 object ApplicationModule {
 
   @Qualifier

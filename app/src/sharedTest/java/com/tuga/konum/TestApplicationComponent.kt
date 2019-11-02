@@ -18,8 +18,11 @@ package com.tuga.konum
 
 import android.content.Context
 import com.tuga.konum.data.source.UserRepository
-import com.tuga.konum.di.ApplicationModule
+import com.tuga.konum.di.EmailModule
+import com.tuga.konum.di.LocationPermissionModule
+import com.tuga.konum.di.PasswordModule
 import com.tuga.konum.di.PhoneNumberModule
+import com.tuga.konum.di.ProfileModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -29,9 +32,13 @@ import javax.inject.Singleton
 @Singleton
 @Component(
   modules = [
-    ApplicationModule::class,
+    TestApplicationModule::class,
     AndroidSupportInjectionModule::class,
-    PhoneNumberModule::class
+    PhoneNumberModule::class,
+    PasswordModule::class,
+    EmailModule::class,
+    ProfileModule::class,
+    LocationPermissionModule::class
   ]
 )
 interface TestApplicationComponent : AndroidInjector<TestKonumApplication> {

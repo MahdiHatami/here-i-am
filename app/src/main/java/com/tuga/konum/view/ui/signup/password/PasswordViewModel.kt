@@ -4,11 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tuga.konum.Event
+import com.tuga.konum.data.source.UserRepository
 import com.tuga.konum.models.entity.User
 import timber.log.Timber
+import javax.inject.Inject
 
-
-class PasswordViewModel : ViewModel(){
+class PasswordViewModel @Inject constructor() : ViewModel() {
 
   private var user: User = User()
 
@@ -24,7 +25,6 @@ class PasswordViewModel : ViewModel(){
     this.user = user
     Timber.d(user.toString())
   }
-
 
   fun onPasswordChanged(password: String) {
     _isPasswordCorrect.value = password.length > 4

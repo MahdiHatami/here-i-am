@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.architecture.blueprints.todoapp.util
+package com.tuga.konum.util
 
 
 import android.view.View

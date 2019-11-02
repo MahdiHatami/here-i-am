@@ -18,29 +18,28 @@ import javax.inject.Inject
 
 class PhoneNumberFragment : DaggerFragment() {
 
+  private lateinit var viewDataBinding: FragmentPhoneNumberBinding
+
   @Inject
   lateinit var viewModelFactory: ViewModelProvider.Factory
 
   private val viewModel by viewModels<PhoneNumberViewModel> { viewModelFactory }
-
-  private lateinit var viewDataBinding: FragmentPhoneNumberBinding
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    val root = inflater.inflate(R.layout.fragment_phone_number, container, false)
-    viewDataBinding = FragmentPhoneNumberBinding.bind(root).apply {
+    viewDataBinding = FragmentPhoneNumberBinding.inflate(inflater, container, false).apply {
       this.viewModel = viewModel
     }
-    // Set the lifecycle owner to the lifecycle of the view
-    viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
     return viewDataBinding.root
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
+
+    viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
 
     viewModel.navigateToPasswordAction.observe(this, EventObserver { user ->
       findNavController()

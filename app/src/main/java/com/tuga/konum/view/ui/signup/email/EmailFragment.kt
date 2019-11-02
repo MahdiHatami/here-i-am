@@ -17,7 +17,7 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_email.edtEmail
 import javax.inject.Inject
 
-class EmailFragment : DaggerFragment() {
+class EmailFragment: DaggerFragment() {
 
   @Inject
   lateinit var viewModelFactory: ViewModelProvider.Factory

@@ -7,13 +7,12 @@ import androidx.lifecycle.ViewModel
 import com.tuga.konum.Event
 import com.tuga.konum.models.entity.User
 import timber.log.Timber
+import javax.inject.Inject
 
-
-class EmailViewModel : ViewModel() {
+class EmailViewModel @Inject constructor() : ViewModel() {
   private var user = User()
 
   val email = MutableLiveData<String>()
-
 
   private val _isEmailCorrect = MutableLiveData<Boolean>()
   val isEmailCorrect: LiveData<Boolean> = _isEmailCorrect
@@ -25,7 +24,6 @@ class EmailViewModel : ViewModel() {
     this.user = user
     Timber.d(user.toString())
   }
-
 
   fun onEmailChanged(email: String) {
     _isEmailCorrect.value = Patterns.EMAIL_ADDRESS.matcher(email).matches()

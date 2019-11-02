@@ -14,6 +14,7 @@ import com.tuga.konum.databinding.FragmentPasswordBinding
 import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.util.autoCleared
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_password.edtPassword
 import javax.inject.Inject
 
 class PasswordFragment : DaggerFragment() {
@@ -22,8 +23,6 @@ class PasswordFragment : DaggerFragment() {
   lateinit var viewModelFactory: ViewModelProvider.Factory
 
   private val viewModel by viewModels<PasswordViewModel> { viewModelFactory }
-
-  var binding by autoCleared<FragmentPasswordBinding>()
 
   private lateinit var viewDataBinding: FragmentPasswordBinding
 
@@ -38,8 +37,6 @@ class PasswordFragment : DaggerFragment() {
     viewDataBinding = FragmentPasswordBinding.bind(root).apply {
       this.viewModel = viewModel
     }
-    // Set the lifecycle owner to the lifecycle of the view
-    viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
     return viewDataBinding.root
   }
 
@@ -57,12 +54,12 @@ class PasswordFragment : DaggerFragment() {
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    binding.lifecycleOwner = this
+    viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
 
     val user = args.user
     viewModel.setUser(user)
 
-    binding.edtPassword.onTextChanged {
+    edtPassword.onTextChanged {
       viewModel.onPasswordChanged(it.toString())
     }
   }
