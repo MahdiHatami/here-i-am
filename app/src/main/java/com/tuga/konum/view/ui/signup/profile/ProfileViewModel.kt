@@ -9,7 +9,7 @@ import com.mlsdev.rximagepicker.Sources
 import com.mlsdev.rximagepicker.Sources.GALLERY
 import com.tuga.konum.Event
 import com.tuga.konum.compose.DispatchViewModel
-import com.tuga.konum.data.source.UserRepositoryImpl
+import com.tuga.konum.data.source.UserRepository
 import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.models.entity.User
@@ -21,7 +21,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
-  private val userRepository: UserRepositoryImpl
+  private val userRepository: UserRepository
 ) : DispatchViewModel() {
 
   val TAG = "SignupActivityViewModel"

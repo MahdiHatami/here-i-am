@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tuga.konum.Event
-import com.tuga.konum.compose.DispatchViewModel
-import com.tuga.konum.data.source.UserRepositoryImpl
 import com.tuga.konum.models.entity.User
 import javax.inject.Inject
 
