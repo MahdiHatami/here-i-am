@@ -15,7 +15,7 @@ import com.tuga.konum.DaggerTestApplicationRule
 import com.tuga.konum.R
 import com.tuga.konum.models.entity.User
 import com.tuga.konum.view.ui.signup.phone.PhoneNumberFragment
-import com.tuga.konum.view.ui.signup.profile.ProfileFragmentDirections
+import com.tuga.konum.view.ui.signup.phone.PhoneNumberFragmentDirections
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.CoreMatchers
 import org.junit.Rule
@@ -44,34 +44,34 @@ class PhoneNumberFragmentTest {
   private var user = User()
 
   @Test
-  fun validUsername_navigateToLocationFragment() {
+  fun validPhoneNumber_navigateToPasswordFragment() {
     // GIVEN - on the profile screen
     val navController = mock(NavController::class.java)
     launchFragment(navController)
 
     // WHEN - enter valid username length should navigate to location fragment
-    user.username = "Mahdi"
-    onView(withId(R.id.edtUsername)).perform(replaceText(user.username))
-    onView(withId(R.id.btnProfileNext)).perform(click())
+    user.username = "5070933798"
+    onView(withId(R.id.edtPhoneNumber)).perform(replaceText(user.phoneNumber))
+    onView(withId(R.id.btnNext)).perform(click())
 
     // THEN - verify that we navigate to location fragment
     verify(navController).navigate(
-      ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment()
+      PhoneNumberFragmentDirections.actionPhoneNumberFragmentToPasswordFragment(user)
     )
   }
 
   @Test
-  fun unValidPassword_couldDisableButton() {
+  fun unvalidPhoneNumber_navigateToLocationFragment_shouldDisableButton() {
     // GIVEN - on the profile fragment screen
     val navController = mock(NavController::class.java)
     launchFragment(navController)
 
     // WHEN = unValid username entered and click next
-    val unValidUsername = ""
-    onView(withId(R.id.edtPassword)).perform(replaceText(unValidUsername))
+    val wrongNumber = ""
+    onView(withId(R.id.edtPhoneNumber)).perform(replaceText(wrongNumber))
 
     // THEN - verify the button is disabled
-    onView(withId(R.id.btnProfileNext))
+    onView(withId(R.id.btnNext))
       .check(ViewAssertions.matches(CoreMatchers.not((ViewMatchers.isEnabled()))))
 
   }

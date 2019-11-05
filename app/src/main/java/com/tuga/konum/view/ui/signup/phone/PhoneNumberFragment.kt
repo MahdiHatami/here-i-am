@@ -30,16 +30,16 @@ class PhoneNumberFragment : DaggerFragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    viewDataBinding = FragmentPhoneNumberBinding.inflate(inflater, container, false).apply {
+    val root = inflater.inflate(R.layout.fragment_phone_number, container, false)
+    viewDataBinding = FragmentPhoneNumberBinding.bind(root).apply {
       this.viewModel = viewModel
+      this.lifecycleOwner = lifecycleOwner
     }
     return viewDataBinding.root
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-
-    viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
 
     viewModel.navigateToPasswordAction.observe(this, EventObserver { user ->
       findNavController()

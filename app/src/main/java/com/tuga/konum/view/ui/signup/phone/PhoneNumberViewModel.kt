@@ -7,7 +7,8 @@ import com.tuga.konum.Event
 import com.tuga.konum.models.entity.User
 import javax.inject.Inject
 
-class PhoneNumberViewModel @Inject constructor() : ViewModel() {
+class PhoneNumberViewModel
+@Inject constructor() : ViewModel() {
 
   private var user: User = User()
 
