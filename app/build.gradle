@@ -103,16 +103,13 @@ dependencies {
   implementation 'androidx.legacy:legacy-support-v4:1.0.0'
   implementation 'com.google.android.material:material:1.2.0-alpha01'
 
-  // architecture component
-  implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
-  implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
-  implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
-  // room
+  // Architecture component
   implementation "androidx.room:room-runtime:$roomVersion"
   kapt "androidx.room:room-compiler:$roomVersion"
   implementation "androidx.room:room-ktx:$roomVersion"
-
-  // navigation
+  implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+  kapt "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
+  implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
   implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
   implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
@@ -186,9 +183,6 @@ dependencies {
   androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:$espressoVersion"
   androidTestImplementation "org.robolectric:annotations:$robolectricVersion"
   implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
-//  androidTestImplementation("org.koin:koin-test:$koin_version") {
-//    exclude group: 'org.mockito'
-//  }
 
   // Kotlin
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"

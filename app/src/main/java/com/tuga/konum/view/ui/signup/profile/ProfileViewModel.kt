@@ -3,12 +3,12 @@ package com.tuga.konum.view.ui.signup.profile
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mlsdev.rximagepicker.Sources
 import com.mlsdev.rximagepicker.Sources.GALLERY
 import com.tuga.konum.Event
-import com.tuga.konum.compose.DispatchViewModel
 import com.tuga.konum.data.source.UserRepository
 import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
   private val userRepository: UserRepository
-) : DispatchViewModel() {
+) : ViewModel() {
 
   val TAG = "SignupActivityViewModel"
 
