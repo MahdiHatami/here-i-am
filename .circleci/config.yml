@@ -1,7 +1,7 @@
 version: 2
 config_android:
   docker:
-    - image: circleci/android:api-28
+    - image: circleci/android:api-29
   working_directory: ~/project
   environment:
     JAVA_TOOL_OPTIONS: "-Xmx1024m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
@@ -17,7 +17,7 @@ config_android:
 jobs:
   build_and_setup:
     docker:
-      - image: circleci/android:api-28
+      - image: circleci/android:api-29
     working_directory: ~/project
     environment:
       - JAVA_TOOL_OPTIONS: "-Xmx1024m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
