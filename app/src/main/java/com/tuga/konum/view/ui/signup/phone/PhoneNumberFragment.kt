@@ -19,6 +19,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingComponent
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -36,11 +38,9 @@ import javax.inject.Inject
  */
 class PhoneNumberFragment : DaggerFragment() {
 
+  @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+
   private lateinit var binding: FragmentPhoneNumberBinding
-
-  @Inject
-  lateinit var viewModelFactory: ViewModelProvider.Factory
-
   private val viewModel by viewModels<PhoneNumberViewModel> { viewModelFactory }
 
   override fun onCreateView(
@@ -48,11 +48,8 @@ class PhoneNumberFragment : DaggerFragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    val root = inflater.inflate(R.layout.fragment_phone_number, container, false)
-    binding = FragmentPhoneNumberBinding.bind(root).apply {
-      viewModel = viewModel
-      lifecycleOwner = viewLifecycleOwner
-    }
+    binding = DataBindingUtil.inflate(inflater, R.layout.fragment_phone_number, container, false)
+    binding.viewModel = viewModel
     return binding.root
   }
 
@@ -60,11 +57,17 @@ class PhoneNumberFragment : DaggerFragment() {
     view: View,
     savedInstanceState: Bundle?
   ) {
+    binding.lifecycleOwner = this
     ccp.registerCarrierNumberEditText(edtPhoneNumber)
 
     edtPhoneNumber.onTextChanged {
       viewModel.onPhoneNumberChanged(it.toString())
     }
+
+  }
+
+  override fun onActivityCreated(savedInstanceState: Bundle?) {
+    super.onActivityCreated(savedInstanceState)
 
     viewModel.navigateToPasswordAction.observe(this, EventObserver { user ->
       findNavController()

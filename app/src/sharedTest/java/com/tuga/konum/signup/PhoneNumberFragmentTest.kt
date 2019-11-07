@@ -23,6 +23,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
+import org.robolectric.annotation.LooperMode
 import org.robolectric.annotation.TextLayoutMode
 
 /**
@@ -32,6 +33,7 @@ import org.robolectric.annotation.TextLayoutMode
 @RunWith(AndroidJUnit4::class)
 @MediumTest
 @ExperimentalCoroutinesApi
+@LooperMode(LooperMode.Mode.PAUSED)
 @TextLayoutMode(TextLayoutMode.Mode.REALISTIC)
 class PhoneNumberFragmentTest {
 
@@ -50,13 +52,14 @@ class PhoneNumberFragmentTest {
     launchFragment(navController)
 
     // WHEN - enter valid username length should navigate to location fragment
-    user.username = "5070933798"
+    user.phoneNumber= "5070933798"
     onView(withId(R.id.edtPhoneNumber)).perform(replaceText(user.phoneNumber))
     onView(withId(R.id.btnNext)).perform(click())
 
     // THEN - verify that we navigate to location fragment
     verify(navController).navigate(
-      PhoneNumberFragmentDirections.actionPhoneNumberFragmentToPasswordFragment(user)
+      PhoneNumberFragmentDirections
+        .actionPhoneNumberFragmentToPasswordFragment(user)
     )
   }
 

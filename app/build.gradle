@@ -104,12 +104,15 @@ dependencies {
   implementation 'com.google.android.material:material:1.2.0-alpha01'
 
   // Architecture component
+  implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+  implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+  implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+  // Room
   implementation "androidx.room:room-runtime:$roomVersion"
   kapt "androidx.room:room-compiler:$roomVersion"
   implementation "androidx.room:room-ktx:$roomVersion"
-  implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
-  kapt "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
-  implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+
+  // Navigation Component
   implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
   implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
