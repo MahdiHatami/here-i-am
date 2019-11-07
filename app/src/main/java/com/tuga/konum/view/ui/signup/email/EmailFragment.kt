@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,14 +18,14 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_email.edtEmail
 import javax.inject.Inject
 
-class EmailFragment: DaggerFragment() {
+class EmailFragment : DaggerFragment() {
 
   @Inject
   lateinit var viewModelFactory: ViewModelProvider.Factory
 
   private val viewModel by viewModels<EmailViewModel> { viewModelFactory }
 
-  private lateinit var viewDataBinding: FragmentEmailBinding
+  private lateinit var binding: FragmentEmailBinding
 
   private val args: PasswordFragmentArgs by navArgs()
 
@@ -33,13 +34,9 @@ class EmailFragment: DaggerFragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    val root = inflater.inflate(R.layout.fragment_email, container, false)
-    viewDataBinding = FragmentEmailBinding.bind(root).apply {
-      this.viewModel = viewModel
-    }
-    // Set the lifecycle owner to the lifecycle of the view
-    viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
-    return viewDataBinding.root
+    binding = DataBindingUtil.inflate(inflater, R.layout.fragment_email, container, false)
+    binding.viewModel = viewModel
+    return binding.root
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -59,6 +56,7 @@ class EmailFragment: DaggerFragment() {
     view: View,
     savedInstanceState: Bundle?
   ) {
+    binding.lifecycleOwner = this.viewLifecycleOwner
     val user = args.user
     viewModel.setUser(user)
 
