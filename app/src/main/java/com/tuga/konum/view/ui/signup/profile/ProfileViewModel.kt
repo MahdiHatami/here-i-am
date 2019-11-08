@@ -4,7 +4,6 @@ import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mlsdev.rximagepicker.Sources
 import com.mlsdev.rximagepicker.Sources.GALLERY
@@ -15,7 +14,6 @@ import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.models.entity.User
 import com.tuga.konum.permission.PermissionStatus
 import com.tuga.konum.permission.PermissionStatus.CAN_ASK_PERMISSION
-import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 import javax.inject.Inject
@@ -97,16 +95,18 @@ class ProfileViewModel @Inject constructor(
   }
 
   fun onUsernameChanged(username: String) {
-    _isUsernameCorrect.value = username.length > 1
+    _isUsernameCorrect.value = username.length > 0
   }
 
   // Called on Profile next clicked
   fun finishSignup() {
     user.username = username.value.toString()
-    viewModelScope.launch {
-      userRepository.saveUser(user)
-      _signupCompleted.value = Event(Unit)
-    }
+    _signupCompleted.value = Event(Unit)
+
+    // save user to db
+//    viewModelScope.launch {
+//      userRepository.saveUser(user)
+//    }
   }
 
 }

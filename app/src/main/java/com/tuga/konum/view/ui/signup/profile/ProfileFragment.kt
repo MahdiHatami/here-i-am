@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -34,14 +35,12 @@ import javax.inject.Inject
 
 class ProfileFragment : DaggerFragment() {
 
-  private val REQUEST_CODE_READ_EXTERNAL_STORAGE: Int = 100
-
   @Inject
   lateinit var viewModelFactory: ViewModelProvider.Factory
 
   private val viewModel by viewModels<ProfileViewModel> { viewModelFactory }
 
-  private lateinit var viewDataBinding: FragmentProfileBinding
+  private lateinit var binding: FragmentProfileBinding
 
   private val args: ProfileFragmentArgs by navArgs()
 
@@ -50,21 +49,19 @@ class ProfileFragment : DaggerFragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    val root = inflater.inflate(R.layout.fragment_profile, container, false)
-    viewDataBinding = FragmentProfileBinding.bind(root).apply {
-      this.viewModel = viewModel
-    }
-    // Set the lifecycle owner to the lifecycle of the view
-    viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
-    return viewDataBinding.root
+    binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+    binding.viewModel = viewModel
+    return binding.root
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
 
-    viewModel.signupCompletedEvent.observe(this, EventObserver {
+    viewModel.signupCompletedEvent.observe(viewLifecycleOwner, EventObserver {
       findNavController()
-        .navigate(ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment())
+        .navigate(
+          ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment()
+        )
     })
 
     viewModel.setStoragePermissionStatus(
@@ -76,6 +73,7 @@ class ProfileFragment : DaggerFragment() {
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    binding.lifecycleOwner = this.viewLifecycleOwner
 
     val user = args.user
     viewModel.setUser(user)
@@ -146,10 +144,11 @@ class ProfileFragment : DaggerFragment() {
 
   @Subscribe
   fun onRequestGalleryImagePicker(event: RequestGalleryImagePicker) {
-    CropImage.activity().start(activity!!, this);
+    CropImage.activity().start(activity!!, this)
   }
 
   companion object {
     private const val TAG = "ProfileFragment"
+    private const val REQUEST_CODE_READ_EXTERNAL_STORAGE: Int = 100
   }
 }
