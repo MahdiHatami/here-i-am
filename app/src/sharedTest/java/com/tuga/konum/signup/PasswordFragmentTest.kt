@@ -61,7 +61,7 @@ class PasswordFragmentTest {
   }
 
   @Test
-  fun unValidPassword_couldDisableButton() {
+  fun unValidPassword_shouldDisableButton() {
     // GIVEN - on the phone number fragment screen
     val navController = Mockito.mock(NavController::class.java)
     launchFragment(navController)

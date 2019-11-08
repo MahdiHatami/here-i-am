@@ -40,7 +40,7 @@ class PasswordFragment : DaggerFragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
 
-    viewModel.navigateToEmailAction.observe(this, EventObserver { user ->
+    viewModel.navigateToEmailAction.observe(viewLifecycleOwner, EventObserver { user ->
       findNavController()
         .navigate(
           PasswordFragmentDirections.actionPasswordFragmentToEmailFragment(
