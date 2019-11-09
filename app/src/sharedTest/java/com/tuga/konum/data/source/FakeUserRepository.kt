@@ -12,7 +12,7 @@ class FakeUserRepository : UserRepository {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
 
-  override suspend fun deleteUsers() {
+  override suspend fun deleteUser(phoneNumber: String) {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
 

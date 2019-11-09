@@ -9,5 +9,5 @@ interface UserRepository {
 
   suspend fun saveUser(user: User)
 
-  suspend fun deleteUsers()
+  suspend fun deleteUser(phoneNumber: String)
 }

@@ -13,10 +13,6 @@ class UserRemoteDataSource internal constructor(
   private val userDao: UserDao,
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserDataSource {
-  override suspend fun deleteUsers() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-  }
-
   override suspend fun deleteUser(phoneNumber: String) {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
