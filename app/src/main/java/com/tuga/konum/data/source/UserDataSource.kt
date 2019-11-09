@@ -14,5 +14,4 @@ interface UserDataSource {
 
   suspend fun deleteUser(phoneNumber: String)
 
-  suspend fun deleteUsers()
 }

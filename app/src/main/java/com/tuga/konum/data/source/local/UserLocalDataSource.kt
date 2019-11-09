@@ -17,10 +17,6 @@ class UserLocalDataSource internal constructor(
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserDataSource {
 
-  override suspend fun deleteUsers() = withContext(ioDispatcher) {
-    userDao.deleteUsers()
-  }
-
   override suspend fun deleteUser(phoneNumber: String) {
     userDao.deleteUser(phoneNumber)
   }

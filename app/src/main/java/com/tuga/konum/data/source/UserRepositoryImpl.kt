@@ -26,9 +26,9 @@ class UserRepositoryImpl @Inject constructor(
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserRepository {
 
-  override suspend fun deleteUsers() {
+  override suspend fun deleteUser(phoneNumber: String) {
     coroutineScope {
-      launch { userLocalDataSource.deleteUsers() }
+      launch { userLocalDataSource.deleteUser(phoneNumber) }
     }
   }
 
