@@ -7,11 +7,17 @@ import android.view.View
 import android.view.ViewAnimationUtils
 import android.widget.EditText
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.google.android.material.snackbar.Snackbar
+import com.tuga.konum.Event
 import com.tuga.konum.R
+import com.tuga.konum.util.EspressoIdlingResource
 
 fun View.visible() {
   visibility = View.VISIBLE
@@ -67,4 +73,38 @@ fun EditText.onTextChanged(action: (CharSequence) -> Unit) {
 
 fun EditText.clearOnTextChangedListener() {
   onTextChanged {}
+}
+
+/**
+ * Transforms static java function Snackbar.make() to an extension function on View.
+ */
+fun View.showSnackbar(snackbarText: String, timeLength: Int) {
+  Snackbar.make(this, snackbarText, timeLength).run {
+    addCallback(object : Snackbar.Callback() {
+      override fun onShown(sb: Snackbar?) {
+        EspressoIdlingResource.increment()
+      }
+
+      override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+        EspressoIdlingResource.decrement()
+      }
+    })
+    show()
+  }
+}
+
+/**
+ * Triggers a snackbar message when the value contained by snackbarTaskMessageLiveEvent is modified.
+ */
+fun View.setupSnackbar(
+  lifecycleOwner: LifecycleOwner,
+  snackbarEvent: LiveData<Event<Int>>,
+  timeLength: Int
+) {
+
+  snackbarEvent.observe(lifecycleOwner, Observer { event ->
+    event.getContentIfNotHandled()?.let {
+      showSnackbar(context.getString(it), timeLength)
+    }
+  })
 }

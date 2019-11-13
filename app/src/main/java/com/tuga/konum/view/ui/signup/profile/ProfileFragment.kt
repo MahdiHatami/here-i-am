@@ -4,9 +4,12 @@ import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Bitmap.CompressFormat.PNG
 import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build.VERSION
 import android.os.Bundle
-import android.provider.MediaStore
+import android.provider.MediaStore.Images.Media
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +20,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tuga.konum.EventObserver
 import com.tuga.konum.R
@@ -24,13 +28,13 @@ import com.tuga.konum.databinding.FragmentProfileBinding
 import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.extension.onTextChanged
+import com.tuga.konum.extension.setupSnackbar
 import com.tuga.konum.permission.PermissionManager
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_profile.edtUsername
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import java.io.ByteArrayOutputStream
-import java.io.File
 import javax.inject.Inject
 
 class ProfileFragment : DaggerFragment() {
@@ -56,6 +60,7 @@ class ProfileFragment : DaggerFragment() {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
+    setupSnackbar()
 
     viewModel.signupCompletedEvent.observe(viewLifecycleOwner, EventObserver {
       findNavController()
@@ -70,6 +75,10 @@ class ProfileFragment : DaggerFragment() {
         Manifest.permission.READ_EXTERNAL_STORAGE
       )
     )
+  }
+
+  private fun setupSnackbar() {
+    view?.setupSnackbar(this, viewModel.snackbarMessage, Snackbar.LENGTH_SHORT)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -114,22 +123,31 @@ class ProfileFragment : DaggerFragment() {
     if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
       val result = CropImage.getActivityResult(data)
       if (resultCode == RESULT_OK) {
-        val resultUri = result.uri.path
-        val bitmap = if (android.os.Build.VERSION.SDK_INT >= 29) {
-          val file = File(resultUri)
-          ImageDecoder.decodeBitmap(ImageDecoder.createSource(file))
-        } else {
-          MediaStore.Images.Media.getBitmap(activity!!.contentResolver, result.uri)
-        }
-        viewModel.userProfileImagePath.postValue(resultUri!!)
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-        val byteArray = byteArrayOutputStream.toByteArray()
-        val encoded = Base64.encodeToString(byteArray, Base64.DEFAULT)
+        viewModel.userProfileImagePath.value = result.uri.path
+        val encoded = convertBitmapToBase64(getCapturedImage(result.uri))
         viewModel.getUser().image = encoded
       } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
         val error = result.error
       }
+    }
+  }
+
+  private fun convertBitmapToBase64(bitmap: Bitmap): String {
+    val byteArrayOutputStream = ByteArrayOutputStream()
+    bitmap.compress(PNG, 100, byteArrayOutputStream)
+    val byteArray = byteArrayOutputStream.toByteArray()
+    return Base64.encodeToString(byteArray, Base64.DEFAULT)
+  }
+
+  private fun getCapturedImage(selectedPhotoUri: Uri): Bitmap {
+    return if (VERSION.SDK_INT >= 29) {
+      val source = ImageDecoder.createSource(activity!!.contentResolver, selectedPhotoUri)
+      ImageDecoder.decodeBitmap(source)
+    } else {
+      Media.getBitmap(
+        activity!!.contentResolver,
+        selectedPhotoUri
+      )
     }
   }
 

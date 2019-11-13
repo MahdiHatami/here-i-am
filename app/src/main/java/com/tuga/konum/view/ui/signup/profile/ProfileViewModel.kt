@@ -1,5 +1,6 @@
 package com.tuga.konum.view.ui.signup.profile
 
+import android.content.Intent
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -43,6 +44,9 @@ class ProfileViewModel @Inject constructor(
 
   private val _signupCompleted = MutableLiveData<Event<Unit>>()
   val signupCompletedEvent: LiveData<Event<Unit>> = _signupCompleted
+
+  private val _snackbarText = MutableLiveData<Event<Int>>()
+  val snackbarMessage: LiveData<Event<Int>> = _snackbarText
 
 
   init {
