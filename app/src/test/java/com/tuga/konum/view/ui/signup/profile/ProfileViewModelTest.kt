@@ -1,7 +1,7 @@
 package com.tuga.konum.view.ui.signup.profile
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.google.common.truth.Truth
 import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.data.source.FakeUserRepository
 import com.tuga.konum.models.entity.User
@@ -14,7 +14,6 @@ import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
 class ProfileViewModelTest {
@@ -46,7 +45,6 @@ class ProfileViewModelTest {
     profileViewModel.finishSignup()
 
     val value = profileViewModel.signupCompletedEvent.getOrAwaitValue()
-
     assertThat(value.getContentIfNotHandled(), not(nullValue()))
   }
 
@@ -70,5 +68,19 @@ class ProfileViewModelTest {
 
     assertThat(value, `is`(not(true)))
 
+  }
+
+  @Test
+  fun saveNewUserToRepository_showSuccessMessageUi(){
+    val newUsername = "mahdi"
+    profileViewModel.apply {
+      username.value = newUsername
+    }
+    profileViewModel.finishSignup()
+
+    val newUser = userRepository.userServiceData.values.first()
+
+    // Then
+    Truth.assertThat(newUser.username).isEqualTo(newUsername)
   }
 }

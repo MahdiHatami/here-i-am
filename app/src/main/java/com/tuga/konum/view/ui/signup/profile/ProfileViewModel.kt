@@ -100,12 +100,9 @@ class ProfileViewModel @Inject constructor(
   }
 
   // Called on Profile next clicked
-  fun finishSignup() {
+  fun finishSignup() = viewModelScope.launch {
     user.username = username.value.toString()
-    // save user to db
-//    viewModelScope.launch {
-//      userRepository.saveUser(user)
-//    }
+    userRepository.saveUser(user)
 
     _signupCompleted.value = Event(Unit)
 
