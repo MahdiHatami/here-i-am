@@ -4,23 +4,19 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.data.source.FakeUserRepository
-import com.tuga.konum.data.source.UserRepository
 import com.tuga.konum.models.entity.User
 import com.tuga.konum.util.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.not
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
-import kotlin.contracts.ExperimentalContracts
 
 @ExperimentalCoroutinesApi
-@RunWith(AndroidJUnit4::class)
 class ProfileViewModelTest {
 
   // subject under test

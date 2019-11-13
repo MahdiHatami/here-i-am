@@ -57,6 +57,7 @@ class UserRepositoryImplTest {
     userRepository.saveUser(newUser)
 
     // then
+    assertThat(userRemoteDataSource.dbuser).isEqualTo(newUser)
     assertThat(userLocalDataSource.dbuser).isEqualTo(newUser)
 
     val result = userRepository.getUser() as? Success
