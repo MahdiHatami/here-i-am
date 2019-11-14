@@ -71,7 +71,7 @@ class ProfileViewModelTest {
   }
 
   @Test
-  fun saveNewUserToRepository_showSuccessMessageUi(){
+  fun saveNewUserToRepository_showSuccessMessageUi() {
     val newUsername = "mahdi"
     profileViewModel.apply {
       username.value = newUsername

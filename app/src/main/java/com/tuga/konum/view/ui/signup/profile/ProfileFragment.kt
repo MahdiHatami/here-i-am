@@ -1,16 +1,8 @@
 package com.tuga.konum.view.ui.signup.profile
 
 import android.Manifest
-import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Bitmap.CompressFormat.PNG
-import android.graphics.ImageDecoder
-import android.net.Uri
-import android.os.Build.VERSION
 import android.os.Bundle
-import android.provider.MediaStore.Images.Media
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,11 +22,11 @@ import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.extension.setupSnackbar
 import com.tuga.konum.permission.PermissionManager
+import com.tuga.konum.util.BitmapResolver
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_profile.edtUsername
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
 class ProfileFragment : DaggerFragment() {
@@ -122,32 +114,8 @@ class ProfileFragment : DaggerFragment() {
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
       val result = CropImage.getActivityResult(data)
-      if (resultCode == RESULT_OK) {
-        viewModel.userProfileImagePath.value = result.uri.path
-        val encoded = convertBitmapToBase64(getCapturedImage(result.uri))
-        viewModel.getUser().image = encoded
-      } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-        val error = result.error
-      }
-    }
-  }
-
-  private fun convertBitmapToBase64(bitmap: Bitmap): String {
-    val byteArrayOutputStream = ByteArrayOutputStream()
-    bitmap.compress(PNG, 100, byteArrayOutputStream)
-    val byteArray = byteArrayOutputStream.toByteArray()
-    return Base64.encodeToString(byteArray, Base64.DEFAULT)
-  }
-
-  private fun getCapturedImage(selectedPhotoUri: Uri): Bitmap {
-    return if (VERSION.SDK_INT >= 29) {
-      val source = ImageDecoder.createSource(activity!!.contentResolver, selectedPhotoUri)
-      ImageDecoder.decodeBitmap(source)
-    } else {
-      Media.getBitmap(
-        activity!!.contentResolver,
-        selectedPhotoUri
-      )
+      val capturedImage = BitmapResolver.getBitmap(activity!!.contentResolver, result.uri)
+      viewModel.onActivityResultImagePick(resultCode, result.uri.path, capturedImage)
     }
   }
 
@@ -166,7 +134,6 @@ class ProfileFragment : DaggerFragment() {
   }
 
   companion object {
-    private const val TAG = "ProfileFragment"
     private const val REQUEST_CODE_READ_EXTERNAL_STORAGE: Int = 100
   }
 }

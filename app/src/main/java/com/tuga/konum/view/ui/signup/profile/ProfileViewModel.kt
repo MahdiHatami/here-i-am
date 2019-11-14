@@ -1,6 +1,9 @@
 package com.tuga.konum.view.ui.signup.profile
 
-import android.content.Intent
+import android.app.Activity.RESULT_OK
+import android.graphics.Bitmap
+import android.graphics.Bitmap.CompressFormat.PNG
+import android.util.Base64
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,16 +12,21 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mlsdev.rximagepicker.Sources
 import com.mlsdev.rximagepicker.Sources.GALLERY
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImage.ActivityResult
 import com.tuga.konum.Event
+import com.tuga.konum.R
 import com.tuga.konum.data.source.UserRepository
 import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.models.entity.User
 import com.tuga.konum.permission.PermissionStatus
 import com.tuga.konum.permission.PermissionStatus.CAN_ASK_PERMISSION
+import com.tuga.konum.util.BitmapResolver
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
+import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
@@ -47,7 +55,6 @@ class ProfileViewModel @Inject constructor(
 
   private val _snackbarText = MutableLiveData<Event<Int>>()
   val snackbarMessage: LiveData<Event<Int>> = _snackbarText
-
 
   init {
     user = User()
@@ -107,9 +114,20 @@ class ProfileViewModel @Inject constructor(
   fun finishSignup() = viewModelScope.launch {
     user.username = username.value.toString()
     userRepository.saveUser(user)
-
     _signupCompleted.value = Event(Unit)
+  }
 
+  fun onActivityResultImagePick(
+    resultCode: Int,
+    path: String?,
+    capturedImage: Bitmap
+  ) {
+    if (resultCode == RESULT_OK) {
+      userProfileImagePath.value = path
+      user.image = BitmapResolver.convertBitmapToBase64(capturedImage)
+    } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+      _snackbarText.value = Event(R.string.could_not_get_image)
+    }
   }
 
 }
