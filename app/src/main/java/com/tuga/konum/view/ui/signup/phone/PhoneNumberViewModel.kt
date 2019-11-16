@@ -21,7 +21,11 @@ class PhoneNumberViewModel
   val navigateToPasswordAction: LiveData<Event<User>> = _navigateToPasswordAction
 
   fun onPhoneNumberChanged(phone: String) {
-    _isPhoneCorrect.value = phone.length == 10
+    _isPhoneCorrect.value = isPhoneCorrect(phone)
+  }
+
+  fun isPhoneCorrect(phone: String): Boolean {
+    return phone.length == 10
   }
 
   fun phoneNextOnClick() {
