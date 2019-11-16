@@ -20,6 +20,12 @@
       android:theme="@style/MaterialTheme"
       tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
+    <receiver android:name=".util.SMSBroadcastReceiver">
+      <intent-filter>
+        <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED"/>
+      </intent-filter>
+    </receiver>
+
     <activity
         android:name=".view.ui.signup.SignupActivity"
         android:windowSoftInputMode="adjustResize">
