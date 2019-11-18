@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/signup_nav_graph.xml"
-    app:startDestination="@id/locationPermissionFragment">
+    app:startDestination="@id/phoneNumberFragment">
 
   <!-- Phone -->
   <fragment
@@ -12,14 +12,27 @@
       android:label="@string/phone_number_title"
       tools:layout="@layout/fragment_phone_number">
     <action
-        android:id="@+id/action_phoneNumberFragment_to_passwordFragment"
+        android:id="@+id/action_phoneNumberFragment_to_smsFragment"
+        app:destination="@id/smsFragment"
+        app:popUpToInclusive="true" />
+  </fragment>
+
+  <!-- SMS verfication -->
+  <fragment
+      android:id="@+id/smsFragment"
+      android:name="com.tuga.konum.view.ui.signup.smsVerfication.SmsFragment"
+      android:label="@string/sms_verification_title"
+      tools:layout="@layout/sms_fragment">
+    <action
+        android:id="@+id/action_smsFragment_to_passwordFragment"
         app:destination="@id/passwordFragment"
         app:enterAnim="@anim/slide_in_right"
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"
-        app:popUpTo="@layout/fragment_phone_number"
-        app:popUpToInclusive="true" />
+        app:popExitAnim="@anim/slide_out_right" />
+    <argument
+        android:name="user"
+        app:argType="com.tuga.konum.models.entity.User" />
   </fragment>
   <!-- Password   -->
   <fragment

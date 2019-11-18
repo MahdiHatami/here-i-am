@@ -37,4 +37,6 @@
   <string name="permission_location_title">Allow IamHere to access location</string>
   <string name="enter_your_password">Enter your password</string>
   <string name="could_not_get_image">There was a problem fetching image, Please try again</string>
+  <string name="verify">Verify</string>
+  <string name="sms_verification_title">SMS Verification</string>
 </resources>

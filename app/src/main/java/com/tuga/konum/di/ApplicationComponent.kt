@@ -19,6 +19,7 @@ import javax.inject.Singleton
     ApplicationModule::class,
     AndroidSupportInjectionModule::class,
     PhoneNumberModule::class,
+    SmsModule::class,
     PasswordModule::class,
     EmailModule::class,
     ProfileModule::class,
