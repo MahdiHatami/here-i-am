@@ -59,7 +59,7 @@ class PhoneNumberFragmentTest {
     // THEN - verify that we navigate to location fragment
     verify(navController).navigate(
       PhoneNumberFragmentDirections
-        .actionPhoneNumberFragmentToPasswordFragment(user)
+        .actionPhoneNumberFragmentToSmsFragment(user)
     )
   }
 
