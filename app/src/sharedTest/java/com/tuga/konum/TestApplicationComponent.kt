@@ -23,6 +23,7 @@ import com.tuga.konum.di.LocationPermissionModule
 import com.tuga.konum.di.PasswordModule
 import com.tuga.konum.di.PhoneNumberModule
 import com.tuga.konum.di.ProfileModule
+import com.tuga.konum.di.SmsModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -35,6 +36,7 @@ import javax.inject.Singleton
     TestApplicationModule::class,
     AndroidSupportInjectionModule::class,
     PhoneNumberModule::class,
+    SmsModule::class,
     PasswordModule::class,
     EmailModule::class,
     ProfileModule::class,
