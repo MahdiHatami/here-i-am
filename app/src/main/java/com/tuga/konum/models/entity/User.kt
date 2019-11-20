@@ -10,12 +10,12 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "user")
 data class User @JvmOverloads constructor(
   @PrimaryKey
-  @ColumnInfo(name = "phoneNumber") var phoneNumber: String = "",
+  @ColumnInfo(name = "phone_umber") var phoneNumber: String = "",
   @ColumnInfo(name = "username") var username: String = "",
   @ColumnInfo(name = "password") var password: String = "",
   @ColumnInfo(name = "email") var email: String = "",
   @ColumnInfo(name = "image") var image: String = "",
-  @ColumnInfo(name = "phoneApproved") var phoneApproved: Boolean = false,
+  @ColumnInfo(name = "phone_verified") var phoneVerified: Boolean = false,
   @ColumnInfo(name = "completed") var isCompleted: Boolean = false
 ) : Parcelable {
 

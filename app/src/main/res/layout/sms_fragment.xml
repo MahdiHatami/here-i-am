@@ -75,10 +75,12 @@
         />
 
     <Button
+        android:id="@+id/btnVerify"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:background="@drawable/border_verification"
+        android:onClick="@{() -> viewModel.verifyOnClick()}"
         android:text="@string/verify"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"

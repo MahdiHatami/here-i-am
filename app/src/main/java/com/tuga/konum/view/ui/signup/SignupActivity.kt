@@ -23,6 +23,7 @@ class SignupActivity : AppCompatActivity(){
     // use label in nav_host for setting fragments title
     navController.addOnDestinationChangedListener { _, _, _ ->
       toolbar.title = navController.currentDestination?.label
+      toolbar.setTitleTextColor(android.graphics.Color.WHITE)
     }
 
     // add Up button

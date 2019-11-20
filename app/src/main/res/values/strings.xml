@@ -39,4 +39,5 @@
   <string name="could_not_get_image">There was a problem fetching image, Please try again</string>
   <string name="verify">Verify</string>
   <string name="sms_verification_title">SMS Verification</string>
+  <string name="sms_verification_required">Please fill all the inputs</string>
 </resources>

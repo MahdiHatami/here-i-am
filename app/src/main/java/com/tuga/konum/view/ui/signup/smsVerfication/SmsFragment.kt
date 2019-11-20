@@ -7,9 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
+import com.tuga.konum.EventObserver
 import com.tuga.konum.R
 import com.tuga.konum.databinding.SmsFragmentBinding
+import com.tuga.konum.extension.setupSnackbar
 import com.tuga.konum.util.sms.Postman
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode1
@@ -24,6 +30,7 @@ class SmsFragment : DaggerFragment() {
 
   private lateinit var binding: SmsFragmentBinding
   private val viewModel by viewModels<SmsViewModel> { viewModelFactory }
+  private val args: SmsFragmentArgs by navArgs()
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -31,14 +38,34 @@ class SmsFragment : DaggerFragment() {
   ): View? {
     binding = DataBindingUtil.inflate(inflater, R.layout.sms_fragment, container, false)
     binding.viewModel = viewModel
-    binding.lifecycleOwner = this
     return binding.root
   }
 
-  @SuppressLint("CheckResult")
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    binding.lifecycleOwner = this
+
+    val user = args.user
+    viewModel.setUser(user)
+  }
+
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
 
+    viewModel.navigateToPasswordAction.observe(viewLifecycleOwner, EventObserver { user ->
+      findNavController()
+        .navigate(SmsFragmentDirections.actionSmsFragmentToPasswordFragment(user))
+    })
+
+    setupSmsRetriever()
+    setupSnackbar()
+  }
+
+  private fun setupSnackbar() {
+    view?.setupSnackbar(this, viewModel.snackbarMessage, Snackbar.LENGTH_SHORT)
+  }
+
+  @SuppressLint("CheckResult")
+  private fun setupSmsRetriever() {
     Postman(this)
       .getJustVerificationCode(true)
       .verificationCodeSize(4)
@@ -46,7 +73,6 @@ class SmsFragment : DaggerFragment() {
       .subscribe { verificationCode ->
         viewModel.onVerificationCodeReceived(verificationCode)
       }
-
   }
 
 }
