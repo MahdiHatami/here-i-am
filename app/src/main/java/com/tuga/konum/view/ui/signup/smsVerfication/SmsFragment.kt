@@ -1,13 +1,11 @@
 package com.tuga.konum.view.ui.signup.smsVerfication
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,10 +16,7 @@ import com.tuga.konum.databinding.SmsFragmentBinding
 import com.tuga.konum.extension.setupSnackbar
 import com.tuga.konum.util.sms.Postman
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode1
-import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode2
-import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode3
-import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode4
+import timber.log.Timber
 import javax.inject.Inject
 
 class SmsFragment : DaggerFragment() {
@@ -64,15 +59,8 @@ class SmsFragment : DaggerFragment() {
     view?.setupSnackbar(this, viewModel.snackbarMessage, Snackbar.LENGTH_SHORT)
   }
 
-  @SuppressLint("CheckResult")
   private fun setupSmsRetriever() {
-    Postman(this)
-      .getJustVerificationCode(true)
-      .verificationCodeSize(4)
-      .message()
-      .subscribe { verificationCode ->
-        viewModel.onVerificationCodeReceived(verificationCode)
-      }
+    viewModel.setupSms(this)
   }
 
 }

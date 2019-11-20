@@ -6,15 +6,12 @@ import android.content.IntentFilter
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.phone.SmsRetriever
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
-import io.reactivex.subjects.Subject
 
 internal class PostmanFragment : Fragment() {
 
   private val postmanBroadcastReceiver = PostmanBroadcastReceiver(this)
 
-  private val message: Subject<String?> = PublishSubject.create()
+  private var message: String? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -37,14 +34,13 @@ internal class PostmanFragment : Fragment() {
       PostmanBroadcastReceiver.REQUEST_USER_CONSENT -> {
         if ((resultCode == Activity.RESULT_OK) && (data != null)) {
           val comingMessage = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE)
-          message.onNext(comingMessage!!)
-          message.onComplete()
+          message = comingMessage
         }
       }
     }
   }
 
-  fun getMessage(): Observable<String?> = message
+  suspend fun getMessage(): String? = message
 
   private fun startSmsUserConsent() {
     context?.let {

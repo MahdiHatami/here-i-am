@@ -22,19 +22,12 @@ class Postman {
     startPostmanFragment(fragment.childFragmentManager)
   }
 
-  fun message(): Observable<String?> {
-    return Observable.fromPublisher<String> { subscriber ->
-      postmanFragment?.getMessage()?.subscribe {
-        var message = it
-
-        if (getJustVerificationCode) {
-          message = fetchVerificationCode(message)
-        }
-
-        subscriber.onNext(message)
-        subscriber.onComplete()
-      }
+  suspend fun message(): String? {
+    var message = postmanFragment?.getMessage()
+    if (getJustVerificationCode) {
+      message = fetchVerificationCode(message)
     }
+    return message
   }
 
   fun getJustVerificationCode(getJustVerificationCode: Boolean): Postman {

@@ -1,12 +1,16 @@
 package com.tuga.konum.view.ui.signup.smsVerfication
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.tuga.konum.Event
 import com.tuga.konum.R
 import com.tuga.konum.models.entity.User
+import com.tuga.konum.util.sms.Postman
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -26,6 +30,17 @@ class SmsViewModel @Inject constructor() : ViewModel() {
   val snackbarMessage: LiveData<Event<Int>> = _snackbarText
 
   val liveDataManager = MediatorLiveData<String>()
+
+  fun setupSms(fragment: Fragment) {
+    viewModelScope.launch{
+      val a = Postman(fragment)
+        .getJustVerificationCode(true)
+        .verificationCodeSize(4)
+        .message()
+
+      Timber.d("code is: $a")
+    }
+  }
 
   fun setUser(user: User) {
     this.user = user
