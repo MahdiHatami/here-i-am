@@ -17,9 +17,6 @@ import kotlinx.android.synthetic.main.fragment_phone_number.ccp
 import kotlinx.android.synthetic.main.fragment_phone_number.edtPhoneNumber
 import javax.inject.Inject
 
-/**
- * Main UI for the add task screen. Users can enter a task title and description.
- */
 class PhoneNumberFragment : DaggerFragment() {
 
   @Inject lateinit var viewModelFactory: ViewModelProvider.Factory

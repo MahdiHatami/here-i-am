@@ -2,8 +2,6 @@ package com.tuga.konum.view.ui.signup.profile
 
 import android.app.Activity.RESULT_OK
 import android.graphics.Bitmap
-import android.graphics.Bitmap.CompressFormat.PNG
-import android.util.Base64
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +11,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mlsdev.rximagepicker.Sources
 import com.mlsdev.rximagepicker.Sources.GALLERY
 import com.theartofdev.edmodo.cropper.CropImage
-import com.theartofdev.edmodo.cropper.CropImage.ActivityResult
 import com.tuga.konum.Event
 import com.tuga.konum.R
 import com.tuga.konum.data.source.UserRepository
@@ -26,7 +23,6 @@ import com.tuga.konum.util.BitmapResolver
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
-import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
