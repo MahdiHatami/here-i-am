@@ -14,21 +14,27 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       >
-
-    <EditText
-        android:id="@+id/edtEmail"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:hint="@string/enter_email_address"
-        android:importantForAutofill="no"
-        android:inputType="textEmailAddress"
-        android:maxLength="30"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:text="@={viewModel.email}"
         app:layout_constraintBottom_toTopOf="@id/emailDescription"
-        />
+        >
+      <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/edtEmail"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="16dp"
+          android:gravity="center"
+          android:hint="@string/enter_email_address"
+          android:importantForAutofill="no"
+          android:inputType="textEmailAddress"
+          android:maxLength="30"
+          android:selectAllOnFocus="true"
+          android:singleLine="true"
+          android:text="@={viewModel.email}"
+          />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/emailDescription"
