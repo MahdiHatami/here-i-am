@@ -55,33 +55,41 @@ class SmsFragment : DaggerFragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
 
+    setupEditText()
+    setupSmsRetriever()
+    setupSnackbar()
+
     viewModel.navigateToPasswordAction.observe(viewLifecycleOwner, EventObserver { user ->
       findNavController()
         .navigate(SmsFragmentDirections.actionSmsFragmentToPasswordFragment(user))
     })
+    viewModel.code1Focus.observe(viewLifecycleOwner, EventObserver {
+      etVerificationCode1.requestFocus()
+    })
+    viewModel.code2Focus.observe(viewLifecycleOwner, EventObserver {
+      etVerificationCode2.requestFocus()
+    })
+    viewModel.code3Focus.observe(viewLifecycleOwner, EventObserver {
+      etVerificationCode3.requestFocus()
+    })
+    viewModel.code4Focus.observe(viewLifecycleOwner, EventObserver {
+      etVerificationCode4.requestFocus()
+    })
 
-    setupEditText()
-    setupSmsRetriever()
-    setupSnackbar()
   }
 
   private fun setupEditText() {
     etVerificationCode1.onTextChanged {
-      if (it.length == 1) {
-        etVerificationCode2.requestFocus()
-      }
+      viewModel.onCode1Changed(it)
     }
-    etVerificationCode2.doOnTextChanged { text, start, count, after ->
-      if (after < count) etVerificationCode1.requestFocus()
-      if (text?.length == 1) etVerificationCode3.requestFocus()
+    etVerificationCode2.doOnTextChanged { text, _, count, after ->
+      viewModel.onCode2Changed(text, count, after)
     }
-    etVerificationCode3.doOnTextChanged { text, start, count, after ->
-      if (after < count) etVerificationCode2.requestFocus()
-      if (text?.length == 1) etVerificationCode4.requestFocus()
+    etVerificationCode3.doOnTextChanged { text, _, count, after ->
+      viewModel.onCode3Changed(text, count, after)
     }
-    etVerificationCode4.doOnTextChanged { text, start, count, after ->
-      if (after < count) etVerificationCode3.requestFocus()
-      if (text?.length == 1) btnVerify.requestFocus()
+    etVerificationCode4.doOnTextChanged { _, _, count, after ->
+      viewModel.onCode4Changed(count, after)
     }
   }
 

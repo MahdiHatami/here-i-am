@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.tuga.konum.Event
 import com.tuga.konum.R
 import com.tuga.konum.models.entity.User
+import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode1
+import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode2
+import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode3
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -23,6 +26,18 @@ class SmsViewModel @Inject constructor() : ViewModel() {
 
   private val _snackbarText = MutableLiveData<Event<Int>>()
   val snackbarMessage: LiveData<Event<Int>> = _snackbarText
+
+  private val _code1Focus = MutableLiveData<Event<Boolean>>()
+  val code1Focus: LiveData<Event<Boolean>> = _code1Focus
+
+  private val _code2Focus = MutableLiveData<Event<Boolean>>()
+  val code2Focus: LiveData<Event<Boolean>> = _code2Focus
+
+  private val _code3Focus = MutableLiveData<Event<Boolean>>()
+  val code3Focus: LiveData<Event<Boolean>> = _code3Focus
+
+  private val _code4Focus = MutableLiveData<Event<Boolean>>()
+  val code4Focus: LiveData<Event<Boolean>> = _code4Focus
 
   fun setUser(user: User) {
     this.user = user
@@ -65,5 +80,23 @@ class SmsViewModel @Inject constructor() : ViewModel() {
       return false
     }
     return true
+  }
+
+  fun onCode1Changed(text: CharSequence) {
+    if (text.length == 1) _code2Focus.value = Event(true)
+  }
+
+  fun onCode2Changed(text: CharSequence?, count: Int, after: Int) {
+    if (after < count) _code1Focus.value = Event(true)
+    if (text?.length == 1) _code3Focus.value = Event(true)
+  }
+
+  fun onCode3Changed(text: CharSequence?, count: Int, after: Int) {
+    if (after < count) _code2Focus.value = Event(true)
+    if (text?.length == 1) _code4Focus.value = Event(true)
+  }
+
+  fun onCode4Changed(count: Int, after: Int) {
+    if (after < count) _code3Focus.value = Event(true)
   }
 }
