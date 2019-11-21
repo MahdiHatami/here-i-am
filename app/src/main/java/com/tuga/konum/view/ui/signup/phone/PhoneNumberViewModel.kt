@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tuga.konum.Event
 import com.tuga.konum.models.entity.User
+import timber.log.Timber
 import javax.inject.Inject
 
 class PhoneNumberViewModel
@@ -20,8 +21,9 @@ class PhoneNumberViewModel
   private val _navigateToPasswordAction = MutableLiveData<Event<User>>()
   val navigateToPasswordAction: LiveData<Event<User>> = _navigateToPasswordAction
 
-  fun onPhoneNumberChanged(phone: String) {
-    _isPhoneCorrect.value = isPhoneCorrect(phone)
+  fun onPhoneNumberChanged(phone: String, isPhoneValid: Boolean) {
+    user.phoneNumber = phone
+    _isPhoneCorrect.value = isPhoneValid
   }
 
   fun isPhoneCorrect(phone: String): Boolean {
@@ -30,6 +32,7 @@ class PhoneNumberViewModel
 
   fun phoneNextOnClick() {
     user.phoneNumber = phoneNumber.value.toString()
+    Timber.d(user.toString())
     _navigateToPasswordAction.value = Event(user)
   }
 }

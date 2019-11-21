@@ -15,6 +15,7 @@ import com.tuga.konum.extension.onTextChanged
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_phone_number.ccp
 import kotlinx.android.synthetic.main.fragment_phone_number.edtPhoneNumber
+import timber.log.Timber
 import javax.inject.Inject
 
 class PhoneNumberFragment : DaggerFragment() {
@@ -41,10 +42,9 @@ class PhoneNumberFragment : DaggerFragment() {
     binding.lifecycleOwner = this
     ccp.registerCarrierNumberEditText(edtPhoneNumber)
 
-    edtPhoneNumber.onTextChanged {
-      viewModel.onPhoneNumberChanged(it.toString())
+    ccp.setPhoneNumberValidityChangeListener {
+      viewModel.onPhoneNumberChanged(ccp.fullNumber, it)
     }
-
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
