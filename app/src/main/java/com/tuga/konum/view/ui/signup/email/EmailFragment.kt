@@ -42,7 +42,7 @@ class EmailFragment : DaggerFragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
 
-    viewModel.navigateToProfileAction.observe(this, EventObserver { user ->
+    viewModel.navigateToProfileAction.observe(viewLifecycleOwner, EventObserver { user ->
       findNavController()
         .navigate(
           EmailFragmentDirections.actionEmailFragmentToProfileFragment(
