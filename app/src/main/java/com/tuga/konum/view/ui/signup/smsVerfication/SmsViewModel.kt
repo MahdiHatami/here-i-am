@@ -1,7 +1,6 @@
 package com.tuga.konum.view.ui.signup.smsVerfication
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tuga.konum.Event
@@ -24,8 +23,6 @@ class SmsViewModel @Inject constructor() : ViewModel() {
 
   private val _snackbarText = MutableLiveData<Event<Int>>()
   val snackbarMessage: LiveData<Event<Int>> = _snackbarText
-
-  val liveDataManager = MediatorLiveData<String>()
 
   fun setUser(user: User) {
     this.user = user

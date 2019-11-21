@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -15,9 +17,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.tuga.konum.EventObserver
 import com.tuga.konum.R
 import com.tuga.konum.databinding.SmsFragmentBinding
+import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.extension.setupSnackbar
 import com.tuga.konum.util.sms.Postman
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.sms_fragment.btnVerify
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode1
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode2
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode3
@@ -56,8 +60,29 @@ class SmsFragment : DaggerFragment() {
         .navigate(SmsFragmentDirections.actionSmsFragmentToPasswordFragment(user))
     })
 
+    setupEditText()
     setupSmsRetriever()
     setupSnackbar()
+  }
+
+  private fun setupEditText() {
+    etVerificationCode1.onTextChanged {
+      if (it.length == 1) {
+        etVerificationCode2.requestFocus()
+      }
+    }
+    etVerificationCode2.doOnTextChanged { text, start, count, after ->
+      if (after < count) etVerificationCode1.requestFocus()
+      if (text?.length == 1) etVerificationCode3.requestFocus()
+    }
+    etVerificationCode3.doOnTextChanged { text, start, count, after ->
+      if (after < count) etVerificationCode2.requestFocus()
+      if (text?.length == 1) etVerificationCode4.requestFocus()
+    }
+    etVerificationCode4.doOnTextChanged { text, start, count, after ->
+      if (after < count) etVerificationCode3.requestFocus()
+      if (text?.length == 1) btnVerify.requestFocus()
+    }
   }
 
   private fun setupSnackbar() {
