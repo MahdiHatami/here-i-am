@@ -3,6 +3,7 @@ package com.tuga.konum.view.ui.signup.smsVerfication
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.tuga.konum.Event
 import com.tuga.konum.R
 import com.tuga.konum.models.entity.User
@@ -63,6 +64,7 @@ class SmsViewModel @Inject constructor() : ViewModel() {
     }
 
     // send request for verification
+
 
     // set user.phoneVerified
     user.phoneVerified = true
