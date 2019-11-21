@@ -38,19 +38,26 @@
           app:layout_constraintBottom_toTopOf="@id/edtPhoneNumber"
           />
 
-      <EditText
-          android:id="@+id/edtPhoneNumber"
+      <com.google.android.material.textfield.TextInputLayout
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:digits="0123456789+"
-          android:hint="@string/enter_your_phone_number"
-          android:importantForAutofill="no"
-          android:inputType="phone"
-          android:maxLength="15"
-          android:selectAllOnFocus="true"
-          android:singleLine="true"
-          android:text="@={viewModel.phoneNumber}"
-          />
+          >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:digits="0123456789+"
+            android:hint="@string/enter_your_phone_number"
+            android:importantForAutofill="no"
+            android:inputType="phone"
+            android:maxLength="15"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:text="@={viewModel.phoneNumber}"
+            />
+
+      </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
@@ -68,7 +75,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNext"
-        style="@style/ShapeAppearance.MaterialComponents.SmallComponent"
+        style="@style/signupExtendedButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:enabled="@{viewModel.isPhoneCorrect()}"

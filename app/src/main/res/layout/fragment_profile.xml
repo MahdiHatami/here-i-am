@@ -6,7 +6,7 @@
     >
 
   <data>
-    <import type="android.view.View"/>
+    <import type="android.view.View" />
     <variable
         name="viewModel"
         type="com.tuga.konum.view.ui.signup.profile.ProfileViewModel"
@@ -31,10 +31,10 @@
           android:onClick="@{() -> viewModel.selectImage(viewModel.bottomSheetBehaviorState)}"
           android:padding="8dp"
           android:src="@drawable/ic_user_add"
-          bind:imagePath="@{viewModel.userProfileImagePath}"
           app:layout_constraintLeft_toLeftOf="parent"
           app:layout_constraintRight_toRightOf="parent"
           app:layout_constraintTop_toTopOf="parent"
+          bind:imagePath="@{viewModel.userProfileImagePath}"
           />
 
       <TextView
@@ -78,11 +78,12 @@
 
       <com.google.android.material.button.MaterialButton
           android:id="@+id/btnProfileNext"
+          style="@style/signupExtendedButton"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:enabled="@{viewModel.isUsernameCorrect}"
-          android:text="@string/next"
           android:onClick="@{() -> viewModel.finishSignup()}"
+          android:text="@string/next"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
