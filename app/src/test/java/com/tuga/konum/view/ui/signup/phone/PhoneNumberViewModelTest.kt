@@ -34,7 +34,7 @@ class PhoneNumberViewModelTest {
 
   @Test
   fun wrongPhoneNumber_shouldReturnFalse() {
-    phoneNumberViewModel.onPhoneNumberChanged("")
+    phoneNumberViewModel.onPhoneNumberChanged("", false)
 
     val value = phoneNumberViewModel.isPhoneCorrect.getOrAwaitValue()
 
