@@ -1,6 +1,7 @@
 package com.tuga.konum.view.ui.signup.profile
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -113,9 +114,11 @@ class ProfileFragment : DaggerFragment() {
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-      val result = CropImage.getActivityResult(data)
-      val capturedImage = BitmapResolver.getBitmap(activity!!.contentResolver, result.uri)
-      viewModel.onActivityResultImagePick(resultCode, result.uri.path, capturedImage)
+      if (resultCode == Activity.RESULT_OK) {
+        val result = CropImage.getActivityResult(data)
+        val capturedImage = BitmapResolver.getBitmap(activity!!.contentResolver, result.uri)
+        viewModel.onActivityResultImagePick(resultCode, result.uri.path, capturedImage)
+      }
     }
   }
 

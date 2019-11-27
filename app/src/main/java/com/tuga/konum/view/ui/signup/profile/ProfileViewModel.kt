@@ -118,6 +118,7 @@ class ProfileViewModel @Inject constructor(
     path: String?,
     capturedImage: Bitmap
   ) {
+    // duplicate check for result ok
     if (resultCode == RESULT_OK) {
       userProfileImagePath.value = path
       user.image = BitmapResolver.convertBitmapToBase64(capturedImage)
