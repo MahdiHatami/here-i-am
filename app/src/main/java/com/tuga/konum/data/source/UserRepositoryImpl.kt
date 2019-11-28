@@ -4,8 +4,8 @@ import com.tuga.konum.api.ApiResponse
 import com.tuga.konum.data.Result
 import com.tuga.konum.data.Result.Error
 import com.tuga.konum.data.Result.Success
-import com.tuga.konum.data.source.local.UserLocalDataSource
-import com.tuga.konum.data.source.remote.UserRemoteDataSource
+import com.tuga.konum.di.ApplicationModule.UserRemoteDataSource
+import com.tuga.konum.di.ApplicationModule.UserLocalDataSource
 import com.tuga.konum.models.entity.User
 import com.tuga.konum.models.network.BooleanResponse
 import com.tuga.konum.models.network.UserDto
@@ -24,8 +24,8 @@ import javax.inject.Inject
  * data source fails. Remote is the source of truth.
  */
 class UserRepositoryImpl @Inject constructor(
-  private val userLocalDataSource: UserRemoteDataSource,
-  private val userRemoteDataSource: UserLocalDataSource,
+  @UserLocalDataSource private val userLocalDataSource: UserDataSource,
+  @UserRemoteDataSource private val userRemoteDataSource: UserDataSource,
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserRepository {
 
