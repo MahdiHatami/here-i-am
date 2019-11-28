@@ -6,14 +6,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tuga.konum.Event
 import com.tuga.konum.R
+import com.tuga.konum.data.source.UserRepository
 import com.tuga.konum.models.entity.User
+import com.tuga.konum.models.network.UserDto
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode1
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode2
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode3
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
-class SmsViewModel @Inject constructor() : ViewModel() {
+class SmsViewModel @Inject constructor(
+  private val userRepository: UserRepository
+) : ViewModel() {
 
   private var user: User = User()
 
@@ -40,6 +47,16 @@ class SmsViewModel @Inject constructor() : ViewModel() {
   private val _code4Focus = MutableLiveData<Event<Boolean>>()
   val code4Focus: LiveData<Event<Boolean>> = _code4Focus
 
+  init {
+    startSmsReceiver()
+  }
+
+  private fun startSmsReceiver() = viewModelScope.launch {
+    val dto = UserDto("5070933798", "ASDFDFA")
+    val res = userRepository.getVerificationCode(dto)
+    Timber.d(res.toString())
+  }
+
   fun setUser(user: User) {
     this.user = user
     Timber.d(user.toString())
@@ -64,7 +81,6 @@ class SmsViewModel @Inject constructor() : ViewModel() {
     }
 
     // send request for verification
-
 
     // set user.phoneVerified
     user.phoneVerified = true
