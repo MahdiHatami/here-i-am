@@ -1,10 +1,8 @@
-package com.tuga.konum.di
+package com.tuga.konum.view.ui.signup.email
 
 import androidx.lifecycle.ViewModel
-import com.tuga.konum.view.ui.signup.email.EmailFragment
-import com.tuga.konum.view.ui.signup.email.EmailViewModel
-import com.tuga.konum.view.ui.signup.profile.ProfileFragment
-import com.tuga.konum.view.ui.signup.profile.ProfileViewModel
+import com.tuga.konum.di.ViewModelBuilder
+import com.tuga.konum.di.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

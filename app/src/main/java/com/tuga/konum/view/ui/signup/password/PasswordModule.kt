@@ -1,10 +1,8 @@
-package com.tuga.konum.di
+package com.tuga.konum.view.ui.signup.password
 
 import androidx.lifecycle.ViewModel
-import com.tuga.konum.view.ui.signup.password.PasswordFragment
-import com.tuga.konum.view.ui.signup.password.PasswordViewModel
-import com.tuga.konum.view.ui.signup.profile.ProfileFragment
-import com.tuga.konum.view.ui.signup.profile.ProfileViewModel
+import com.tuga.konum.di.ViewModelBuilder
+import com.tuga.konum.di.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

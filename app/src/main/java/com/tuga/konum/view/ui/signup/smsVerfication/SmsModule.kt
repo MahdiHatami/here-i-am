@@ -1,8 +1,8 @@
-package com.tuga.konum.di
+package com.tuga.konum.view.ui.signup.smsVerfication
 
 import androidx.lifecycle.ViewModel
-import com.tuga.konum.view.ui.signup.smsVerfication.SmsFragment
-import com.tuga.konum.view.ui.signup.smsVerfication.SmsViewModel
+import com.tuga.konum.di.ViewModelBuilder
+import com.tuga.konum.di.ViewModelKey
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
