@@ -70,7 +70,7 @@ ext {
   gsonVersion = '2.8.5'
 
   // dagger
-  daggerVersion = '2.23.2'
+  daggerVersion = '2.25.2'
 
   fragmentKtxVersion = '1.1.0-rc01'
 

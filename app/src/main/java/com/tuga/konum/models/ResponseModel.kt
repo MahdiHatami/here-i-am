@@ -14,21 +14,12 @@
  * limitations under the License.
  */
 
-package com.tuga.konum
+package com.tuga.konum.models
 
-import android.app.Application
-import android.content.Context
-import androidx.test.runner.AndroidJUnitRunner
-
-/**
- * Custom runner to disable dependency injection.
- */
-class KonumTestRunner : AndroidJUnitRunner() {
-  override fun newApplication(
-    cl: ClassLoader,
-    className: String,
-    context: Context
-  ): Application {
-    return super.newApplication(cl, TestKonumApplication::class.java.name, context)
-  }
-}
+@Suppress("unused")
+data class ResponseModel(
+  val page: Int,
+  val results: Any,
+  val total_results: Int,
+  val total_pages: Int
+)

@@ -8,6 +8,7 @@ import com.tuga.konum.data.source.UserRepositoryImpl
 import com.tuga.konum.data.source.local.KonumDatabase
 import com.tuga.konum.data.source.local.UserLocalDataSource
 import com.tuga.konum.data.source.remote.UserRemoteDataSource
+import com.tuga.konum.data.source.remote.KonumService
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -33,12 +34,10 @@ object ApplicationModule {
   @UserRemoteDataSource
   @Provides
   fun provideUserRemoteDataSource(
-    database: KonumDatabase,
-    ioDispatcher: CoroutineDispatcher
+    userService: KonumService
   ): UserDataSource {
     return UserRemoteDataSource(
-      database.userDao(),
-      ioDispatcher
+      userService
     )
   }
 

@@ -3,19 +3,12 @@ package com.tuga.konum.signup
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
-import com.tuga.konum.DaggerTestApplicationRule
 import com.tuga.konum.R.id
 import com.tuga.konum.R.style
 import com.tuga.konum.models.entity.User
@@ -23,8 +16,6 @@ import com.tuga.konum.view.ui.signup.smsVerfication.SmsFragment
 import com.tuga.konum.view.ui.signup.smsVerfication.SmsFragmentArgs
 import com.tuga.konum.view.ui.signup.smsVerfication.SmsFragmentDirections
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.hamcrest.CoreMatchers
-import org.hamcrest.core.IsNot.not
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -38,12 +29,6 @@ import org.robolectric.annotation.TextLayoutMode
 @LooperMode(LooperMode.Mode.PAUSED)
 @TextLayoutMode(TextLayoutMode.Mode.REALISTIC)
 class SmsFragmentTest {
-
-  /**
-   * Sets up Dagger components for testing.
-   */
-  @get:Rule
-  val rule = DaggerTestApplicationRule()
 
   private var user = User("5070933798")
 

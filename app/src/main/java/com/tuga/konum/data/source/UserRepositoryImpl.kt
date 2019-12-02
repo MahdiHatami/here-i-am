@@ -1,11 +1,14 @@
 package com.tuga.konum.data.source
 
+import com.tuga.konum.api.ApiResponse
 import com.tuga.konum.data.Result
 import com.tuga.konum.data.Result.Error
 import com.tuga.konum.data.Result.Success
-import com.tuga.konum.di.ApplicationModule.UserLocalDataSource
 import com.tuga.konum.di.ApplicationModule.UserRemoteDataSource
+import com.tuga.konum.di.ApplicationModule.UserLocalDataSource
 import com.tuga.konum.models.entity.User
+import com.tuga.konum.models.network.BooleanResponse
+import com.tuga.konum.models.network.UserDto
 import com.tuga.konum.util.EspressoIdlingResource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +28,10 @@ class UserRepositoryImpl @Inject constructor(
   @UserRemoteDataSource private val userRemoteDataSource: UserDataSource,
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserRepository {
+
+  override suspend fun getVerificationCode(userDto: UserDto): ApiResponse<BooleanResponse> {
+    return userRemoteDataSource.getVerificationCode(userDto)
+  }
 
   override suspend fun deleteUser(phoneNumber: String) {
     coroutineScope {

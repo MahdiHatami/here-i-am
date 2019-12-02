@@ -18,6 +18,7 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:supportsRtl="true"
       android:theme="@style/MaterialTheme"
+      android:usesCleartextTraffic="true"
       tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
     <activity

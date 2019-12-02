@@ -16,8 +16,9 @@ import javax.inject.Singleton
 @Singleton
 @Component(
   modules = [
-    ApplicationModule::class,
     AndroidSupportInjectionModule::class,
+    ApplicationModule::class,
+    DataModule::class,
     PhoneNumberModule::class,
     SmsModule::class,
     PasswordModule::class,

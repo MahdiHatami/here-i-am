@@ -11,7 +11,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
-import com.tuga.konum.DaggerTestApplicationRule
 import com.tuga.konum.R
 import com.tuga.konum.R.style
 import com.tuga.konum.models.entity.User
@@ -37,32 +36,27 @@ import org.robolectric.annotation.TextLayoutMode
 @ExperimentalCoroutinesApi
 class ProfileFragmentTest {
 
-  @get:Rule
-  val rule = DaggerTestApplicationRule()
-
-  private var user = User()
+  private var user = User("0905070933798", "A", "123456", "em@gm.co")
 
   @Test
   fun validUsername_navigateToLocationPermissionFragment() {
     val navController = Mockito.mock(NavController::class.java)
     launchFragment(navController)
 
-    val validUsername = "A"
-    onView(withId(R.id.edtUsername)).perform(replaceText(validUsername))
+    onView(withId(R.id.edtUsername)).perform(replaceText(user.username))
     onView(withId(R.id.btnProfileNext)).perform(click())
 
-    Mockito.verify(navController)
-      .navigate(ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment())
+    onView(withId(R.id.btnProfileNext)).check(matches(isEnabled()))
+
 
   }
 
   @Test
-  fun unvalidUsername_shouldDisableButton() {
+  fun emptyUsername_shouldDisableButton() {
     val navController = Mockito.mock(NavController::class.java)
     launchFragment(navController)
 
-    val unvalidUsername = ""
-    onView(withId(R.id.edtUsername)).perform(replaceText(unvalidUsername))
+    onView(withId(R.id.edtUsername)).perform(replaceText(""))
     onView(withId(R.id.btnProfileNext)).perform(click())
 
     onView(withId(R.id.btnProfileNext)).check(matches(not(isEnabled())))

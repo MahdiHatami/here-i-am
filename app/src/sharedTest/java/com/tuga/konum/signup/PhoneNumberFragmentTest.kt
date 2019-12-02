@@ -11,7 +11,6 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
-import com.tuga.konum.DaggerTestApplicationRule
 import com.tuga.konum.R
 import com.tuga.konum.models.entity.User
 import com.tuga.konum.view.ui.signup.phone.PhoneNumberFragment
@@ -36,12 +35,6 @@ import org.robolectric.annotation.TextLayoutMode
 @LooperMode(LooperMode.Mode.PAUSED)
 @TextLayoutMode(TextLayoutMode.Mode.REALISTIC)
 class PhoneNumberFragmentTest {
-
-  /**
-   * Sets up Dagger components for testing.
-   */
-  @get:Rule
-  val rule = DaggerTestApplicationRule()
 
   private var user = User()
 
