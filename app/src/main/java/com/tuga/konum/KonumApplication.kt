@@ -1,6 +1,5 @@
 package com.tuga.konum
 
-import androidx.databinding.DataBindingUtil
 import com.tuga.konum.di.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication

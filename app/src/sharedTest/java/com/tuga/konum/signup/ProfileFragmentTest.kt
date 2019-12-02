@@ -43,22 +43,20 @@ class ProfileFragmentTest {
     val navController = Mockito.mock(NavController::class.java)
     launchFragment(navController)
 
-    val validUsername = "A"
-    onView(withId(R.id.edtUsername)).perform(replaceText(validUsername))
+    onView(withId(R.id.edtUsername)).perform(replaceText(user.username))
     onView(withId(R.id.btnProfileNext)).perform(click())
 
-    Mockito.verify(navController)
-      .navigate(ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment())
+    onView(withId(R.id.btnProfileNext)).check(matches(isEnabled()))
+
 
   }
 
   @Test
-  fun unvalidUsername_shouldDisableButton() {
+  fun emptyUsername_shouldDisableButton() {
     val navController = Mockito.mock(NavController::class.java)
     launchFragment(navController)
 
-    val unvalidUsername = ""
-    onView(withId(R.id.edtUsername)).perform(replaceText(unvalidUsername))
+    onView(withId(R.id.edtUsername)).perform(replaceText(""))
     onView(withId(R.id.btnProfileNext)).perform(click())
 
     onView(withId(R.id.btnProfileNext)).check(matches(not(isEnabled())))
