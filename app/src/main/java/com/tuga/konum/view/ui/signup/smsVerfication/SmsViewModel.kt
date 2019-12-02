@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tuga.konum.Event
 import com.tuga.konum.R
+import com.tuga.konum.coroutines.DefaultDispatcherProvider
 import com.tuga.konum.data.source.UserRepository
 import com.tuga.konum.models.entity.User
 import com.tuga.konum.models.network.UserDto
@@ -51,8 +52,8 @@ class SmsViewModel @Inject constructor(
     startSmsReceiver()
   }
 
-  private fun startSmsReceiver() = viewModelScope.launch {
-    val dto = UserDto("5070933798", "ASDFDFA")
+  private fun startSmsReceiver() = viewModelScope.launch(DefaultDispatcherProvider.io()) {
+    val dto = UserDto("+905070933798", "ASDFDFA")
     val res = userRepository.getVerificationCode(dto)
     Timber.d(res.toString())
   }

@@ -7,12 +7,12 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface UserService {
+interface KonumService {
 
   @POST("api/login/CreateApplicant")
-  fun getVerificationCode(@Body userDto: UserDto): ApiResponse<BooleanResponse>
+  suspend fun getVerificationCode(@Body userDto: UserDto): ApiResponse<BooleanResponse>
 
   @POST("api/login/CheckVerificationCode")
-  fun checkVerificationCode(@Body userDto: UserDto): ApiResponse<String>
+  suspend fun checkVerificationCode(@Body userDto: UserDto): ApiResponse<String>
 
 }
