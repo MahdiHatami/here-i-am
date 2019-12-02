@@ -9,7 +9,6 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
-import com.tuga.konum.DaggerTestApplicationRule
 import com.tuga.konum.R.id
 import com.tuga.konum.R.style
 import com.tuga.konum.models.entity.User
@@ -34,12 +33,6 @@ import org.robolectric.annotation.TextLayoutMode
 @TextLayoutMode(TextLayoutMode.Mode.REALISTIC)
 @ExperimentalCoroutinesApi
 class PasswordFragmentTest {
-
-  /**
-   * Sets up Dagger components for testing.
-   */
-  @get:Rule
-  val rule = DaggerTestApplicationRule()
 
   private var user = User()
 

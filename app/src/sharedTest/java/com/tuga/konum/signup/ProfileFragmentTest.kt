@@ -11,7 +11,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
-import com.tuga.konum.DaggerTestApplicationRule
 import com.tuga.konum.R
 import com.tuga.konum.R.style
 import com.tuga.konum.models.entity.User
@@ -37,10 +36,7 @@ import org.robolectric.annotation.TextLayoutMode
 @ExperimentalCoroutinesApi
 class ProfileFragmentTest {
 
-  @get:Rule
-  val rule = DaggerTestApplicationRule()
-
-  private var user = User()
+  private var user = User("0905070933798", "A", "123456", "em@gm.co")
 
   @Test
   fun validUsername_navigateToLocationPermissionFragment() {

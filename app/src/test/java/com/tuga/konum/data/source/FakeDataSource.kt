@@ -1,9 +1,12 @@
 package com.tuga.konum.data.source
 
+import com.tuga.konum.api.ApiResponse
 import com.tuga.konum.data.Result
 import com.tuga.konum.data.Result.Error
 import com.tuga.konum.data.Result.Success
 import com.tuga.konum.models.entity.User
+import com.tuga.konum.models.network.BooleanResponse
+import com.tuga.konum.models.network.UserDto
 import java.lang.Exception
 
 class FakeDataSource(var dbuser: User? = null) : UserDataSource {
@@ -20,5 +23,9 @@ class FakeDataSource(var dbuser: User? = null) : UserDataSource {
 
   override suspend fun deleteUser(phoneNumber: String) {
     dbuser = null
+  }
+
+  override suspend fun getVerificationCode(userDto: UserDto): ApiResponse<BooleanResponse> {
+    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
 }

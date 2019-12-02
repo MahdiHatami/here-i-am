@@ -5,6 +5,8 @@ import com.google.common.truth.Truth.assertThat
 import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.assertSnackbarMessage
 import com.tuga.konum.R.string
+import com.tuga.konum.data.source.FakeUserRepository
+import com.tuga.konum.data.source.UserRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule
@@ -23,9 +25,13 @@ class SmsViewModelTest {
   @get:Rule
   var instaExecuRule = InstantTaskExecutorRule()
 
+  // use fake repository to injected in the viewModel
+  private lateinit var userRepository: FakeUserRepository
+
   @Before
   fun setupViewModel() {
-    smsViewModel = SmsViewModel()
+    userRepository = FakeUserRepository()
+    smsViewModel = SmsViewModel(userRepository)
   }
 
   @Test

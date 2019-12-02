@@ -54,8 +54,8 @@ class SmsViewModel @Inject constructor(
 
   private fun startSmsReceiver() = viewModelScope.launch(DefaultDispatcherProvider.io()) {
     val dto = UserDto("+905070933798", "ASDFDFA")
-    val res = userRepository.getVerificationCode(dto)
-    Timber.d(res.toString())
+//    val res = userRepository.getVerificationCode(dto)
+//    Timber.d(res.toString())
   }
 
   fun setUser(user: User) {
