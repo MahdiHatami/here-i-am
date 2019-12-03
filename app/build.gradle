@@ -167,6 +167,7 @@ dependencies {
   testImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
   testImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
   testImplementation "com.google.truth:truth:$truthVersion"
+  testImplementation "io.mockk:mockk:1.9.3.kotlin12"
 
   // Dependencies for Android unit tests
   androidTestImplementation "junit:junit:$junitVersion"
