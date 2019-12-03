@@ -1,14 +1,23 @@
 package com.tuga.konum.data.source
 
 import com.google.common.truth.Truth.assertThat
+import com.tuga.konum.CoroutinesTestRule
+import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.data.Result.Error
 import com.tuga.konum.data.Result.Success
+import com.tuga.konum.data.source.local.UserDao
+import com.tuga.konum.data.source.local.UserLocalDataSource
+import com.tuga.konum.data.source.remote.KonumService
+import com.tuga.konum.data.source.remote.UserRemoteDataSource
 import com.tuga.konum.models.entity.User
+import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mockito
 
 /**
  * Unit tests for the implementation of the in-memory repository with cache
@@ -16,62 +25,14 @@ import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class UserRepositoryImplTest {
-
   private val newUser =
     User("5070933798", "mahdi", "123456", "iz.hatami@gmail.com")
 
-  private val localUser = newUser
-  private val remoteUser = newUser
+  @get:Rule
+  val coroutinesTestRule = CoroutinesTestRule()
 
-  private lateinit var userRemoteDataSource: FakeDataSource
-  private lateinit var userLocalDataSource: FakeDataSource
+  private lateinit var localDataSource: UserLocalDataSource
+  private lateinit var remoteDataSource: UserRemoteDataSource
+  private lateinit var repository: UserRepository
 
-  // class under test
-  private lateinit var userRepository: UserRepositoryImpl
-
-  @ExperimentalCoroutinesApi
-  @Before
-  fun createRepository() {
-    userLocalDataSource = FakeDataSource(localUser)
-    userRemoteDataSource = FakeDataSource(remoteUser)
-    userRepository = UserRepositoryImpl(
-      userRemoteDataSource, userLocalDataSource, Dispatchers.Unconfined
-    )
-  }
-
-  @ExperimentalCoroutinesApi
-  @Test
-  fun getUser_emptyRepositoryAndUninitializedCache() = runBlockingTest {
-    val emptySource = FakeDataSource()
-    val tasksRepository = UserRepositoryImpl(
-      emptySource, emptySource, Dispatchers.Unconfined
-    )
-
-    assertThat(tasksRepository.getUser() is Error).isTrue()
-  }
-
-  @ExperimentalCoroutinesApi
-  @Test
-  fun saveUser_saveToCacheLocalAndRemote() = runBlockingTest {
-    // when
-    userRepository.saveUser(newUser)
-
-    // then
-    assertThat(userRemoteDataSource.dbuser).isEqualTo(newUser)
-    assertThat(userLocalDataSource.dbuser).isEqualTo(newUser)
-
-    val result = userRepository.getUser() as? Success
-    assertThat(result?.data).isEqualTo(newUser)
-  }
-
-  @ExperimentalCoroutinesApi
-  @Test
-  fun deleteUser() = runBlockingTest {
-
-    userRepository.saveUser(newUser)
-
-    userRepository.deleteUser(newUser.phoneNumber)
-
-    assertThat(userRemoteDataSource.getUser() is Error).isTrue()
-  }
 }

@@ -8,17 +8,17 @@ import androidx.room.Query
 import com.tuga.konum.models.entity.User
 
 @Dao
-interface UserDao {
+abstract class UserDao {
 
   @Query("SELECT * FROM User LIMIT 1")
-  suspend fun getUser(): User
+  abstract suspend fun getUser(): User
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  suspend fun insertUser(user: User)
+  abstract suspend fun insertUser(user: User)
 
   @Query("DELETE FROM USER WHERE phone_umber = :phoneNumber")
-  suspend fun deleteUser(phoneNumber: String)
+  abstract suspend fun deleteUser(phoneNumber: String)
 
   @Query("DELETE FROM USER")
-  suspend fun deleteUsers()
+  abstract suspend fun deleteUsers()
 }

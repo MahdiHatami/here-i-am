@@ -1,7 +1,16 @@
 package com.tuga.konum.di
 
+import android.app.Application
 import android.content.Context
 import com.tuga.konum.KonumApplication
+import com.tuga.konum.data.source.local.DatabaseModule
+import com.tuga.konum.di.module.ContextModule
+import com.tuga.konum.view.ui.signup.email.EmailModule
+import com.tuga.konum.view.ui.signup.locationPermission.LocationPermissionModule
+import com.tuga.konum.view.ui.signup.password.PasswordModule
+import com.tuga.konum.view.ui.signup.phone.PhoneNumberModule
+import com.tuga.konum.view.ui.signup.profile.ProfileModule
+import com.tuga.konum.view.ui.signup.smsVerfication.SmsModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -18,7 +27,10 @@ import javax.inject.Singleton
   modules = [
     AndroidSupportInjectionModule::class,
     ApplicationModule::class,
+    ContextModule::class,
     DataModule::class,
+    DatabaseModule::class,
+    DomainModule::class,
     PhoneNumberModule::class,
     SmsModule::class,
     PasswordModule::class,
@@ -31,6 +43,6 @@ interface ApplicationComponent : AndroidInjector<KonumApplication> {
 
   @Component.Factory
   interface Factory {
-    fun create(@BindsInstance applicationContext: Context): ApplicationComponent
+    fun create(@BindsInstance application: Application): ApplicationComponent
   }
 }

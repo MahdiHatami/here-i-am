@@ -11,11 +11,12 @@ import com.tuga.konum.models.network.UserDto
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 /**
  * Concrete implementation of a data source as a db.
  */
-class UserLocalDataSource internal constructor(
+class UserLocalDataSource @Inject constructor(
   private val userDao: UserDao,
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserDataSource {
