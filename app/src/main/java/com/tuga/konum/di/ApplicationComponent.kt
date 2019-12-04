@@ -13,6 +13,7 @@ import com.tuga.konum.view.ui.signup.profile.ProfileModule
 import com.tuga.konum.view.ui.signup.smsVerfication.SmsModule
 import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
@@ -26,7 +27,9 @@ import javax.inject.Singleton
 @Component(
   modules = [
     AndroidSupportInjectionModule::class,
+    AndroidInjectionModule::class,
     ApplicationModule::class,
+    BaseModule::class,
     ContextModule::class,
     DataModule::class,
     DatabaseModule::class,

@@ -37,7 +37,6 @@ object DataModule {
   @Singleton
   internal fun provideGson(): Gson {
     return GsonBuilder().apply {
-      setFieldNamingPolicy(UPPER_CAMEL_CASE_WITH_SPACES)
       serializeNulls()
       setLenient()
     }.create()
@@ -90,5 +89,5 @@ object DataModule {
 
   @Provides
   @Singleton
-  internal fun provideMazeService(retrofit: Retrofit): KonumService = retrofit.create()
+  internal fun provideKonumService(retrofit: Retrofit): KonumService = retrofit.create()
 }
