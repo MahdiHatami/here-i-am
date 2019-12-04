@@ -6,9 +6,12 @@ import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.replaceText
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
+import com.tuga.konum.R
 import com.tuga.konum.R.id
 import com.tuga.konum.R.style
 import com.tuga.konum.models.entity.User
@@ -33,7 +36,7 @@ class SmsFragmentTest {
   private var user = User("5070933798")
 
   @Test
-  fun validCode_shouldNavigateToPassword() {
+  fun validCode_shouldEnableButton() {
 
     val navController = Mockito.mock(NavController::class.java)
     launchFragment(navController)
@@ -45,9 +48,7 @@ class SmsFragmentTest {
 
     onView(withId(id.btnVerify)).perform(click())
 
-    Mockito.verify(navController).navigate(
-      SmsFragmentDirections.actionSmsFragmentToPasswordFragment(user)
-    )
+    onView(withId(id.btnVerify)).check(ViewAssertions.matches(ViewMatchers.isEnabled()))
   }
 
   private fun launchFragment(navController: NavController?) {
