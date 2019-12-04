@@ -19,6 +19,7 @@ import com.tuga.konum.R
 import com.tuga.konum.databinding.SmsFragmentBinding
 import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.extension.setupSnackbar
+import com.tuga.konum.models.entity.User
 import com.tuga.konum.util.sms.Postman
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.sms_fragment.btnVerify
@@ -48,7 +49,7 @@ class SmsFragment : DaggerFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     binding.lifecycleOwner = this
 
-    val user = args.user
+    val user = User()
     viewModel.setUser(user)
   }
 

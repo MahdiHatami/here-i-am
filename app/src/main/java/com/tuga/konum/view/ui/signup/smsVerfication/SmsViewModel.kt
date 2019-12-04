@@ -7,20 +7,15 @@ import androidx.lifecycle.viewModelScope
 import com.tuga.konum.Event
 import com.tuga.konum.R
 import com.tuga.konum.coroutines.DefaultDispatcherProvider
-import com.tuga.konum.data.source.UserRepository
 import com.tuga.konum.models.entity.User
-import com.tuga.konum.models.network.UserDto
-import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode1
-import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode2
-import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode3
-import kotlinx.coroutines.Dispatchers
+import com.tuga.konum.models.network.CreateApplicantDto
+import com.tuga.konum.view.ui.signup.GetRegistrationUseCase
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
 class SmsViewModel @Inject constructor(
-  private val userRepository: UserRepository
+  private val getRegistrationUseCase: GetRegistrationUseCase
 ) : ViewModel() {
 
   private var user: User = User()
@@ -53,9 +48,9 @@ class SmsViewModel @Inject constructor(
   }
 
   private fun startSmsReceiver() = viewModelScope.launch(DefaultDispatcherProvider.io()) {
-    val dto = UserDto("+905070933798", "ASDFDFA")
-//    val res = userRepository.getVerificationCode(dto)
-//    Timber.d(res.toString())
+    val dto = CreateApplicantDto("+905070933798", "ASDFDFA")
+    val res = getRegistrationUseCase.createApplicant(dto)
+    Timber.d(res.toString())
   }
 
   fun setUser(user: User) {

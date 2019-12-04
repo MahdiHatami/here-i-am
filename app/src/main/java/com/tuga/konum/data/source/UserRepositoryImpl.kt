@@ -7,9 +7,7 @@ import com.tuga.konum.data.Result.Success
 import com.tuga.konum.data.source.local.UserLocalDataSource
 import com.tuga.konum.data.source.remote.UserRemoteDataSource
 import com.tuga.konum.models.entity.User
-import com.tuga.konum.models.network.BooleanResponse
 import com.tuga.konum.models.network.CreateApplicantDto
-import com.tuga.konum.models.network.UserDto
 import com.tuga.konum.util.EspressoIdlingResource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +28,7 @@ class UserRepositoryImpl @Inject constructor(
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserRepository {
 
-  override suspend fun getVerificationCode(createApplicantDto: CreateApplicantDto): ApiResponse<BooleanResponse> {
+  override suspend fun getVerificationCode(createApplicantDto: CreateApplicantDto): ApiResponse<Boolean> {
     return userRemoteDataSource.getVerificationCode(createApplicantDto)
   }
 
