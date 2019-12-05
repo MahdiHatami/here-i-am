@@ -3,16 +3,21 @@ package com.tuga.konum.data.source.remote
 import com.tuga.konum.api.ApiResponse
 import com.tuga.konum.data.Result
 import com.tuga.konum.data.source.UserDataSource
-import com.tuga.konum.models.entity.User
-import com.tuga.konum.models.network.CreateApplicantDto
+import com.tuga.konum.domain.models.entity.User
+import com.tuga.konum.domain.models.network.CheckVerificationCodeDto
+import com.tuga.konum.domain.models.network.CreateApplicantDto
 import javax.inject.Inject
 
 class UserRemoteDataSource @Inject constructor(
   private val konumService: KonumService
 ) : UserDataSource {
 
-  override suspend fun getVerificationCode(createApplicantDto: CreateApplicantDto): ApiResponse<Boolean> =
-    konumService.getVerificationCode(createApplicantDto)
+  override suspend fun getVerificationCode(dto: CreateApplicantDto): ApiResponse<Boolean> =
+    konumService.getVerificationCode(dto)
+
+  override suspend fun checkVerificationCode(dto: CheckVerificationCodeDto): ApiResponse<Boolean> {
+    return konumService.checkVerificationCode(dto)
+  }
 
   override suspend fun deleteUser(phoneNumber: String) {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

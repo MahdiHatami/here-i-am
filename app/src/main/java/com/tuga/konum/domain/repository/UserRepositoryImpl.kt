@@ -1,4 +1,4 @@
-package com.tuga.konum.data.source
+package com.tuga.konum.domain.repository
 
 import com.tuga.konum.api.ApiResponse
 import com.tuga.konum.data.Result
@@ -6,8 +6,9 @@ import com.tuga.konum.data.Result.Error
 import com.tuga.konum.data.Result.Success
 import com.tuga.konum.data.source.local.UserLocalDataSource
 import com.tuga.konum.data.source.remote.UserRemoteDataSource
-import com.tuga.konum.models.entity.User
-import com.tuga.konum.models.network.CreateApplicantDto
+import com.tuga.konum.domain.models.entity.User
+import com.tuga.konum.domain.models.network.CheckVerificationCodeDto
+import com.tuga.konum.domain.models.network.CreateApplicantDto
 import com.tuga.konum.util.EspressoIdlingResource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -28,8 +29,12 @@ class UserRepositoryImpl @Inject constructor(
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UserRepository {
 
-  override suspend fun getVerificationCode(createApplicantDto: CreateApplicantDto): ApiResponse<Boolean> {
-    return userRemoteDataSource.getVerificationCode(createApplicantDto)
+  override suspend fun getVerificationCode(dto: CreateApplicantDto): ApiResponse<Boolean> {
+    return userRemoteDataSource.getVerificationCode(dto)
+  }
+
+  override suspend fun checkVerificationCode(dto: CheckVerificationCodeDto): ApiResponse<Boolean> {
+    return userRemoteDataSource.checkVerificationCode(dto)
   }
 
   override suspend fun deleteUser(phoneNumber: String) {
