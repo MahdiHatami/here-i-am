@@ -11,15 +11,12 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
-import com.tuga.konum.R
 import com.tuga.konum.R.id
 import com.tuga.konum.R.style
-import com.tuga.konum.models.entity.User
+import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.view.ui.signup.smsVerfication.SmsFragment
 import com.tuga.konum.view.ui.signup.smsVerfication.SmsFragmentArgs
-import com.tuga.konum.view.ui.signup.smsVerfication.SmsFragmentDirections
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito

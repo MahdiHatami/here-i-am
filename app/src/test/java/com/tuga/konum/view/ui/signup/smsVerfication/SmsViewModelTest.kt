@@ -6,8 +6,7 @@ import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.assertSnackbarMessage
 import com.tuga.konum.R.string
 import com.tuga.konum.data.source.FakeUserRepository
-import com.tuga.konum.data.source.UserRepository
-import com.tuga.konum.view.ui.signup.GetRegistrationUseCase
+import com.tuga.konum.domain.usecase.GetRegistrationUseCase
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before

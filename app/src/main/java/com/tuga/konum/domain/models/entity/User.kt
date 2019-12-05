@@ -1,4 +1,4 @@
-package com.tuga.konum.models.entity
+package com.tuga.konum.domain.models.entity
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

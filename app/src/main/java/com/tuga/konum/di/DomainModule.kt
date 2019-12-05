@@ -1,7 +1,7 @@
 package com.tuga.konum.di
 
-import com.tuga.konum.data.source.UserRepository
-import com.tuga.konum.data.source.UserRepositoryImpl
+import com.tuga.konum.domain.repository.UserRepository
+import com.tuga.konum.domain.repository.UserRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton

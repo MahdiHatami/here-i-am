@@ -12,12 +12,11 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.tuga.konum.R
-import com.tuga.konum.models.entity.User
+import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.view.ui.signup.phone.PhoneNumberFragment
 import com.tuga.konum.view.ui.signup.phone.PhoneNumberFragmentDirections
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.CoreMatchers
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock

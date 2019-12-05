@@ -8,7 +8,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.tuga.konum.models.entity.User
+import com.tuga.konum.domain.models.entity.User
 import java.io.File
 
 @BindingAdapter("phoneNumberValidator")

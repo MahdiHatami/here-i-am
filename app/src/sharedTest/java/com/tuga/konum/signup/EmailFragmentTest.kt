@@ -13,7 +13,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.tuga.konum.R
 import com.tuga.konum.R.style
-import com.tuga.konum.models.entity.User
+import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.view.ui.signup.email.EmailFragment
 import com.tuga.konum.view.ui.signup.email.EmailFragmentArgs
 import com.tuga.konum.view.ui.signup.email.EmailFragmentDirections

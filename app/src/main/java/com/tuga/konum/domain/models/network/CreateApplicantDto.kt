@@ -1,4 +1,4 @@
-package com.tuga.konum.models.network
+package com.tuga.konum.domain.models.network
 
 import com.google.gson.annotations.SerializedName
 

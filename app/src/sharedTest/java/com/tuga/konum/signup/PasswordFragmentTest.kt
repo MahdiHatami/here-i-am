@@ -11,13 +11,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.tuga.konum.R.id
 import com.tuga.konum.R.style
-import com.tuga.konum.models.entity.User
+import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.view.ui.signup.password.PasswordFragment
 import com.tuga.konum.view.ui.signup.password.PasswordFragmentArgs
 import com.tuga.konum.view.ui.signup.password.PasswordFragmentDirections
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.CoreMatchers
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito

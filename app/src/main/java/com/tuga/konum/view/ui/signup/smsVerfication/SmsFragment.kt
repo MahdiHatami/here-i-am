@@ -5,11 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,14 +17,14 @@ import com.tuga.konum.R
 import com.tuga.konum.databinding.SmsFragmentBinding
 import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.extension.setupSnackbar
-import com.tuga.konum.models.entity.User
+import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.util.sms.Postman
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.sms_fragment.btnVerify
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode1
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode2
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode3
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode4
+import timber.log.Timber
 import javax.inject.Inject
 
 class SmsFragment : DaggerFragment() {
@@ -49,12 +47,13 @@ class SmsFragment : DaggerFragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     binding.lifecycleOwner = this
 
-    val user = User()
+    val user = args.user
     viewModel.setUser(user)
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
+    Timber.d("start onactivitycreated")
 
     setupEditText()
     setupSmsRetriever()
@@ -76,6 +75,8 @@ class SmsFragment : DaggerFragment() {
     viewModel.code4Focus.observe(viewLifecycleOwner, EventObserver {
       etVerificationCode4.requestFocus()
     })
+
+    viewModel.startSmsReceiver()
 
   }
 

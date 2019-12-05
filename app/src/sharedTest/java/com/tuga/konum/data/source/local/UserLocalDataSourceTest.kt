@@ -9,7 +9,7 @@ import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.data.Result
 import com.tuga.konum.data.Result.Success
 import com.tuga.konum.data.succeeded
-import com.tuga.konum.models.entity.User
+import com.tuga.konum.domain.models.entity.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking

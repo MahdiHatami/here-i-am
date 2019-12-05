@@ -1,11 +1,10 @@
 package com.tuga.konum.data.source.local
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.tuga.konum.models.entity.User
+import com.tuga.konum.domain.models.entity.User
 
 @Dao
 abstract class UserDao {

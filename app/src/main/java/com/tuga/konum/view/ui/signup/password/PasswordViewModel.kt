@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tuga.konum.Event
-import com.tuga.konum.models.entity.User
+import com.tuga.konum.domain.models.entity.User
 import timber.log.Timber
 import javax.inject.Inject
 

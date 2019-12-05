@@ -4,8 +4,9 @@ import com.tuga.konum.api.ApiResponse
 import com.tuga.konum.data.Result
 import com.tuga.konum.data.Result.Error
 import com.tuga.konum.data.Result.Success
-import com.tuga.konum.models.entity.User
-import com.tuga.konum.models.network.CreateApplicantDto
+import com.tuga.konum.domain.models.entity.User
+import com.tuga.konum.domain.models.network.CreateApplicantDto
+import com.tuga.konum.domain.repository.UserRepository
 import java.util.LinkedHashMap
 
 class FakeUserRepository : UserRepository {

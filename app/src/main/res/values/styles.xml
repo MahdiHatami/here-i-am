@@ -54,5 +54,6 @@
     <item name="android:maxLines">1</item>
     <item name="android:gravity">center</item>
     <item name="android:background">@drawable/border_verification</item>
+    <item name="android:inputType">numberSigned</item>
   </style>
 </resources>

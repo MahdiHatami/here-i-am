@@ -13,10 +13,10 @@ import com.mlsdev.rximagepicker.Sources.GALLERY
 import com.theartofdev.edmodo.cropper.CropImage
 import com.tuga.konum.Event
 import com.tuga.konum.R
-import com.tuga.konum.data.source.UserRepository
+import com.tuga.konum.domain.repository.UserRepository
 import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
-import com.tuga.konum.models.entity.User
+import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.permission.PermissionStatus
 import com.tuga.konum.permission.PermissionStatus.CAN_ASK_PERMISSION
 import com.tuga.konum.util.BitmapResolver

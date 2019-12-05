@@ -5,8 +5,9 @@ import com.tuga.konum.data.Result
 import com.tuga.konum.data.Result.Error
 import com.tuga.konum.data.Result.Success
 import com.tuga.konum.data.source.UserDataSource
-import com.tuga.konum.models.entity.User
-import com.tuga.konum.models.network.CreateApplicantDto
+import com.tuga.konum.domain.models.entity.User
+import com.tuga.konum.domain.models.network.CheckVerificationCodeDto
+import com.tuga.konum.domain.models.network.CreateApplicantDto
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -24,7 +25,11 @@ class UserLocalDataSource @Inject constructor(
     userDao.deleteUser(phoneNumber)
   }
 
-  override suspend fun getVerificationCode(createApplicantDto: CreateApplicantDto): ApiResponse<Boolean> {
+  override suspend fun getVerificationCode(dto: CreateApplicantDto): ApiResponse<Boolean> {
+    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+  }
+
+  override suspend fun checkVerificationCode(dto: CheckVerificationCodeDto): ApiResponse<Boolean> {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
 

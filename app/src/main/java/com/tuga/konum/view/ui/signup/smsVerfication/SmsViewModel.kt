@@ -6,10 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tuga.konum.Event
 import com.tuga.konum.R
+import com.tuga.konum.R.string
 import com.tuga.konum.coroutines.DefaultDispatcherProvider
-import com.tuga.konum.models.entity.User
-import com.tuga.konum.models.network.CreateApplicantDto
-import com.tuga.konum.view.ui.signup.GetRegistrationUseCase
+import com.tuga.konum.domain.models.entity.User
+import com.tuga.konum.domain.models.network.CheckVerificationCodeDto
+import com.tuga.konum.domain.models.network.CreateApplicantDto
+import com.tuga.konum.domain.usecase.GetRegistrationUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -44,13 +47,16 @@ class SmsViewModel @Inject constructor(
   val code4Focus: LiveData<Event<Boolean>> = _code4Focus
 
   init {
-    startSmsReceiver()
+    Timber.d("init sms view model")
   }
 
-  private fun startSmsReceiver() = viewModelScope.launch(DefaultDispatcherProvider.io()) {
-    val dto = CreateApplicantDto("+905070933798", "ASDFDFA")
+  fun startSmsReceiver() = viewModelScope.launch(DefaultDispatcherProvider.io()) {
+    val dto = CreateApplicantDto(user.phoneNumber, "ASDFDFA")
     val res = getRegistrationUseCase.createApplicant(dto)
-    Timber.d(res.toString())
+    if (res.result == true)
+      _snackbarText.postValue(Event(string.verification_code_will_be_sended))
+    else
+      _snackbarText.postValue(Event(string.resend_code_message))
   }
 
   fun setUser(user: User) {
@@ -76,12 +82,23 @@ class SmsViewModel @Inject constructor(
       return
     }
 
-    // send request for verification
+    viewModelScope.launch(Dispatchers.IO) {
+      val code = code1.value + code2.value + code3.value + code4.value
 
-    // set user.phoneVerified
-    user.phoneVerified = true
-    // fire event to navigate
-    _navigateToPasswordAction.value = Event(user)
+      val dto = CheckVerificationCodeDto(user.phoneNumber, code)
+
+      // send request for verification
+      val response = getRegistrationUseCase.checkVerificationCode(dto)
+
+      // set user.phoneVerified
+      user.phoneVerified = response.result != null
+
+      // fire event to navigate
+      if (user.phoneVerified)
+        _navigateToPasswordAction.postValue(Event(user))
+      else
+        _snackbarText.postValue(Event(string.sms_code_not_correct))
+    }
   }
 
   fun isEnteredCodeValid(): Boolean {
