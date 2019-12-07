@@ -44,4 +44,6 @@
   <string name="sms_code_not_correct">Entered code not valid. Please check the code and verify again</string>
   <string name="verification_code_will_be_sended">Verification code will be send in a second.</string>
   <string name="resend_code_message">Please resend the code</string>
+  <string name="sms_verification_quote">SMS has been sent to you on your mobile number. please enter it below.</string>
+  <string name="verify_mobile_number">Verify Mobile Number</string>
 </resources>
