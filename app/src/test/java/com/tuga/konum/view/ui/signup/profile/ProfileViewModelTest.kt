@@ -3,9 +3,13 @@ package com.tuga.konum.view.ui.signup.profile
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth
 import com.tuga.konum.MainCoroutineRule
-import com.tuga.konum.data.source.FakeUserRepository
 import com.tuga.konum.domain.models.entity.User
+import com.tuga.konum.domain.repository.UserRepository
+import com.tuga.konum.domain.usecase.GetRegistrationUseCase
 import com.tuga.konum.util.getOrAwaitValue
+import io.mockk.MockKAnnotations
+import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.Matchers.`is`
@@ -21,8 +25,8 @@ class ProfileViewModelTest {
   // subject under test
   private lateinit var profileViewModel: ProfileViewModel
 
-  // use fake repository to injected in the viewModel
-  private lateinit var userRepository: FakeUserRepository
+  @MockK
+  private lateinit var getRegistrationUseCase: GetRegistrationUseCase
 
   @ExperimentalCoroutinesApi
   @get:Rule
@@ -36,16 +40,20 @@ class ProfileViewModelTest {
 
   @Before
   fun setupViewModel() {
-    userRepository = FakeUserRepository()
-    profileViewModel = ProfileViewModel(userRepository)
+    MockKAnnotations.init(this)
+    profileViewModel = ProfileViewModel(getRegistrationUseCase)
   }
 
   @Test
   fun signupComplete_setsSignupCompleteEvent() {
+    val newUsername = "mahdi"
+    profileViewModel.apply {
+      username.value = newUsername
+    }
     profileViewModel.finishSignup()
 
-    val value = profileViewModel.signupCompletedEvent.getOrAwaitValue()
-    assertThat(value.getContentIfNotHandled(), not(nullValue()))
+    val value = profileViewModel.signupCompletedEvent
+    assertThat(value, not(nullValue()))
   }
 
   @Test
@@ -68,19 +76,5 @@ class ProfileViewModelTest {
 
     assertThat(value, `is`(not(true)))
 
-  }
-
-  @Test
-  fun saveNewUserToRepository_showSuccessMessageUi() {
-    val newUsername = "mahdi"
-    profileViewModel.apply {
-      username.value = newUsername
-    }
-    profileViewModel.finishSignup()
-
-    val newUser = userRepository.userServiceData.values.first()
-
-    // Then
-    Truth.assertThat(newUser.username).isEqualTo(newUsername)
   }
 }

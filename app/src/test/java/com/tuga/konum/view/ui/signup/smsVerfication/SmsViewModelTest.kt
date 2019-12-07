@@ -5,8 +5,9 @@ import com.google.common.truth.Truth.assertThat
 import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.assertSnackbarMessage
 import com.tuga.konum.R.string
-import com.tuga.konum.data.source.FakeUserRepository
 import com.tuga.konum.domain.usecase.GetRegistrationUseCase
+import io.mockk.MockKAnnotations
+import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
@@ -25,15 +26,16 @@ class SmsViewModelTest {
   @get:Rule
   var instaExecuRule = InstantTaskExecutorRule()
 
+  @MockK
   private lateinit var getRegistrationUseCase: GetRegistrationUseCase
+
   private lateinit var smsViewModel: SmsViewModel
 
   // use fake repository to injected in the viewModel
-  private lateinit var userRepository: FakeUserRepository
 
   @Before
   fun setupViewModel() {
-    getRegistrationUseCase = mockk()
+    MockKAnnotations.init(this)
     smsViewModel = SmsViewModel(getRegistrationUseCase)
   }
 
