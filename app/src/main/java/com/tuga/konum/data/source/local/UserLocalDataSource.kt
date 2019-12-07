@@ -8,6 +8,7 @@ import com.tuga.konum.data.source.UserDataSource
 import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.domain.models.network.CheckVerificationCodeDto
 import com.tuga.konum.domain.models.network.CreateApplicantDto
+import com.tuga.konum.domain.models.network.CreateUserDto
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -30,6 +31,10 @@ class UserLocalDataSource @Inject constructor(
   }
 
   override suspend fun checkVerificationCode(dto: CheckVerificationCodeDto): ApiResponse<Boolean> {
+    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+  }
+
+  override suspend fun createUser(dto: CreateUserDto): ApiResponse<Boolean> {
     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
 

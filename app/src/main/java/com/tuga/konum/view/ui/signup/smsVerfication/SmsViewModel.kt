@@ -54,7 +54,7 @@ class SmsViewModel @Inject constructor(
     val dto = CreateApplicantDto(user.phoneNumber, "ASDFDFA")
     val res = getRegistrationUseCase.createApplicant(dto)
     if (res.result == true)
-      _snackbarText.postValue(Event(string.verification_code_will_be_sended))
+      _snackbarText.postValue(Event(string.verification_code_will_be_send))
     else
       _snackbarText.postValue(Event(string.resend_code_message))
   }

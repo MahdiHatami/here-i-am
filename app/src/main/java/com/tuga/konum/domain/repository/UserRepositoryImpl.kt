@@ -9,6 +9,7 @@ import com.tuga.konum.data.source.remote.UserRemoteDataSource
 import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.domain.models.network.CheckVerificationCodeDto
 import com.tuga.konum.domain.models.network.CreateApplicantDto
+import com.tuga.konum.domain.models.network.CreateUserDto
 import com.tuga.konum.util.EspressoIdlingResource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +36,10 @@ class UserRepositoryImpl @Inject constructor(
 
   override suspend fun checkVerificationCode(dto: CheckVerificationCodeDto): ApiResponse<Boolean> {
     return userRemoteDataSource.checkVerificationCode(dto)
+  }
+
+  override suspend fun createUser(dto: CreateUserDto): ApiResponse<Boolean> {
+    return userRemoteDataSource.createUser(dto)
   }
 
   override suspend fun deleteUser(phoneNumber: String) {

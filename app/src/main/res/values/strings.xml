@@ -42,8 +42,10 @@
   <string name="sms_verification_required">Please fill all the inputs</string>
   <string name="empty_state_message">No results found, please try again.</string>
   <string name="sms_code_not_correct">Entered code not valid. Please check the code and verify again</string>
-  <string name="verification_code_will_be_sended">Verification code will be send in a second.</string>
+  <string name="verification_code_will_be_send">Verification code will be send in a second.</string>
   <string name="resend_code_message">Please resend the code</string>
   <string name="sms_verification_quote">SMS has been sent to you on your mobile number. please enter it below.</string>
   <string name="verify_mobile_number">Verify Mobile Number</string>
+  <string name="could_not_register_user_error">Your registration could not be complete. please try again.</string>
+  <string name="registration_successful">Registration Successful</string>
 </resources>

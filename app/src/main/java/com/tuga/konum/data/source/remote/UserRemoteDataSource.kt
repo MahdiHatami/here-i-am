@@ -6,6 +6,7 @@ import com.tuga.konum.data.source.UserDataSource
 import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.domain.models.network.CheckVerificationCodeDto
 import com.tuga.konum.domain.models.network.CreateApplicantDto
+import com.tuga.konum.domain.models.network.CreateUserDto
 import javax.inject.Inject
 
 class UserRemoteDataSource @Inject constructor(
@@ -17,6 +18,10 @@ class UserRemoteDataSource @Inject constructor(
 
   override suspend fun checkVerificationCode(dto: CheckVerificationCodeDto): ApiResponse<Boolean> {
     return konumService.checkVerificationCode(dto)
+  }
+
+  override suspend fun createUser(dto: CreateUserDto): ApiResponse<Boolean> {
+    return konumService.createUser(dto)
   }
 
   override suspend fun deleteUser(phoneNumber: String) {
