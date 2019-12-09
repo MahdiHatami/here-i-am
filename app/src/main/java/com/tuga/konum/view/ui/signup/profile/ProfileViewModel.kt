@@ -15,12 +15,9 @@ import com.tuga.konum.Event
 import com.tuga.konum.R
 import com.tuga.konum.R.string
 import com.tuga.konum.Resource
-import com.tuga.konum.domain.repository.UserRepository
 import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.domain.models.entity.User
-import com.tuga.konum.domain.models.network.CreateUserDto
-import com.tuga.konum.domain.usecase.GetRegistrationUseCase
 import com.tuga.konum.domain.usecase.registration.GetCreateUserUseCase
 import com.tuga.konum.domain.usecase.registration.GetCreateUserUseCase.Params
 import com.tuga.konum.permission.PermissionStatus

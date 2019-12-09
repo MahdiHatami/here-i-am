@@ -11,14 +11,17 @@ import com.tuga.konum.coroutines.DefaultDispatcherProvider
 import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.domain.models.network.CheckVerificationCodeDto
 import com.tuga.konum.domain.models.network.CreateApplicantDto
-import com.tuga.konum.domain.usecase.GetRegistrationUseCase
+import com.tuga.konum.domain.usecase.registration.GetCheckVerificationCodeUserCase
+import com.tuga.konum.domain.usecase.registration.GetCheckVerificationCodeUserCase.Params
+import com.tuga.konum.domain.usecase.registration.GetCreateApplicantUserCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
 class SmsViewModel @Inject constructor(
-  private val getRegistrationUseCase: GetRegistrationUseCase
+  private val getCheckVerificationCodeUserCase: GetCheckVerificationCodeUserCase,
+  private val getCreateApplicantUserCase: GetCreateApplicantUserCase
 ) : ViewModel() {
 
   private var user: User = User()
@@ -52,7 +55,9 @@ class SmsViewModel @Inject constructor(
 
   fun startSmsReceiver() = viewModelScope.launch(DefaultDispatcherProvider.io()) {
     val dto = CreateApplicantDto(user.phoneNumber, "ASDFDFA")
-    val res = getRegistrationUseCase.createApplicant(dto)
+    val res = getCreateApplicantUserCase.executeAsync(
+      GetCreateApplicantUserCase.Params(dto)
+    )
     if (res.result == true)
       _snackbarText.postValue(Event(string.verification_code_will_be_send))
     else
@@ -88,7 +93,7 @@ class SmsViewModel @Inject constructor(
       val dto = CheckVerificationCodeDto(user.phoneNumber, code)
 
       // send request for verification
-      val response = getRegistrationUseCase.checkVerificationCode(dto)
+      val response = getCheckVerificationCodeUserCase.executeAsync(Params(dto))
 
       // set user.phoneVerified
       user.phoneVerified = response.result != null

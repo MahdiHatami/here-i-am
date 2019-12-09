@@ -1,15 +1,12 @@
 package com.tuga.konum.view.ui.signup.profile
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.google.common.truth.Truth
 import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.domain.models.entity.User
-import com.tuga.konum.domain.repository.UserRepository
-import com.tuga.konum.domain.usecase.GetRegistrationUseCase
+import com.tuga.konum.domain.usecase.registration.GetRegistrationUseCase
 import com.tuga.konum.util.getOrAwaitValue
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.Matchers.`is`
