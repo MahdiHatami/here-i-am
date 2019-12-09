@@ -3,7 +3,7 @@ package com.tuga.konum.view.ui.signup.profile
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.domain.models.entity.User
-import com.tuga.konum.domain.usecase.registration.GetRegistrationUseCase
+import com.tuga.konum.domain.usecase.registration.GetCreateUserUseCase
 import com.tuga.konum.util.getOrAwaitValue
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
@@ -23,7 +23,7 @@ class ProfileViewModelTest {
   private lateinit var profileViewModel: ProfileViewModel
 
   @MockK
-  private lateinit var getRegistrationUseCase: GetRegistrationUseCase
+  private lateinit var getCreateUserUseCase: GetCreateUserUseCase
 
   @ExperimentalCoroutinesApi
   @get:Rule
@@ -38,7 +38,7 @@ class ProfileViewModelTest {
   @Before
   fun setupViewModel() {
     MockKAnnotations.init(this)
-    profileViewModel = ProfileViewModel(getRegistrationUseCase)
+    profileViewModel = ProfileViewModel(getCreateUserUseCase)
   }
 
   @Test

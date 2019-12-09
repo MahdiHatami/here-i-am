@@ -5,7 +5,8 @@ import com.google.common.truth.Truth.assertThat
 import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.assertSnackbarMessage
 import com.tuga.konum.R.string
-import com.tuga.konum.domain.usecase.registration.GetRegistrationUseCase
+import com.tuga.konum.domain.usecase.registration.GetCheckVerificationCodeUserCase
+import com.tuga.konum.domain.usecase.registration.GetCreateApplicantUserCase
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -16,7 +17,6 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class SmsViewModelTest {
 
-
   @ExperimentalCoroutinesApi
   @get:Rule
   var mainCoroutineRule = MainCoroutineRule()
@@ -26,7 +26,10 @@ class SmsViewModelTest {
   var instaExecuRule = InstantTaskExecutorRule()
 
   @MockK
-  private lateinit var getRegistrationUseCase: GetRegistrationUseCase
+  private lateinit var getCreateApplicantUserCase: GetCreateApplicantUserCase
+
+  @MockK
+  private lateinit var getCheckVerificationCodeUserCase: GetCheckVerificationCodeUserCase
 
   private lateinit var smsViewModel: SmsViewModel
 
@@ -35,7 +38,7 @@ class SmsViewModelTest {
   @Before
   fun setupViewModel() {
     MockKAnnotations.init(this)
-    smsViewModel = SmsViewModel(getRegistrationUseCase)
+    smsViewModel = SmsViewModel(getCheckVerificationCodeUserCase, getCreateApplicantUserCase)
   }
 
   @Test
@@ -56,7 +59,7 @@ class SmsViewModelTest {
 
   @Test
   fun verifyOnClick_nullVerificationCodeError() {
-    saveTaskAndAssertSnackbarError(null, null,null, null)
+    saveTaskAndAssertSnackbarError(null, null, null, null)
   }
 
   @Test
