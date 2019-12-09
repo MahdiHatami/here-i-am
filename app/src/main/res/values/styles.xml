@@ -69,4 +69,10 @@
     <item name="android:inputType">numberSigned</item>
     <item name="android:layout_marginEnd">8dp</item>
   </style>
+
+  <style name="CircularOutlineButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <item name="textAllCaps">false</item>
+    <item name="cornerRadius">20dp</item>
+    <item name="strokeColor">@color/primaryColor</item>
+  </style>
 </resources>

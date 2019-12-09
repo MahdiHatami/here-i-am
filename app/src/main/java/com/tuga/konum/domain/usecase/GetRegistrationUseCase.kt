@@ -11,6 +11,23 @@ import com.tuga.konum.util.ErrorFactory
 import java.lang.Exception
 import javax.inject.Inject
 
+interface RegistrationUseCase {
+  interface CreateApplicantUseCase<dto, T : Any> :
+    RegistrationUseCase {
+    suspend fun createApplicant(dto: CreateApplicantDto): Resource<T>
+  }
+
+  interface CheckVerificationCodeUseCase<dto, T : Any> :
+    RegistrationUseCase {
+    suspend fun checkVerificationCode(dto: CheckVerificationCodeDto): Resource<T>
+  }
+
+  interface CreateUserUserCase<user, result> :
+    RegistrationUseCase {
+    suspend fun createUser(user: User): Resource<result>
+  }
+}
+
 class GetRegistrationUseCase @Inject constructor(
   private val userRepository: UserRepository,
   private val userMapper: UserMapper,

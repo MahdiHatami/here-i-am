@@ -5,6 +5,7 @@ import android.content.Context
 import com.tuga.konum.KonumApplication
 import com.tuga.konum.data.source.local.DatabaseModule
 import com.tuga.konum.di.module.ContextModule
+import com.tuga.konum.view.ui.signup.circleOperation.CreateCircleModule
 import com.tuga.konum.view.ui.signup.email.EmailModule
 import com.tuga.konum.view.ui.signup.locationPermission.LocationPermissionModule
 import com.tuga.konum.view.ui.signup.password.PasswordModule
@@ -34,12 +35,15 @@ import javax.inject.Singleton
     DataModule::class,
     DatabaseModule::class,
     DomainModule::class,
+
+    // fragments
     PhoneNumberModule::class,
     SmsModule::class,
     PasswordModule::class,
     EmailModule::class,
     ProfileModule::class,
-    LocationPermissionModule::class
+    LocationPermissionModule::class,
+    CreateCircleModule::class
   ]
 )
 interface ApplicationComponent : AndroidInjector<KonumApplication> {
