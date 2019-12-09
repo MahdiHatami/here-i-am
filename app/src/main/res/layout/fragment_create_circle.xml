@@ -1,16 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.ui.signup.CreateCircleFragment"
     >
-
-  <!-- TODO: Update blank fragment layout -->
-  <TextView
+  <ScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:text="@string/hello_blank_fragment"
-      />
+      >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="60dp"
+        >
 
-</FrameLayout>
+      <TextView
+          android:id="@+id/textView4"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="64dp"
+          android:text="@string/joining_circle_header"
+          android:textAlignment="center"
+          android:textColor="@color/black"
+          android:textSize="20sp"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <LinearLayout
+          android:id="@+id/linearLayout"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          android:orientation="horizontal"
+          app:layout_constraintEnd_toEndOf="@+id/textView4"
+          app:layout_constraintHorizontal_chainStyle="packed"
+          app:layout_constraintStart_toStartOf="@+id/textView4"
+          app:layout_constraintTop_toBottomOf="@+id/textView4"
+          >
+        <EditText
+            android:id="@+id/etCircleCode1"
+            style="@style/EditTextNetworkCode"
+            android:nextFocusRight="@id/etCircleCode2"
+            android:text=""
+            tools:text="G"
+            />
+
+        <EditText
+            android:id="@+id/etCircleCode2"
+            style="@style/EditTextNetworkCode"
+            android:nextFocusRight="@id/etCircleCode3"
+            android:text=""
+            tools:text="Z"
+            />
+
+        <EditText
+            android:id="@+id/etCircleCode3"
+            style="@style/EditTextNetworkCode"
+            android:nextFocusRight="@id/etCircleCode4"
+            android:text=""
+            tools:text="E"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="-"
+            android:textColor="@color/circleCodeBackground"
+            android:textSize="20sp"
+            />
+
+        <EditText
+            android:id="@+id/etCircleCode4"
+            style="@style/EditTextNetworkCode"
+            android:nextFocusRight="@id/etCircleCode5"
+            android:text=""
+            tools:text="T"
+            />
+        <EditText
+            android:id="@+id/etCircleCode5"
+            style="@style/EditTextNetworkCode"
+            android:nextFocusRight="@id/etCircleCode6"
+            android:text=""
+            tools:text="Y"
+            />
+        <EditText
+            android:id="@+id/etCircleCode6"
+            style="@style/EditTextNetworkCode"
+            android:text=""
+            tools:text="P"
+            />
+
+      </LinearLayout>
+
+      <TextView
+          android:id="@+id/textView5"
+          android:layout_width="250dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:text="@string/join_circle_description"
+          android:textAlignment="center"
+          app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+          app:layout_constraintStart_toStartOf="@+id/linearLayout"
+          app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+          />
+
+
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnJoinCircle"
+          style="@style/Widget.MaterialComponents.Chip.Entry"
+          android:layout_width="150dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          android:enabled="false"
+          android:text="@string/submit"
+          android:textColor="@color/white"
+          app:layout_constraintEnd_toEndOf="@+id/textView5"
+          app:layout_constraintStart_toStartOf="@+id/textView5"
+          app:layout_constraintTop_toBottomOf="@+id/textView5"
+          />
+
+      <View
+          android:id="@+id/view"
+          android:layout_width="match_parent"
+          android:layout_height="3dp"
+          android:layout_marginTop="64dp"
+          android:background="@color/circleCodeBackground"
+          app:layout_constraintEnd_toEndOf="@+id/btnJoinCircle"
+          app:layout_constraintStart_toStartOf="@+id/btnJoinCircle"
+          app:layout_constraintTop_toBottomOf="@+id/btnJoinCircle"
+          />
+
+      <TextView
+          android:id="@+id/textView6"
+          android:layout_width="50dp"
+          android:layout_height="50dp"
+          android:background="@drawable/border_divider"
+          android:gravity="center"
+          android:text="@string/or"
+          android:textColor="@color/smoothGrey"
+          android:textSize="20sp"
+          app:layout_constraintBottom_toBottomOf="@+id/view"
+          app:layout_constraintEnd_toEndOf="@+id/view"
+          app:layout_constraintStart_toStartOf="@+id/view"
+          app:layout_constraintTop_toBottomOf="@+id/view"
+          />
+
+      <TextView
+          android:id="@+id/textView7"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="32dp"
+          android:text="@string/don_have_code_title"
+          android:textAlignment="center"
+          android:textColor="@color/black"
+          android:textSize="20sp"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/textView6"
+          />
+
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnCreateNewCircle"
+          style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          android:text="@string/btn_create_new_circle"
+          android:textAllCaps="false"
+          app:cornerRadius="20dp"
+
+          app:layout_constraintEnd_toEndOf="@+id/textView7"
+          app:layout_constraintStart_toStartOf="@+id/textView7"
+          app:layout_constraintTop_toBottomOf="@+id/textView7"
+          />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/create_new_circle_description"
+          app:layout_constraintEnd_toEndOf="@+id/btnCreateNewCircle"
+          app:layout_constraintStart_toStartOf="@+id/btnCreateNewCircle"
+          app:layout_constraintTop_toBottomOf="@+id/btnCreateNewCircle"
+          />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </ScrollView>
+</layout>

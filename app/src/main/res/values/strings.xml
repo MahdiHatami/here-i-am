@@ -48,4 +48,11 @@
   <string name="verify_mobile_number">Verify Mobile Number</string>
   <string name="could_not_register_user_error">Your registration could not be complete. please try again.</string>
   <string name="registration_successful">Registration Successful</string>
+  <string name="join_circle_description">Get the code from the person \n setting up your circle</string>
+  <string name="joining_circle_header">Joining a Circle? \n Enter your invideCode</string>
+  <string name="submit">Submit</string>
+  <string name="or">OR</string>
+  <string name="don_have_code_title">Don\'t Have a code?</string>
+  <string name="btn_create_new_circle">Create a New Circle</string>
+  <string name="create_new_circle_description">We\'ll give you a code to share</string>
 </resources>
