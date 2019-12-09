@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
+  <data>
+    <variable
+        name="viewModel"
+        type="com.tuga.konum.view.ui.signup.circleOperation.CircleViewModel"
+        />
+  </data>
   <ScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -134,8 +140,8 @@
 
       <TextView
           android:id="@+id/textView6"
-          android:layout_width="50dp"
-          android:layout_height="50dp"
+          android:layout_width="60dp"
+          android:layout_height="60dp"
           android:background="@drawable/border_divider"
           android:gravity="center"
           android:text="@string/or"
