@@ -3,16 +3,16 @@
   <!-- Base application theme. -->
 <!--  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
 <!--    &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-<!--    <item name="colorPrimary">@color/colorPrimary</item>-->
-<!--    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--    <item name="colorPrimary">@color/primaryColor</item>-->
+<!--    <item name="colorPrimaryDark">@color/primaryColorDark</item>-->
 <!--    <item name="colorAccent">@color/colorAccent</item>-->
 <!--  </style>-->
 
   <style name="MaterialTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
     <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
+    <item name="colorPrimary">@color/primaryColor</item>
+    <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+    <item name="colorAccent">@color/accentColor</item>
 
 
     <!-- New Theming attributes -->
@@ -23,8 +23,8 @@
   </style>
 
   <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
-    <item name="colorButtonNormal">@color/colorPrimary</item>
-    <item name="android:colorButtonNormal">@color/colorPrimary</item>
+    <item name="colorButtonNormal">@color/primaryColor</item>
+    <item name="android:colorButtonNormal">@color/primaryColor</item>
     <item name="android:textColor">@color/white</item>
   </style>
 
@@ -49,7 +49,7 @@
 
   <style name="EditTextVerification">
     <item name="android:textSize">14sp</item>
-    <item name="android:textColor">@color/colorPrimary</item>
+    <item name="android:textColor">@color/primaryColor</item>
     <item name="android:maxLength">1</item>
     <item name="android:maxLines">1</item>
     <item name="android:gravity">center</item>
