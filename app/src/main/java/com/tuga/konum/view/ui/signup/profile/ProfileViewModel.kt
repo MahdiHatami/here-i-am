@@ -21,6 +21,8 @@ import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.domain.models.network.CreateUserDto
 import com.tuga.konum.domain.usecase.GetRegistrationUseCase
+import com.tuga.konum.domain.usecase.registration.GetCreateUserUseCase
+import com.tuga.konum.domain.usecase.registration.GetCreateUserUseCase.Params
 import com.tuga.konum.permission.PermissionStatus
 import com.tuga.konum.permission.PermissionStatus.CAN_ASK_PERMISSION
 import com.tuga.konum.util.BitmapResolver
@@ -32,7 +34,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
-  private val getRegistrationUseCase: GetRegistrationUseCase
+  private val getCreateUserUseCase: GetCreateUserUseCase
 ) : ViewModel() {
 
   val TAG = "SignupActivityViewModel"
@@ -130,7 +132,7 @@ class ProfileViewModel @Inject constructor(
   fun finishSignup() = viewModelScope.launch(Dispatchers.IO) {
     user.username = username.value.toString()
 
-    val response: Resource<Boolean> = getRegistrationUseCase.createUser(user)
+    val response: Resource<Boolean> = getCreateUserUseCase.executeAsync(Params(user))
 
     if (response.result != null && response.result) {
       _snackbarText.postValue(Event(string.registration_successful))

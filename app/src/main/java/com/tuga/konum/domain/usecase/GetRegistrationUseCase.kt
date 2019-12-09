@@ -34,8 +34,7 @@ class GetRegistrationUseCase @Inject constructor(
   private val errorFactory: ErrorFactory
 ) :
   RegistrationUseCase.CreateApplicantUseCase<CreateApplicantDto, Boolean>,
-  RegistrationUseCase.CheckVerificationCodeUseCase<CheckVerificationCodeDto, Boolean>,
-  RegistrationUseCase.CreateUserUserCase<User, Boolean> {
+  RegistrationUseCase.CheckVerificationCodeUseCase<CheckVerificationCodeDto, Boolean>{
 
   override suspend fun createApplicant(dto: CreateApplicantDto): Resource<Boolean> {
     return try {
@@ -56,21 +55,4 @@ class GetRegistrationUseCase @Inject constructor(
       Resource.error(errorFactory.createApiErrorMessage(e))
     }
   }
-
-  override suspend fun createUser(user: User): Resource<Boolean> {
-    return try {
-      val dto = userMapper.invoke(user)
-      val response = userRepository.createUser(dto)
-
-      if (!response.result)
-        return Resource.empty(errorFactory.createEmptyErrorMessage())
-
-      userRepository.saveUser(user)
-      Resource.success(response.result)
-
-    } catch (e: Exception) {
-      Resource.error(errorFactory.createApiErrorMessage(e))
-    }
-  }
-
 }
