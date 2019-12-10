@@ -31,6 +31,7 @@ android {
 
   buildTypes {
     debug {
+      resValue("string", "google_maps_key", GOOGLE_MAPS_KEY_DEBUG)
       minifyEnabled false
       testCoverageEnabled true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -38,6 +39,7 @@ android {
     }
 
     release {
+      resValue("string", "google_maps_key", GOOGLE_MAPS_KEY_RELEASE)
       minifyEnabled true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       testProguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguardTest-rules.pro'
@@ -96,6 +98,7 @@ dependencies {
 
   implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
   implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
+  implementation 'com.google.android.gms:play-services-maps:17.0.0'
   debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
   implementation "com.google.android.gms:play-services-auth:17.0.0"
