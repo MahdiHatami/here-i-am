@@ -4,9 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.tuga.konum.Event
 import com.tuga.konum.R.string
+import com.tuga.konum.domain.models.network.CreateCircleDto
 import com.tuga.konum.domain.usecase.circle.GetCreateCircleUseCase
+import com.tuga.konum.domain.usecase.circle.GetCreateCircleUseCase.Params
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CircleViewModel @Inject constructor(
@@ -20,27 +25,14 @@ class CircleViewModel @Inject constructor(
   val code5 = MutableLiveData<String>()
   val code6 = MutableLiveData<String>()
 
-  val liveDataMerger = MediatorLiveData<Boolean>()
-
   private val _snackbarText = MutableLiveData<Event<Int>>()
   val snackbarMessage: LiveData<Event<Int>> = _snackbarText
-
 
   private val _isCodeCorrect = MutableLiveData<Boolean>()
   val isCodeCorrect: LiveData<Boolean> = _isCodeCorrect
 
   private val _navigateToHomeAction = MutableLiveData<Event<Unit>>()
   val navigateToHomeAction: LiveData<Event<Unit>> = _navigateToHomeAction
-
-  init {
-    liveDataMerger.addSource(code1) {
-      liveDataMerger.value = it.isNullOrEmpty()
-    }
-    liveDataMerger.addSource(code2) {
-      liveDataMerger.value = it.isNullOrEmpty()
-    }
-  }
-
 
   fun isEnteredCodeValid(): Boolean {
     val c1 = code1.value
@@ -60,11 +52,24 @@ class CircleViewModel @Inject constructor(
     return true
   }
 
-  fun submitOnClick() {
+  fun joinCircleOnClick() {
     if (!isEnteredCodeValid()) {
       _snackbarText.value = Event(string.enter_circle_code_correctly)
       return
     }
+
+    viewModelScope.launch(Dispatchers.IO) {
+      val response = getCreateCircleUseCase.executeAsync(Params(CreateCircleDto()))
+      // fire event to navigate
+      if (response.result as Boolean)
+        _navigateToHomeAction.postValue(Event(Unit))
+      else
+        _snackbarText.postValue(Event(string.sms_code_not_correct))
+    }
+  }
+
+  fun createNewCircleOnClick() {
+    _navigateToHomeAction.postValue(Event(Unit))
   }
 
 }

@@ -85,7 +85,7 @@ class CircleViewModelTest {
     }
 
     // When saving an incomplete task
-    circleViewModel.submitOnClick()
+    circleViewModel.joinCircleOnClick()
 
     // Then the snackbar shows an error
     assertSnackbarMessage(circleViewModel.snackbarMessage, string.enter_circle_code_correctly)
