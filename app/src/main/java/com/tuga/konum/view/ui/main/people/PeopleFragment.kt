@@ -17,9 +17,9 @@ import com.tuga.konum.R
 class PeopleFragment : Fragment() {
 
   private val callback = OnMapReadyCallback { googleMap ->
-    val sydney = LatLng(-34.0, 151.0)
+    val sydney = LatLng(38.3554, 38.3335)
     googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-    googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15f))
   }
 
   override fun onCreateView(
@@ -32,6 +32,7 @@ class PeopleFragment : Fragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    setHasOptionsMenu(true)
     val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
     mapFragment?.getMapAsync(callback)
   }

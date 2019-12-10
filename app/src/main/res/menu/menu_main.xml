@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <item
+      android:id="@+id/menu_people"
+      android:icon="@drawable/ic_people"
+      android:title="People"
+      app:showAsAction="ifRoom" />
+
+  <item
+      android:id="@+id/menu_places"
+      android:icon="@drawable/ic_buildings"
+      android:title="Places"
+      app:showAsAction="ifRoom" />
+
+  <item
+      android:id="@+id/menu_plus"
+      android:icon="@drawable/ic_plus"
+      android:title="Plus"
+      app:showAsAction="ifRoom" />
+
+  <item
+      android:id="@+id/menu_apps"
+      android:icon="@drawable/ic_settings"
+      android:title="Settings"
+      app:showAsAction="ifRoom" />
+
+  <item
+      android:id="@+id/menu_settings"
+      android:icon="@drawable/ic_settings"
+      android:title="Settings"
+      app:showAsAction="ifRoom" />
+
+</menu>
