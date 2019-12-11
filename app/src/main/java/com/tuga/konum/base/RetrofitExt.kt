@@ -1,4 +1,4 @@
-package com.tuga.konum
+package com.tuga.konum.base
 
 import dagger.Lazy
 import okhttp3.Call

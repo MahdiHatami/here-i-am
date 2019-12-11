@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.tuga.konum.EventObserver
+import com.tuga.konum.base.EventObserver
 import com.tuga.konum.R
 import com.tuga.konum.databinding.FragmentEmailBinding
 import com.tuga.konum.extension.onTextChanged
@@ -42,14 +42,15 @@ class EmailFragment : DaggerFragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
 
-    viewModel.navigateToProfileAction.observe(viewLifecycleOwner, EventObserver { user ->
-      findNavController()
-        .navigate(
-          EmailFragmentDirections.actionEmailFragmentToProfileFragment(
-            user
+    viewModel.navigateToProfileAction.observe(viewLifecycleOwner,
+      EventObserver { user ->
+        findNavController()
+          .navigate(
+            EmailFragmentDirections.actionEmailFragmentToProfileFragment(
+              user
+            )
           )
-        )
-    })
+      })
   }
 
   override fun onViewCreated(

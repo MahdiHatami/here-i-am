@@ -11,10 +11,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mlsdev.rximagepicker.Sources
 import com.mlsdev.rximagepicker.Sources.GALLERY
 import com.theartofdev.edmodo.cropper.CropImage
-import com.tuga.konum.Event
-import com.tuga.konum.R
+import com.tuga.konum.base.Event
 import com.tuga.konum.R.string
-import com.tuga.konum.Resource
+import com.tuga.konum.base.Resource
 import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.domain.models.entity.User
@@ -121,7 +120,8 @@ class ProfileViewModel @Inject constructor(
       userProfileImagePath.value = path
       user.image = BitmapResolver.convertBitmapToBase64(capturedImage)
     } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-      _snackbarText.value = Event(R.string.could_not_get_image)
+      _snackbarText.value =
+        Event(string.could_not_get_image)
     }
   }
 

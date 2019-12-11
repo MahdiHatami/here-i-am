@@ -1,4 +1,4 @@
-package com.tuga.konum
+package com.tuga.konum.base
 
 enum class Status {
     SUCCESS,

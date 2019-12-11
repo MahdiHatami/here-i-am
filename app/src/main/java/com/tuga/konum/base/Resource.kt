@@ -1,9 +1,9 @@
-package com.tuga.konum
+package com.tuga.konum.base
 
-import com.tuga.konum.Status.EMPTY
-import com.tuga.konum.Status.ERROR
-import com.tuga.konum.Status.LOADING
-import com.tuga.konum.Status.SUCCESS
+import com.tuga.konum.base.Status.EMPTY
+import com.tuga.konum.base.Status.ERROR
+import com.tuga.konum.base.Status.LOADING
+import com.tuga.konum.base.Status.SUCCESS
 
 data class Resource<out T>(val status: Status, val result: T?, val message: String?) {
     companion object {

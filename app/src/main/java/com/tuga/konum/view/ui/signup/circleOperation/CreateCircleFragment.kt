@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.tuga.konum.EventObserver
+import com.tuga.konum.base.EventObserver
 import com.tuga.konum.R
 import com.tuga.konum.databinding.FragmentCreateCircleBinding
 import dagger.android.support.DaggerFragment
@@ -38,11 +38,12 @@ class CreateCircleFragment : DaggerFragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
 
-    viewModel.navigateToHomeAction.observe(viewLifecycleOwner, EventObserver {
-      findNavController().navigate(
-        CreateCircleFragmentDirections.actionConfirmationFragmentToMainActivity()
-      )
-    })
+    viewModel.navigateToHomeAction.observe(viewLifecycleOwner,
+      EventObserver {
+        findNavController().navigate(
+          CreateCircleFragmentDirections.actionConfirmationFragmentToMainActivity()
+        )
+      })
   }
 
 }

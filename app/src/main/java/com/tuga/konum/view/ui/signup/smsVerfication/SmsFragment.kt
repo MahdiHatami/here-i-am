@@ -12,12 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
-import com.tuga.konum.EventObserver
+import com.tuga.konum.base.EventObserver
 import com.tuga.konum.R
 import com.tuga.konum.databinding.SmsFragmentBinding
 import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.extension.setupSnackbar
-import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.util.sms.Postman
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode1
@@ -59,22 +58,27 @@ class SmsFragment : DaggerFragment() {
     setupSmsRetriever()
     setupSnackbar()
 
-    viewModel.navigateToPasswordAction.observe(viewLifecycleOwner, EventObserver { user ->
-      findNavController()
-        .navigate(SmsFragmentDirections.actionSmsFragmentToPasswordFragment(user))
-    })
-    viewModel.code1Focus.observe(viewLifecycleOwner, EventObserver {
-      etVerificationCode1.requestFocus()
-    })
-    viewModel.code2Focus.observe(viewLifecycleOwner, EventObserver {
-      etVerificationCode2.requestFocus()
-    })
-    viewModel.code3Focus.observe(viewLifecycleOwner, EventObserver {
-      etVerificationCode3.requestFocus()
-    })
-    viewModel.code4Focus.observe(viewLifecycleOwner, EventObserver {
-      etVerificationCode4.requestFocus()
-    })
+    viewModel.navigateToPasswordAction.observe(viewLifecycleOwner,
+      EventObserver { user ->
+        findNavController()
+          .navigate(SmsFragmentDirections.actionSmsFragmentToPasswordFragment(user))
+      })
+    viewModel.code1Focus.observe(viewLifecycleOwner,
+      EventObserver {
+        etVerificationCode1.requestFocus()
+      })
+    viewModel.code2Focus.observe(viewLifecycleOwner,
+      EventObserver {
+        etVerificationCode2.requestFocus()
+      })
+    viewModel.code3Focus.observe(viewLifecycleOwner,
+      EventObserver {
+        etVerificationCode3.requestFocus()
+      })
+    viewModel.code4Focus.observe(viewLifecycleOwner,
+      EventObserver {
+        etVerificationCode4.requestFocus()
+      })
 
     viewModel.startSmsReceiver()
 

@@ -1,5 +1,6 @@
 package com.tuga.konum.view.ui.signup.locationPermission
 
+import android.Manifest.permission
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.tuga.konum.EventObserver
+import com.tuga.konum.base.EventObserver
 import com.tuga.konum.R
 import com.tuga.konum.databinding.FragmentLocationPermissionBinding
 import com.tuga.konum.permission.PermissionManager
@@ -48,21 +49,23 @@ class LocationPermissionFragment : DaggerFragment() {
       )
     )
 
-    viewModel.requestLocationPermissionEvent.observe(viewLifecycleOwner, EventObserver {
-      ActivityCompat.requestPermissions(
-        activity!!,
-        arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-        REQUEST_CODE_ACCESS_FINE_LOCATION
-      )
-    })
-
-    viewModel.navigateToCircleAction.observe(viewLifecycleOwner, EventObserver {
-      findNavController()
-        .navigate(
-          LocationPermissionFragmentDirections
-            .actionLocationPermissionFragmentToJoinCircleFragment()
+    viewModel.requestLocationPermissionEvent.observe(viewLifecycleOwner,
+      EventObserver {
+        ActivityCompat.requestPermissions(
+          activity!!,
+          arrayOf(permission.ACCESS_FINE_LOCATION),
+          REQUEST_CODE_ACCESS_FINE_LOCATION
         )
-    })
+      })
+
+    viewModel.navigateToCircleAction.observe(viewLifecycleOwner,
+      EventObserver {
+        findNavController()
+          .navigate(
+            LocationPermissionFragmentDirections
+              .actionLocationPermissionFragmentToJoinCircleFragment()
+          )
+      })
   }
 
   override fun onRequestPermissionsResult(

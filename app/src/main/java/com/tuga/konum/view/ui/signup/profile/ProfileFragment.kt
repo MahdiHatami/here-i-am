@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.theartofdev.edmodo.cropper.CropImage
-import com.tuga.konum.EventObserver
+import com.tuga.konum.base.EventObserver
 import com.tuga.konum.R
 import com.tuga.konum.databinding.FragmentProfileBinding
 import com.tuga.konum.event.RequestGalleryImagePicker
@@ -55,12 +55,13 @@ class ProfileFragment : DaggerFragment() {
     super.onActivityCreated(savedInstanceState)
     setupSnackbar()
 
-    viewModel.signupCompletedEvent.observe(viewLifecycleOwner, EventObserver {
-      findNavController()
-        .navigate(
-          ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment()
-        )
-    })
+    viewModel.signupCompletedEvent.observe(viewLifecycleOwner,
+      EventObserver {
+        findNavController()
+          .navigate(
+            ProfileFragmentDirections.actionProfileFragmentToLocationPermissionFragment()
+          )
+      })
 
     viewModel.setStoragePermissionStatus(
       PermissionManager().getPermissionStatus(

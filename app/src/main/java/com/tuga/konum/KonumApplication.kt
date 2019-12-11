@@ -1,5 +1,6 @@
 package com.tuga.konum
 
+import com.tuga.konum.base.BaseApplication
 import com.tuga.konum.di.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication

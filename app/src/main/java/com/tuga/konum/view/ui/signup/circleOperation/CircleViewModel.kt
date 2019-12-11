@@ -1,11 +1,10 @@
 package com.tuga.konum.view.ui.signup.circleOperation
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tuga.konum.Event
+import com.tuga.konum.base.Event
 import com.tuga.konum.R.string
 import com.tuga.konum.domain.models.network.CreateCircleDto
 import com.tuga.konum.domain.usecase.circle.GetCreateCircleUseCase
@@ -54,7 +53,8 @@ class CircleViewModel @Inject constructor(
 
   fun joinCircleOnClick() {
     if (!isEnteredCodeValid()) {
-      _snackbarText.value = Event(string.enter_circle_code_correctly)
+      _snackbarText.value =
+        Event(string.enter_circle_code_correctly)
       return
     }
 

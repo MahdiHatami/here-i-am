@@ -1,6 +1,6 @@
 package com.tuga.konum.domain.usecase.registration
 
-import com.tuga.konum.Resource
+import com.tuga.konum.base.Resource
 import com.tuga.konum.domain.UseCase
 import com.tuga.konum.domain.models.network.CreateApplicantDto
 import com.tuga.konum.domain.repository.UserRepository

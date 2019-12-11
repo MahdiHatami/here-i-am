@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tuga.konum.Event
-import com.tuga.konum.R
+import com.tuga.konum.base.Event
 import com.tuga.konum.R.string
 import com.tuga.konum.coroutines.DefaultDispatcherProvider
 import com.tuga.konum.domain.models.entity.User
@@ -83,7 +82,8 @@ class SmsViewModel @Inject constructor(
   fun verifyOnClick() {
     // check for validation
     if (!isEnteredCodeValid()) {
-      _snackbarText.value = Event(R.string.sms_verification_required)
+      _snackbarText.value =
+        Event(string.sms_verification_required)
       return
     }
 

@@ -8,14 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.tuga.konum.EventObserver
+import com.tuga.konum.base.EventObserver
 import com.tuga.konum.R
 import com.tuga.konum.databinding.FragmentPhoneNumberBinding
-import com.tuga.konum.extension.onTextChanged
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_phone_number.ccp
 import kotlinx.android.synthetic.main.fragment_phone_number.edtPhoneNumber
-import timber.log.Timber
 import javax.inject.Inject
 
 class PhoneNumberFragment : DaggerFragment() {
@@ -50,13 +48,14 @@ class PhoneNumberFragment : DaggerFragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
 
-    viewModel.navigateToPasswordAction.observe(viewLifecycleOwner, EventObserver { user ->
-      findNavController()
-        .navigate(
-          PhoneNumberFragmentDirections.actionPhoneNumberFragmentToSmsFragment(
-            user
+    viewModel.navigateToPasswordAction.observe(viewLifecycleOwner,
+      EventObserver { user ->
+        findNavController()
+          .navigate(
+            PhoneNumberFragmentDirections.actionPhoneNumberFragmentToSmsFragment(
+              user
+            )
           )
-        )
-    })
+      })
   }
 }

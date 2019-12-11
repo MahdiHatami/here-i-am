@@ -1,6 +1,7 @@
-package com.tuga.konum
+package com.tuga.konum.base
 
 import com.facebook.stetho.Stetho
+import com.tuga.konum.BuildConfig
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector

@@ -1,17 +1,17 @@
 package com.tuga.konum.di
 
 import android.content.Context
-import com.google.gson.FieldNamingPolicy.UPPER_CAMEL_CASE_WITH_SPACES
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.tuga.konum.checkMainThread
+import com.tuga.konum.base.checkMainThread
 import com.tuga.konum.data.source.remote.KonumService
-import com.tuga.konum.delegatingCallFactory
+import com.tuga.konum.base.delegatingCallFactory
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
 import okhttp3.OkHttpClient
+import okhttp3.OkHttpClient.Builder
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
 import retrofit2.Retrofit
@@ -52,7 +52,12 @@ object DataModule {
   @InternalApi
   @Provides
   internal fun provideCache(context: Context): Cache {
-    return checkMainThread { Cache(context.cacheDir, CACHE_SIZE.toLong()) }
+    return checkMainThread {
+      Cache(
+        context.cacheDir,
+        CACHE_SIZE.toLong()
+      )
+    }
   }
 
   @InternalApi
@@ -63,7 +68,7 @@ object DataModule {
     @InternalApi httpLoggingInterceptor: HttpLoggingInterceptor
   ): OkHttpClient {
     return checkMainThread {
-      OkHttpClient.Builder().apply {
+      Builder().apply {
         cache(cache)
         connectTimeout(DEFAULT_TIMEOUT, SECONDS)
         readTimeout(DEFAULT_TIMEOUT, SECONDS)

@@ -1,6 +1,7 @@
 package com.tuga.konum
 
 import androidx.lifecycle.LiveData
+import com.tuga.konum.base.Event
 import org.junit.Assert.assertEquals
 
 fun assertLiveDataEventTriggered(

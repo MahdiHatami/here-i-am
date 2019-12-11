@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.tuga.konum.EventObserver
+import com.tuga.konum.base.EventObserver
 import com.tuga.konum.R
 import com.tuga.konum.databinding.FragmentPasswordBinding
 import com.tuga.konum.extension.onTextChanged
@@ -40,14 +40,15 @@ class PasswordFragment : DaggerFragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
 
-    viewModel.navigateToEmailAction.observe(viewLifecycleOwner, EventObserver { user ->
-      findNavController()
-        .navigate(
-          PasswordFragmentDirections.actionPasswordFragmentToEmailFragment(
-            user
+    viewModel.navigateToEmailAction.observe(viewLifecycleOwner,
+      EventObserver { user ->
+        findNavController()
+          .navigate(
+            PasswordFragmentDirections.actionPasswordFragmentToEmailFragment(
+              user
+            )
           )
-        )
-    })
+      })
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -3,7 +3,7 @@ package com.tuga.konum.view.ui.signup.locationPermission
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.tuga.konum.Event
+import com.tuga.konum.base.Event
 import com.tuga.konum.permission.PermissionStatus
 import com.tuga.konum.permission.PermissionStatus.CAN_ASK_PERMISSION
 import com.tuga.konum.permission.PermissionStatus.PERMISSION_GRANTED
