@@ -48,15 +48,15 @@
             android:id="@+id/etCircleCode1"
             style="@style/EditTextNetworkCode"
             android:nextFocusRight="@id/etCircleCode2"
-            android:text=""
+            android:text="@={viewModel.code1}"
             tools:text="G"
             />
 
         <EditText
             android:id="@+id/etCircleCode2"
             style="@style/EditTextNetworkCode"
-            android:nextFocusRight="@id/etCircleCode3"
-            android:text=""
+            android:nextFocusRight="@id/etCircleCode2"
+            android:text="@={viewModel.code2}"
             tools:text="Z"
             />
 
@@ -64,7 +64,7 @@
             android:id="@+id/etCircleCode3"
             style="@style/EditTextNetworkCode"
             android:nextFocusRight="@id/etCircleCode4"
-            android:text=""
+            android:text="@={viewModel.code3}"
             tools:text="E"
             />
 
@@ -81,20 +81,20 @@
             android:id="@+id/etCircleCode4"
             style="@style/EditTextNetworkCode"
             android:nextFocusRight="@id/etCircleCode5"
-            android:text=""
+            android:text="@={viewModel.code4}"
             tools:text="T"
             />
         <EditText
             android:id="@+id/etCircleCode5"
             style="@style/EditTextNetworkCode"
             android:nextFocusRight="@id/etCircleCode6"
-            android:text=""
+            android:text="@={viewModel.code5}"
             tools:text="Y"
             />
         <EditText
             android:id="@+id/etCircleCode6"
             style="@style/EditTextNetworkCode"
-            android:text=""
+            android:text="@={viewModel.code6}"
             tools:text="P"
             />
 

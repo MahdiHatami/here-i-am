@@ -12,10 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
-import com.tuga.konum.base.EventObserver
 import com.tuga.konum.R
 import com.tuga.konum.R.string
-import com.tuga.konum.base.Event
+import com.tuga.konum.base.EventObserver
 import com.tuga.konum.base.ext.observeWith
 import com.tuga.konum.databinding.SmsFragmentBinding
 import com.tuga.konum.extension.onTextChanged
@@ -49,7 +48,7 @@ class SmsFragment : DaggerFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     binding.lifecycleOwner = this
-    
+
     val user = args.user
     viewModel.setUser(user)
   }

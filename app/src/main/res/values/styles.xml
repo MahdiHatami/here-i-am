@@ -31,7 +31,7 @@
   <style name="signupExtendedButton">
     <item name="android:layout_margin">8dp</item>
   </style>
-  
+
   <!-- set the rounded drawable as background to your bottom sheet -->
   <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
     <item name="android:background">@drawable/bg_bottom_sheet_dialog_fragment</item>
@@ -66,7 +66,7 @@
     <item name="android:maxLines">1</item>
     <item name="android:gravity">center</item>
     <item name="android:background">@drawable/join_circle_code_input_background</item>
-    <item name="android:inputType">numberSigned</item>
+    <item name="android:inputType">text|textCapCharacters</item>
     <item name="android:layout_marginEnd">8dp</item>
   </style>
 

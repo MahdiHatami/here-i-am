@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tuga.konum.base.Event
 import com.tuga.konum.R.string
+import com.tuga.konum.base.Event
 import com.tuga.konum.domain.models.network.CreateCircleDto
 import com.tuga.konum.domain.usecase.circle.GetCreateCircleUseCase
 import com.tuga.konum.domain.usecase.circle.GetCreateCircleUseCase.Params
@@ -32,6 +32,52 @@ class CircleViewModel @Inject constructor(
 
   private val _navigateToHomeAction = MutableLiveData<Event<Unit>>()
   val navigateToHomeAction: LiveData<Event<Unit>> = _navigateToHomeAction
+
+  private val _code1Focus = MutableLiveData<Event<Boolean>>()
+  val code1Focus: LiveData<Event<Boolean>> = _code1Focus
+
+  private val _code2Focus = MutableLiveData<Event<Boolean>>()
+  val code2Focus: LiveData<Event<Boolean>> = _code2Focus
+
+  private val _code3Focus = MutableLiveData<Event<Boolean>>()
+  val code3Focus: LiveData<Event<Boolean>> = _code3Focus
+
+  private val _code4Focus = MutableLiveData<Event<Boolean>>()
+  val code4Focus: LiveData<Event<Boolean>> = _code4Focus
+
+  private val _code5Focus = MutableLiveData<Event<Boolean>>()
+  val code5Focus: LiveData<Event<Boolean>> = _code5Focus
+
+  private val _code6Focus = MutableLiveData<Event<Boolean>>()
+  val code6Focus: LiveData<Event<Boolean>> = _code6Focus
+
+  fun onCode1Changed(text: CharSequence) {
+    if (text.length == 1) _code2Focus.value = Event(true)
+  }
+
+  fun onCode2Changed(text: CharSequence?, count: Int, after: Int) {
+    if (after < count) _code1Focus.value = Event(true)
+    if (text?.length == 1) _code3Focus.value = Event(true)
+  }
+
+  fun onCode3Changed(text: CharSequence?, count: Int, after: Int) {
+    if (after < count) _code2Focus.value = Event(true)
+    if (text?.length == 1) _code4Focus.value = Event(true)
+  }
+
+  fun onCode4Changed(text: CharSequence?, count: Int, after: Int) {
+    if (after < count) _code3Focus.value = Event(true)
+    if (text?.length == 1) _code5Focus.value = Event(true)
+  }
+
+  fun onCode5Changed(text: CharSequence?, count: Int, after: Int) {
+    if (after < count) _code4Focus.value = Event(true)
+    if (text?.length == 1) _code6Focus.value = Event(true)
+  }
+
+  fun onCode6Changed(count: Int, after: Int) {
+    if (after < count) _code5Focus.value = Event(true)
+  }
 
   fun isEnteredCodeValid(): Boolean {
     val c1 = code1.value

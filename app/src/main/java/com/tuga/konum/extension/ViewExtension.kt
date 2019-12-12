@@ -15,8 +15,8 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.snackbar.Snackbar
-import com.tuga.konum.base.Event
 import com.tuga.konum.R
+import com.tuga.konum.base.Event
 import com.tuga.konum.util.EspressoIdlingResource
 
 fun View.visible() {
@@ -61,6 +61,7 @@ fun View.circularRevealedAtCenter() {
     anim.start()
   }
 }
+
 fun EditText.onTextChanged(action: (CharSequence) -> Unit) {
   addTextChangedListener(object : TextWatcher {
     override fun afterTextChanged(string: Editable?) = Unit
@@ -101,7 +102,6 @@ fun View.setupSnackbar(
   snackbarEvent: LiveData<Event<Int>>,
   timeLength: Int
 ) {
-
   snackbarEvent.observe(lifecycleOwner, Observer { event ->
     event.getContentIfNotHandled()?.let {
       showSnackbar(context.getString(it), timeLength)
