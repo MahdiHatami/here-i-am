@@ -3,6 +3,7 @@ package com.tuga.konum.di
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.tuga.konum.BuildConfig
 import com.tuga.konum.base.checkMainThread
 import com.tuga.konum.data.source.remote.KonumService
 import com.tuga.konum.base.delegatingCallFactory
@@ -86,7 +87,7 @@ object DataModule {
     @InternalApi okHttpClient: Lazy<OkHttpClient>
   ): Retrofit {
     return Retrofit.Builder().apply {
-      baseUrl("http://192.168.1.44:8888/")
+      baseUrl(BuildConfig.SERVER_URL)
       addConverterFactory(GsonConverterFactory.create(gson))
       delegatingCallFactory(okHttpClient)
     }.build()
