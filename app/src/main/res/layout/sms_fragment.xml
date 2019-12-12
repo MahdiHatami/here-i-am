@@ -17,12 +17,24 @@
       android:background="@android:color/white"
       tools:context=".MainActivity"
       >
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        app:goneUnless="@{viewModel.smsLiveData.isLoading}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:text="@string/verify_mobile_number"
         android:textColor="@color/black"
         android:textSize="26sp"
@@ -34,7 +46,7 @@
         android:id="@+id/textView5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/sms_verification_quote"
         android:textAlignment="center"
         android:textSize="15sp"
@@ -43,65 +55,73 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         />
 
-    <EditText
-        android:id="@+id/etVerificationCode1"
-        style="@style/EditTextVerification"
-        android:layout_width="40dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
-        android:nextFocusRight="@id/etVerificationCode2"
-        android:text="@={viewModel.code1}"
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/etVerificationCode2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        tools:text="5"
-        />
+        app:layout_constraintVertical_bias="0.305"
+        >
+      <EditText
+          android:id="@+id/etVerificationCode1"
+          style="@style/EditTextVerification"
+          android:layout_width="40dp"
+          android:layout_height="50dp"
+          android:layout_marginEnd="16dp"
+          android:nextFocusRight="@id/etVerificationCode2"
+          android:text="@={viewModel.code1}"
+          tools:text="5"
+          />
 
-    <EditText
-        android:id="@+id/etVerificationCode2"
-        style="@style/EditTextVerification"
-        android:layout_width="40dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
-        android:nextFocusRight="@id/etVerificationCode3"
-        android:text="@={viewModel.code2}"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/etVerificationCode3"
-        app:layout_constraintStart_toEndOf="@id/etVerificationCode1"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        tools:text="6"
-        />
+      <EditText
+          android:id="@+id/etVerificationCode2"
+          style="@style/EditTextVerification"
+          android:layout_width="40dp"
+          android:layout_height="50dp"
+          android:layout_marginEnd="16dp"
+          android:nextFocusRight="@id/etVerificationCode3"
+          android:text="@={viewModel.code2}"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/etVerificationCode3"
+          app:layout_constraintStart_toEndOf="@id/etVerificationCode1"
+          app:layout_constraintTop_toBottomOf="@+id/textView5"
+          tools:text="6"
+          />
 
-    <EditText
-        android:id="@+id/etVerificationCode3"
-        style="@style/EditTextVerification"
-        android:layout_width="40dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
-        android:nextFocusRight="@id/etVerificationCode4"
-        android:text="@={viewModel.code3}"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/etVerificationCode4"
-        app:layout_constraintStart_toEndOf="@id/etVerificationCode2"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        tools:text="1"
-        />
+      <EditText
+          android:id="@+id/etVerificationCode3"
+          style="@style/EditTextVerification"
+          android:layout_width="40dp"
+          android:layout_height="50dp"
+          android:layout_marginEnd="16dp"
+          android:nextFocusRight="@id/etVerificationCode4"
+          android:text="@={viewModel.code3}"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/etVerificationCode4"
+          app:layout_constraintStart_toEndOf="@id/etVerificationCode2"
+          app:layout_constraintTop_toBottomOf="@+id/textView5"
+          tools:text="1"
+          />
 
-    <EditText
-        android:id="@+id/etVerificationCode4"
-        style="@style/EditTextVerification"
-        android:layout_width="40dp"
-        android:layout_height="50dp"
-        android:text="@={viewModel.code4}"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/etVerificationCode3"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        tools:text="9"
-        />
+      <EditText
+          android:id="@+id/etVerificationCode4"
+          style="@style/EditTextVerification"
+          android:layout_width="40dp"
+          android:layout_height="50dp"
+          android:text="@={viewModel.code4}"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/etVerificationCode3"
+          app:layout_constraintTop_toBottomOf="@+id/textView5"
+          tools:text="9"
+          />
 
+    </LinearLayout>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnVerify"
         android:layout_width="0dp"
@@ -111,9 +131,9 @@
         android:onClick="@{() -> viewModel.verifyOnClick()}"
         android:text="@string/verify"
         android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="@id/etVerificationCode4"
-        app:layout_constraintStart_toStartOf="@id/etVerificationCode1"
-        app:layout_constraintTop_toBottomOf="@id/etVerificationCode1"
+        app:layout_constraintEnd_toEndOf="@id/linearlayout"
+        app:layout_constraintStart_toStartOf="@id/linearlayout"
+        app:layout_constraintTop_toBottomOf="@id/linearlayout"
         />
 
 
