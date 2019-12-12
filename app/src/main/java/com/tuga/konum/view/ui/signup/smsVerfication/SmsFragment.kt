@@ -21,10 +21,6 @@ import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.extension.setupSnackbar
 import com.tuga.konum.util.sms.Postman
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode1
-import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode2
-import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode3
-import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode4
 import org.jetbrains.anko.support.v4.toast
 import timber.log.Timber
 import javax.inject.Inject
@@ -75,19 +71,19 @@ class SmsFragment : DaggerFragment() {
 
     viewModel.code1Focus.observe(viewLifecycleOwner,
       EventObserver {
-        etVerificationCode1.requestFocus()
+        binding.etVerificationCode1.requestFocus()
       })
     viewModel.code2Focus.observe(viewLifecycleOwner,
       EventObserver {
-        etVerificationCode2.requestFocus()
+        binding.etVerificationCode2.requestFocus()
       })
     viewModel.code3Focus.observe(viewLifecycleOwner,
       EventObserver {
-        etVerificationCode3.requestFocus()
+        binding.etVerificationCode3.requestFocus()
       })
     viewModel.code4Focus.observe(viewLifecycleOwner,
       EventObserver {
-        etVerificationCode4.requestFocus()
+        binding.etVerificationCode4.requestFocus()
       })
 
     viewModel.startSmsReceiver()
@@ -95,16 +91,16 @@ class SmsFragment : DaggerFragment() {
   }
 
   private fun setupEditText() {
-    etVerificationCode1.onTextChanged {
+    binding.etVerificationCode1.onTextChanged {
       viewModel.onCode1Changed(it)
     }
-    etVerificationCode2.doOnTextChanged { text, _, count, after ->
+    binding.etVerificationCode2.doOnTextChanged { text, _, count, after ->
       viewModel.onCode2Changed(text, count, after)
     }
-    etVerificationCode3.doOnTextChanged { text, _, count, after ->
+    binding.etVerificationCode3.doOnTextChanged { text, _, count, after ->
       viewModel.onCode3Changed(text, count, after)
     }
-    etVerificationCode4.doOnTextChanged { _, _, count, after ->
+    binding.etVerificationCode4.doOnTextChanged { _, _, count, after ->
       viewModel.onCode4Changed(count, after)
     }
   }
