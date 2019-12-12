@@ -4,11 +4,11 @@ import com.tuga.konum.base.Resource
 import com.tuga.konum.domain.UseCase
 import com.tuga.konum.domain.models.network.CreateApplicantDto
 import com.tuga.konum.domain.repository.UserRepository
-import com.tuga.konum.domain.usecase.registration.GetCreateApplicantUserCase.Params
+import com.tuga.konum.domain.usecase.registration.GetCreateApplicantUseCase.Params
 import com.tuga.konum.util.ErrorFactory
 import javax.inject.Inject
 
-class GetCreateApplicantUserCase @Inject constructor(
+class GetCreateApplicantUseCase @Inject constructor(
   private val userRepository: UserRepository,
   private val errorFactory: ErrorFactory
 ) : UseCase.ResourceUseCase<Params, Boolean> {

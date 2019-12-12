@@ -5,7 +5,7 @@ import com.tuga.konum.base.Status.ERROR
 import com.tuga.konum.base.Status.LOADING
 import com.tuga.konum.base.Status.SUCCESS
 
-data class Resource<out T>(val status: Status, val result: T?, val message: String?) {
+data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {
         fun <T> success(data: T? = null): Resource<T> {
             return Resource(SUCCESS, data, null)

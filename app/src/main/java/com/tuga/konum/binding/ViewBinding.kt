@@ -11,6 +11,11 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.tuga.konum.domain.models.entity.User
 import java.io.File
 
+@BindingAdapter("goneUnless")
+fun goneUnless(view: View, visible: Boolean) {
+  view.visibility = if (visible) View.VISIBLE else View.GONE
+}
+
 @BindingAdapter("phoneNumberValidator")
 fun bindPhoneNumberValidator(
   editText: EditText,

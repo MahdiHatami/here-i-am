@@ -131,7 +131,7 @@ class ProfileViewModel @Inject constructor(
 
     val response: Resource<Boolean> = getCreateUserUseCase.executeAsync(Params(user))
 
-    if (response.result != null && response.result) {
+    if (response.data != null && response.data) {
       _snackbarText.postValue(Event(string.registration_successful))
       delay(1000)
       _signupCompleted.postValue(Event(Unit))

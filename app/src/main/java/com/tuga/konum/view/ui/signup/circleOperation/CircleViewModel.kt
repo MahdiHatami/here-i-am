@@ -61,7 +61,7 @@ class CircleViewModel @Inject constructor(
     viewModelScope.launch(Dispatchers.IO) {
       val response = getCreateCircleUseCase.executeAsync(Params(CreateCircleDto()))
       // fire event to navigate
-      if (response.result as Boolean)
+      if (response.data as Boolean)
         _navigateToHomeAction.postValue(Event(Unit))
       else
         _snackbarText.postValue(Event(string.sms_code_not_correct))
