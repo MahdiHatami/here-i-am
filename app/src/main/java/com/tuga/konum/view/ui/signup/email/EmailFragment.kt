@@ -9,13 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.tuga.konum.base.EventObserver
 import com.tuga.konum.R
+import com.tuga.konum.base.EventObserver
 import com.tuga.konum.databinding.FragmentEmailBinding
 import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.view.ui.signup.password.PasswordFragmentArgs
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_email.edtEmail
 import javax.inject.Inject
 
 class EmailFragment : DaggerFragment() {
@@ -61,7 +60,7 @@ class EmailFragment : DaggerFragment() {
     val user = args.user
     viewModel.setUser(user)
 
-    edtEmail.onTextChanged {
+    binding.edtEmail.onTextChanged {
       viewModel.onEmailChanged(it.toString())
     }
   }

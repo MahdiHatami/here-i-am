@@ -8,12 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.tuga.konum.base.EventObserver
 import com.tuga.konum.R
+import com.tuga.konum.base.EventObserver
 import com.tuga.konum.databinding.FragmentPhoneNumberBinding
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_phone_number.ccp
-import kotlinx.android.synthetic.main.fragment_phone_number.edtPhoneNumber
 import javax.inject.Inject
 
 class PhoneNumberFragment : DaggerFragment() {
@@ -38,10 +36,10 @@ class PhoneNumberFragment : DaggerFragment() {
     savedInstanceState: Bundle?
   ) {
     binding.lifecycleOwner = this
-    ccp.registerCarrierNumberEditText(edtPhoneNumber)
+    binding.ccp.registerCarrierNumberEditText(binding.edtPhoneNumber)
 
-    ccp.setPhoneNumberValidityChangeListener {
-      viewModel.onPhoneNumberChanged(ccp.fullNumber, it)
+    binding.ccp.setPhoneNumberValidityChangeListener {
+      viewModel.onPhoneNumberChanged(binding.ccp.fullNumber, it)
     }
   }
 

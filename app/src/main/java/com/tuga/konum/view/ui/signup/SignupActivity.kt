@@ -3,43 +3,46 @@ package com.tuga.konum.view.ui.signup
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.tuga.konum.R
 import com.tuga.konum.base.ext.actAsFluid
-import kotlinx.android.synthetic.main.activity_signup.nav_host_signup_fragment
-import kotlinx.android.synthetic.main.activity_signup.toolbar
+import com.tuga.konum.databinding.ActivitySignupBinding
+import kotlinx.android.synthetic.main.activity_signup.navHostSignupFragment
 
 class SignupActivity : AppCompatActivity(){
 
+  private lateinit var binding: ActivitySignupBinding
+
   private val navController: NavController
-    get() = findNavController(R.id.nav_host_signup_fragment)
+    get() = findNavController(R.id.navHostSignupFragment)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_signup)
+    binding = DataBindingUtil.setContentView(this, R.layout.activity_signup)
 
     actAsFluid()
 
     // use label in nav_host for setting fragments title
     navController.addOnDestinationChangedListener { _, _, _ ->
-      toolbar.title = navController.currentDestination?.label
-      toolbar.setTitleTextColor(android.graphics.Color.WHITE)
+      binding.toolbar.title = navController.currentDestination?.label
+      binding.toolbar.setTitleTextColor(android.graphics.Color.WHITE)
     }
 
     // add Up button
     NavigationUI.setupWithNavController(
-      toolbar,
-      NavHostFragment.findNavController(nav_host_signup_fragment)
+      binding.toolbar,
+      NavHostFragment.findNavController(navHostSignupFragment)
     )
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return NavigationUI.onNavDestinationSelected(
       item,
-      NavHostFragment.findNavController(nav_host_signup_fragment)
+      NavHostFragment.findNavController(navHostSignupFragment)
     )
         || super.onOptionsItemSelected(item)
   }

@@ -15,8 +15,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.theartofdev.edmodo.cropper.CropImage
-import com.tuga.konum.base.EventObserver
 import com.tuga.konum.R
+import com.tuga.konum.base.EventObserver
 import com.tuga.konum.databinding.FragmentProfileBinding
 import com.tuga.konum.event.RequestGalleryImagePicker
 import com.tuga.konum.event.RequestStoragePermissionEvent
@@ -25,7 +25,6 @@ import com.tuga.konum.extension.setupSnackbar
 import com.tuga.konum.permission.PermissionManager
 import com.tuga.konum.util.BitmapResolver
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_profile.edtUsername
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject
@@ -81,7 +80,7 @@ class ProfileFragment : DaggerFragment() {
     val user = args.user
     viewModel.setUser(user)
 
-    edtUsername.onTextChanged {
+    binding.edtUsername.onTextChanged {
       viewModel.onUsernameChanged(it.toString())
     }
   }

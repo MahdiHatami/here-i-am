@@ -9,12 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.tuga.konum.base.EventObserver
 import com.tuga.konum.R
+import com.tuga.konum.base.EventObserver
 import com.tuga.konum.databinding.FragmentPasswordBinding
 import com.tuga.konum.extension.onTextChanged
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_password.edtPassword
 import javax.inject.Inject
 
 class PasswordFragment : DaggerFragment() {
@@ -57,7 +56,7 @@ class PasswordFragment : DaggerFragment() {
     val user = args.user
     viewModel.setUser(user)
 
-    edtPassword.onTextChanged {
+    binding.edtPassword.onTextChanged {
       viewModel.onPasswordChanged(it.toString())
     }
   }
