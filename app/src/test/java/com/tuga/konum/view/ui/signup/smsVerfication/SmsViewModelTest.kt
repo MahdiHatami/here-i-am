@@ -6,7 +6,7 @@ import com.tuga.konum.MainCoroutineRule
 import com.tuga.konum.assertSnackbarMessage
 import com.tuga.konum.R.string
 import com.tuga.konum.domain.usecase.registration.GetCheckVerificationCodeUserCase
-import com.tuga.konum.domain.usecase.registration.GetCreateApplicantUserCase
+import com.tuga.konum.domain.usecase.registration.GetCreateApplicantUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,7 +26,7 @@ class SmsViewModelTest {
   var instaExecuRule = InstantTaskExecutorRule()
 
   @MockK
-  private lateinit var getCreateApplicantUserCase: GetCreateApplicantUserCase
+  private lateinit var getCreateApplicantUserCase: GetCreateApplicantUseCase
 
   @MockK
   private lateinit var getCheckVerificationCodeUserCase: GetCheckVerificationCodeUserCase
