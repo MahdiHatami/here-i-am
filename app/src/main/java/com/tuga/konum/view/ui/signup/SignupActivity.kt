@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.tuga.konum.R
+import com.tuga.konum.base.ext.actAsFluid
 import kotlinx.android.synthetic.main.activity_signup.nav_host_signup_fragment
 import kotlinx.android.synthetic.main.activity_signup.toolbar
 
@@ -19,6 +20,8 @@ class SignupActivity : AppCompatActivity(){
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_signup)
+
+    actAsFluid()
 
     // use label in nav_host for setting fragments title
     navController.addOnDestinationChangedListener { _, _, _ ->
