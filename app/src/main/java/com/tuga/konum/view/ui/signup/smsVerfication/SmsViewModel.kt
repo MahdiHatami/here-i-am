@@ -6,13 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tuga.konum.base.Event
 import com.tuga.konum.R.string
+import com.tuga.konum.base.Status.ERROR
+import com.tuga.konum.base.Status.LOADING
+import com.tuga.konum.base.Status.SUCCESS
 import com.tuga.konum.coroutines.DefaultDispatcherProvider
 import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.domain.models.network.CheckVerificationCodeDto
 import com.tuga.konum.domain.models.network.CreateApplicantDto
 import com.tuga.konum.domain.usecase.registration.GetCheckVerificationCodeUserCase
 import com.tuga.konum.domain.usecase.registration.GetCheckVerificationCodeUserCase.Params
-import com.tuga.konum.domain.usecase.registration.GetCreateApplicantUserCase
+import com.tuga.konum.domain.usecase.registration.GetCreateApplicantUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -20,7 +23,7 @@ import javax.inject.Inject
 
 class SmsViewModel @Inject constructor(
   private val getCheckVerificationCodeUserCase: GetCheckVerificationCodeUserCase,
-  private val getCreateApplicantUserCase: GetCreateApplicantUserCase
+  private val getCreateApplicantUseCase: GetCreateApplicantUseCase
 ) : ViewModel() {
 
   private var user: User = User()
@@ -29,6 +32,11 @@ class SmsViewModel @Inject constructor(
   val code2 = MutableLiveData<String>()
   val code3 = MutableLiveData<String>()
   val code4 = MutableLiveData<String>()
+
+  private val _smsLiveData = MutableLiveData<SmsUiState>()
+  val smsLiveData: LiveData<SmsUiState> get() = _smsLiveData
+
+  private val getSmsUiState = _smsLiveData.value
 
   private val _navigateToPasswordAction = MutableLiveData<Event<User>>()
   val navigateToPasswordAction: LiveData<Event<User>> = _navigateToPasswordAction
@@ -50,14 +58,25 @@ class SmsViewModel @Inject constructor(
 
   init {
     Timber.d("init sms view model")
+    _smsLiveData.value = SmsUiState()
   }
 
   fun startSmsReceiver() = viewModelScope.launch(DefaultDispatcherProvider.io()) {
     val dto = CreateApplicantDto(user.phoneNumber, "ASDFDFA")
-    val res = getCreateApplicantUserCase.executeAsync(
-      GetCreateApplicantUserCase.Params(dto)
+
+    _smsLiveData.postValue(getSmsUiState?.copy(isLoading = true))
+    val createApplicant =
+      getCreateApplicantUseCase.executeAsync(GetCreateApplicantUseCase.Params(dto))
+    _smsLiveData.postValue(
+      getSmsUiState?.copy(
+        data = createApplicant.data ?: false,
+        isLoading = createApplicant.status == LOADING,
+        isSuccess = createApplicant.status == SUCCESS,
+        isError = createApplicant.status == ERROR,
+        errorMessage = createApplicant.message
+      )
     )
-    if (res.result == true)
+    if (getSmsUiState?.data != null && getSmsUiState.data)
       _snackbarText.postValue(Event(string.verification_code_will_be_send))
     else
       _snackbarText.postValue(Event(string.resend_code_message))
@@ -96,7 +115,7 @@ class SmsViewModel @Inject constructor(
       val response = getCheckVerificationCodeUserCase.executeAsync(Params(dto))
 
       // set user.phoneVerified
-      user.phoneVerified = response.result != null
+      user.phoneVerified = response.data != null
 
       // fire event to navigate
       if (user.phoneVerified)
@@ -135,4 +154,12 @@ class SmsViewModel @Inject constructor(
   fun onCode4Changed(count: Int, after: Int) {
     if (after < count) _code3Focus.value = Event(true)
   }
+
+  data class SmsUiState(
+    val data: Boolean = false,
+    val isSuccess: Boolean = false,
+    val isLoading: Boolean = false,
+    val isError: Boolean = false,
+    val errorMessage: String? = null
+  )
 }

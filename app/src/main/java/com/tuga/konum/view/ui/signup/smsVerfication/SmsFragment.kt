@@ -14,6 +14,9 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.tuga.konum.base.EventObserver
 import com.tuga.konum.R
+import com.tuga.konum.R.string
+import com.tuga.konum.base.Event
+import com.tuga.konum.base.ext.observeWith
 import com.tuga.konum.databinding.SmsFragmentBinding
 import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.extension.setupSnackbar
@@ -23,6 +26,7 @@ import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode1
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode2
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode3
 import kotlinx.android.synthetic.main.sms_fragment.etVerificationCode4
+import org.jetbrains.anko.support.v4.toast
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -45,7 +49,7 @@ class SmsFragment : DaggerFragment() {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     binding.lifecycleOwner = this
-
+    
     val user = args.user
     viewModel.setUser(user)
   }
@@ -58,11 +62,18 @@ class SmsFragment : DaggerFragment() {
     setupSmsRetriever()
     setupSnackbar()
 
+    viewModel.smsLiveData.observeWith(this) { smsUiState ->
+      if (smsUiState.isError) {
+        toast(string.resend_code_message)
+      }
+    }
+
     viewModel.navigateToPasswordAction.observe(viewLifecycleOwner,
       EventObserver { user ->
         findNavController()
           .navigate(SmsFragmentDirections.actionSmsFragmentToPasswordFragment(user))
       })
+
     viewModel.code1Focus.observe(viewLifecycleOwner,
       EventObserver {
         etVerificationCode1.requestFocus()
