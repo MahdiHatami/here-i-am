@@ -17,6 +17,10 @@ android {
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   }
 
+  buildFeatures {
+    dataBinding = true
+  }
+
   android {
     sourceSets {
       String sharedTestDir = 'src/sharedTest/java'
@@ -76,11 +80,6 @@ android {
 
   kapt {
     correctErrorTypes = true
-  }
-
-  dataBinding {
-    enabled = true
-    enabledForTests = true
   }
 
   androidExtensions {
