@@ -11,11 +11,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mlsdev.rximagepicker.Sources
 import com.mlsdev.rximagepicker.Sources.GALLERY
 import com.theartofdev.edmodo.cropper.CropImage
-import com.tuga.konum.base.Event
 import com.tuga.konum.R.string
+import com.tuga.konum.base.Event
 import com.tuga.konum.base.Resource
-import com.tuga.konum.event.RequestGalleryImagePicker
-import com.tuga.konum.event.RequestStoragePermissionEvent
 import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.domain.usecase.registration.GetCreateUserUseCase
 import com.tuga.konum.domain.usecase.registration.GetCreateUserUseCase.Params
@@ -25,7 +23,6 @@ import com.tuga.konum.util.BitmapResolver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -35,16 +32,22 @@ class ProfileViewModel @Inject constructor(
 
   val TAG = "SignupActivityViewModel"
 
+  private var user: User
+
   private var storagePermissionStatus: PermissionStatus = CAN_ASK_PERMISSION
   private var cameraPermissionStatus: PermissionStatus = CAN_ASK_PERMISSION
 
   val bottomSheetBehaviorState = ObservableInt(BottomSheetBehavior.STATE_HIDDEN)
 
-  private var user: User
-
   // two way data binding
   val username = MutableLiveData<String>()
   val userProfileImagePath = MutableLiveData<String>()
+
+  private val _requestStoragePermissionEvent = MutableLiveData<Event<Unit>>()
+  val requestStoragePermissionEvent: LiveData<Event<Unit>> = _requestStoragePermissionEvent
+
+  private val _requestGalleryImagePicker = MutableLiveData<Event<Unit>>()
+  val requestGalleryImagePicker: LiveData<Event<Unit>> = _requestGalleryImagePicker
 
   // validation events
   private val _isUsernameCorrect = MutableLiveData<Boolean>()
@@ -76,7 +79,7 @@ class ProfileViewModel @Inject constructor(
 
   fun galleryOnClick() {
     if (storagePermissionStatus == CAN_ASK_PERMISSION) {
-      EventBus.getDefault().post(RequestStoragePermissionEvent())
+      _requestStoragePermissionEvent.value = Event(Unit)
     } else {
       pickImage(GALLERY)
     }
@@ -88,7 +91,7 @@ class ProfileViewModel @Inject constructor(
 
   private fun pickImage(source: Sources) {
     bottomSheetBehaviorState.set(BottomSheetBehavior.STATE_HIDDEN)
-    EventBus.getDefault().post(RequestGalleryImagePicker(source))
+    _requestGalleryImagePicker.value = Event(Unit)
   }
 
   fun setStoragePermissionStatus(newPermissionStatus: PermissionStatus) {

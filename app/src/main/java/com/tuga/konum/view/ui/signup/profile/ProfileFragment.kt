@@ -18,15 +18,12 @@ import com.theartofdev.edmodo.cropper.CropImage
 import com.tuga.konum.R
 import com.tuga.konum.base.EventObserver
 import com.tuga.konum.databinding.FragmentProfileBinding
-import com.tuga.konum.event.RequestGalleryImagePicker
-import com.tuga.konum.event.RequestStoragePermissionEvent
+import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.extension.setupSnackbar
 import com.tuga.konum.permission.PermissionManager
 import com.tuga.konum.util.BitmapResolver
 import dagger.android.support.DaggerFragment
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject
 
 class ProfileFragment : DaggerFragment() {
@@ -68,6 +65,18 @@ class ProfileFragment : DaggerFragment() {
         Manifest.permission.READ_EXTERNAL_STORAGE
       )
     )
+
+    viewModel.requestStoragePermissionEvent.observe(viewLifecycleOwner, EventObserver {
+      ActivityCompat.requestPermissions(
+        activity!!,
+        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+        REQUEST_CODE_READ_EXTERNAL_STORAGE
+      )
+    })
+
+    viewModel.requestGalleryImagePicker.observe(viewLifecycleOwner, EventObserver {
+      CropImage.activity().start(activity!!, this)
+    })
   }
 
   private fun setupSnackbar() {
@@ -83,16 +92,6 @@ class ProfileFragment : DaggerFragment() {
     binding.edtUsername.onTextChanged {
       viewModel.onUsernameChanged(it.toString())
     }
-  }
-
-  override fun onStart() {
-    super.onStart()
-    EventBus.getDefault().register(this)
-  }
-
-  override fun onStop() {
-    super.onStop()
-    EventBus.getDefault().unregister(this)
   }
 
   override fun onRequestPermissionsResult(
@@ -120,20 +119,6 @@ class ProfileFragment : DaggerFragment() {
         viewModel.onActivityResultImagePick(resultCode, result.uri.path, capturedImage)
       }
     }
-  }
-
-  @Subscribe
-  fun onRequestStoragePermissionEvent(event: RequestStoragePermissionEvent) {
-    ActivityCompat.requestPermissions(
-      activity!!,
-      arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-      REQUEST_CODE_READ_EXTERNAL_STORAGE
-    )
-  }
-
-  @Subscribe
-  fun onRequestGalleryImagePicker(event: RequestGalleryImagePicker) {
-    CropImage.activity().start(activity!!, this)
   }
 
   companion object {

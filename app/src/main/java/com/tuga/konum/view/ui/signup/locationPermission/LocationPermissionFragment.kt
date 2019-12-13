@@ -11,8 +11,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.tuga.konum.base.EventObserver
 import com.tuga.konum.R
+import com.tuga.konum.base.EventObserver
 import com.tuga.konum.databinding.FragmentLocationPermissionBinding
 import com.tuga.konum.permission.PermissionManager
 import dagger.android.support.DaggerFragment
@@ -45,7 +45,7 @@ class LocationPermissionFragment : DaggerFragment() {
     viewModel.setLocationPermissionStatus(
       PermissionManager().getPermissionStatus(
         activity!!,
-        android.Manifest.permission.ACCESS_FINE_LOCATION
+        permission.ACCESS_FINE_LOCATION
       )
     )
 
@@ -79,15 +79,13 @@ class LocationPermissionFragment : DaggerFragment() {
           viewModel.setLocationPermissionStatus(
             PermissionManager().getPermissionStatus(
               activity!!,
-              android.Manifest.permission.ACCESS_FINE_LOCATION
+              permission.ACCESS_FINE_LOCATION
             )
           )
         } else {
           toast("permission denied")
         }
-
       }
-
       else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
   }
