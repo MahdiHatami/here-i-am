@@ -3,9 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <item
-      android:id="@+id/menu_search"
-      android:icon="@drawable/ic_search"
-      app:showAsAction="ifRoom"
-      android:title="@string/menu_item_search"/>
+      android:id="@+id/menu_people"
+      android:icon="@drawable/ic_people"
+      android:title="People"
+      app:showAsAction="ifRoom" />
+
+  <item
+      android:id="@+id/menu_places"
+      android:icon="@drawable/ic_buildings"
+      android:title="Places"
+      app:showAsAction="ifRoom" />
 
 </menu>

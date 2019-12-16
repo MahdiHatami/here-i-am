@@ -43,11 +43,11 @@
           android:id="@+id/bottom_app_bar_content_container"
           android:layout_width="wrap_content"
           android:layout_height="@dimen/min_touch_target_size"
-          android:layout_marginVertical="@dimen/grid_0_5"
           android:foreground="@drawable/bottom_app_bar_title_foreground"
           android:gravity="center_vertical"
           android:orientation="horizontal"
-          android:paddingHorizontal="@dimen/grid_0_5"
+          android:paddingRight="@dimen/grid_0_5"
+          android:paddingLeft="@dimen/grid_0_5"
           >
 
         <ImageView

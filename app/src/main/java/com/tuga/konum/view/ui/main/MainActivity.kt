@@ -17,7 +17,9 @@ import com.tuga.konum.view.material.BottomNavDrawerFragment
 import com.tuga.konum.view.material.ChangeSettingsMenuStateAction
 import com.tuga.konum.view.material.ShowHideFabStateAction
 import com.tuga.konum.view.material.contentView
-import com.tuga.konum.view.ui.compose.ComposeFragmentDirections
+import com.tuga.konum.view.ui.main.compose.ComposeFragmentDirections
+import com.tuga.konum.view.ui.main.place.PlacesFragmentDirections
+import com.tuga.konum.view.ui.main.setting.SettingsFragmentDirections
 
 class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
   NavController.OnDestinationChangedListener {
@@ -25,9 +27,8 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
   private val navController: NavController
     get() = findNavController(R.id.nav_host_main_fragment)
 
-  private var currentEmailId = -1L
-
   private val binding: ActivityMainBinding by contentView(R.layout.activity_main)
+
   private val bottomNavDrawer: BottomNavDrawerFragment by lazy(NONE) {
     supportFragmentManager.findFragmentById(R.id.bottom_nav_drawer) as BottomNavDrawerFragment
   }
@@ -51,13 +52,13 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
       setShowMotionSpecResource(R.animator.fab_show)
       setHideMotionSpecResource(R.animator.fab_hide)
       setOnClickListener {
-        findNavController(R.id.nav_host_main_fragment)
-          .navigate(ComposeFragmentDirections.actionGlobalComposeFragment(currentEmailId))
+        navController
+          .navigate(ComposeFragmentDirections.actionGlobalComposeFragment())
       }
     }
 
     bottomNavDrawer.apply {
-//      addOnSlideAction(HalfClockwiseRotateSlideAction(binding.bottomAppBarChevron))
+      //      addOnSlideAction(HalfClockwiseRotateSlideAction(binding.bottomAppBarChevron))
 //      addOnSlideAction(AlphaSlideAction(binding.bottomAppBarTitle, true))
       addOnStateChangedAction(ShowHideFabStateAction(binding.fab))
       addOnStateChangedAction(ChangeSettingsMenuStateAction { showSettings ->
@@ -99,10 +100,10 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
    */
   @MenuRes
   private fun getBottomAppBarMenuForDestination(destination: NavDestination? = null): Int {
-    val dest = destination ?: findNavController(R.id.nav_host_main_fragment).currentDestination
+    val dest = destination ?: navController.currentDestination
     return when (dest?.id) {
-      R.id.peopleFragment -> menu.menu_main
-      R.id.emailFragment -> menu.bottom_app_bar_email_menu
+      R.id.peopleFragment -> menu.bottom_app_bar_home_menu
+      R.id.placesFragment -> menu.bottom_app_bar_places_menu
       else -> menu.bottom_app_bar_home_menu
     }
   }
@@ -128,7 +129,14 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
   override fun onMenuItemClick(item: MenuItem?): Boolean {
     when (item?.itemId) {
       R.id.menu_settings -> {
-        bottomNavDrawer.close()
+        navController.navigate(
+          SettingsFragmentDirections.actionGlobalSettingsFragment()
+        )
+      }
+      R.id.menu_places -> {
+        navController.navigate(
+          PlacesFragmentDirections.actionGlobalPlacesFragment()
+        )
       }
     }
     return true
@@ -145,14 +153,15 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
     // BottomAppBar and FAB based on the current destination.
     when (destination.id) {
       R.id.peopleFragment -> {
-        currentEmailId = -1
         setBottomAppBarForHome(getBottomAppBarMenuForDestination(destination))
       }
-      R.id.emailFragment -> {
-        setBottomAppBarForEmail(getBottomAppBarMenuForDestination(destination))
+      R.id.placesFragment -> {
+        setBottomAppBarForPlaces()
+      }
+      R.id.settingsFragment -> {
+        setBottomAppBarForSettings()
       }
       R.id.composeFragment -> {
-        currentEmailId = -1
         setBottomAppBarForCompose()
       }
     }
@@ -170,15 +179,20 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
     }
   }
 
-  private fun setBottomAppBarForEmail(@MenuRes menuRes: Int) {
+  private fun setBottomAppBarForPlaces() {
     binding.run {
-      fab.setImageState(intArrayOf(android.R.attr.state_activated), true)
-      bottomAppBar.visibility = View.VISIBLE
-      bottomAppBar.replaceMenu(menuRes)
-      fab.contentDescription = getString(R.string.fab_reply_email_content_description)
-//      bottomAppBarTitle.visibility = View.INVISIBLE
-      bottomAppBar.performShow()
-      fab.show()
+      bottomAppBar.performHide()
+      fab.hide()
+      bottomAppBar.visibility = View.GONE
+    }
+  }
+
+  private fun setBottomAppBarForSettings() {
+    bottomNavDrawer.toggle()
+    binding.run {
+      bottomAppBar.performHide()
+      fab.hide()
+      bottomAppBar.visibility = View.GONE
     }
   }
 

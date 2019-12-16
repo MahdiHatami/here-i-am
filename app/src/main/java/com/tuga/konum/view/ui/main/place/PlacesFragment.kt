@@ -1,4 +1,4 @@
-package com.tuga.konum.view.ui.main.setting
+package com.tuga.konum.view.ui.main.place
 
 import android.os.Bundle
 import android.transition.Slide
@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.tuga.konum.R
-import com.tuga.konum.databinding.FragmentSettingsBinding
+import com.tuga.konum.databinding.FragmentPlacesBinding
 import com.tuga.konum.util.MaterialContainerTransition
 import com.tuga.konum.view.material.themeInterpolator
 
-class SettingsFragment : Fragment() {
+class PlacesFragment : Fragment() {
 
-  private lateinit var binding: FragmentSettingsBinding
+  private lateinit var binding: FragmentPlacesBinding
 
-  private lateinit var viewModel: SettingsViewModel
+  private lateinit var viewModel: PlacesViewModel
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -27,16 +27,15 @@ class SettingsFragment : Fragment() {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    binding = FragmentSettingsBinding.inflate(inflater, container, false)
+    binding = FragmentPlacesBinding.inflate(inflater, container, false)
     return binding.root
   }
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    viewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
+    viewModel = ViewModelProvider(this).get(PlacesViewModel::class.java)
 
     startTransitions()
-
   }
 
   private fun prepareTransitions() {
@@ -50,6 +49,10 @@ class SettingsFragment : Fragment() {
     enterTransition = MaterialContainerTransition(
       correctForZOrdering = true
     ).apply {
+      setSharedElementViews(
+        requireActivity().findViewById(R.id.fab),
+        binding.placesCardView
+      )
       duration = resources.getInteger(R.integer.reply_motion_default_large).toLong()
       interpolator = requireContext().themeInterpolator(R.attr.motionInterpolatorPersistent)
     }

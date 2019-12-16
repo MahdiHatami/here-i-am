@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.tuga.konum.view.ui.compose
+package com.tuga.konum.view.ui.main.compose
 
 import android.os.Bundle
 import android.transition.Slide
@@ -24,17 +24,13 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.tuga.konum.R
 import com.tuga.konum.databinding.ComposeRecipientChipBinding
 import com.tuga.konum.databinding.FragmentComposeBinding
 import com.tuga.konum.util.MaterialContainerTransition
 import com.tuga.konum.view.material.data.Account
 import com.tuga.konum.view.material.data.AccountStore
-import com.tuga.konum.view.material.data.Email
-import com.tuga.konum.view.material.data.EmailStore
 import com.tuga.konum.view.material.themeInterpolator
-import kotlin.LazyThreadSafetyMode.NONE
 
 /**
  * A [Fragment] which allows for the composition of a new email.
@@ -46,13 +42,6 @@ class ComposeFragment : Fragment() {
 //    private val args: ComposeFragmentArgs by navArgs()
 
   // The new email being composed.
-  private val composeEmail: Email by lazy(NONE) {
-    // Get the id of the email being replied to, if any, and either create an new empty email
-    // or a new reply email.
-    val id = 1L
-    if (id == -1L) EmailStore.create() else EmailStore.createReplyTo(id)
-  }
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     prepareTransitions()
@@ -70,9 +59,9 @@ class ComposeFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     binding.run {
       closeIcon.setOnClickListener { findNavController().navigateUp() }
-      email = composeEmail
-
-      composeEmail.nonUserAccountRecipients.forEach { addRecipientChip(it) }
+//      email = composeEmail
+//
+//      composeEmail.nonUserAccountRecipients.forEach { addRecipientChip(it) }
 
       senderSpinner.adapter = ArrayAdapter(
         senderSpinner.context,
