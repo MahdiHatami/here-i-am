@@ -10,4 +10,25 @@
       android:name="com.tuga.konum.view.ui.main.people.PeopleFragment"
       android:label="fragment_peaple"
       tools:layout="@layout/fragment_people" />
+
+  <fragment
+      android:id="@+id/settingsFragment"
+      android:name="com.tuga.konum.view.ui.main.setting.SettingsFragment"
+      android:label="fragment_settings"
+      tools:layout="@layout/fragment_settings" />
+
+  <fragment
+      android:id="@+id/composeFragment"
+      android:name="com.tuga.konum.view.ui.compose.ComposeFragment"
+      android:label="ComposeFragment"
+      tools:layout="@layout/fragment_compose">
+    <argument
+        android:name="replyToEmailId"
+        android:defaultValue="-1L"
+        app:argType="long" />
+  </fragment>
+  <action
+      android:id="@+id/action_global_composeFragment"
+      app:destination="@+id/composeFragment" />
+
 </navigation>
