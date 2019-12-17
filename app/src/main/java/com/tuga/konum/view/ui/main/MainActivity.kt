@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         // be displayed when the BottomNavigationDrawer is open.
         binding.bottomAppBar.replaceMenu(
           if (showSettings) {
-            menu.bottom_app_bar_settings_menu
+            R.menu.bottom_app_bar_settings_menu
           } else {
             getBottomAppBarMenuForDestination()
           }
@@ -188,7 +188,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
   }
 
   private fun setBottomAppBarForSettings() {
-    bottomNavDrawer.toggle()
     binding.run {
       bottomAppBar.performHide()
       fab.hide()

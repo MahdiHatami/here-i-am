@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.tuga.konum.R
 import com.tuga.konum.databinding.FragmentPlacesBinding
 import com.tuga.konum.util.MaterialContainerTransition
@@ -35,6 +36,9 @@ class PlacesFragment : Fragment() {
     super.onActivityCreated(savedInstanceState)
     viewModel = ViewModelProvider(this).get(PlacesViewModel::class.java)
 
+    binding.run {
+      closeIcon.setOnClickListener { findNavController().navigateUp() }
+    }
     startTransitions()
   }
 
@@ -50,7 +54,7 @@ class PlacesFragment : Fragment() {
       correctForZOrdering = true
     ).apply {
       setSharedElementViews(
-        requireActivity().findViewById(R.id.fab),
+        requireActivity().findViewById(R.id.bottom_app_bar),
         binding.placesCardView
       )
       duration = resources.getInteger(R.integer.konum_motion_default_large).toLong()
