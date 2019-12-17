@@ -18,9 +18,6 @@ package com.tuga.konum.view.material
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tuga.konum.view.material.data.EmailStore
-import com.tuga.konum.view.material.NavigationModelItem.NavDivider
-import com.tuga.konum.view.material.NavigationModelItem.NavEmailFolder
 import com.tuga.konum.view.material.NavigationModelItem.NavMenuItem
 import com.tuga.konum.R
 
@@ -95,10 +92,7 @@ object NavigationModel {
   }
 
   private fun postListUpdate() {
-    val newList = navigationMenuItems +
-        (NavDivider("Folders")) +
-        EmailStore.getAllFolders().map { NavEmailFolder(it) }
-
+    val newList = navigationMenuItems
     _navigationList.value = newList
   }
 }

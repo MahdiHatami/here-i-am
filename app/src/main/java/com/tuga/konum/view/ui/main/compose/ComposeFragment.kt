@@ -106,11 +106,11 @@ class ComposeFragment : Fragment() {
         requireActivity().findViewById(R.id.fab),
         binding.emailCardView
       )
-      duration = resources.getInteger(R.integer.reply_motion_default_large).toLong()
+      duration = resources.getInteger(R.integer.konum_motion_default_large).toLong()
       interpolator = requireContext().themeInterpolator(R.attr.motionInterpolatorPersistent)
     }
     returnTransition = Slide().apply {
-      duration = resources.getInteger(R.integer.reply_motion_duration_medium).toLong()
+      duration = resources.getInteger(R.integer.konum_motion_duration_medium).toLong()
       interpolator = requireContext().themeInterpolator(R.attr.motionInterpolatorOutgoing)
     }
     startPostponedEnterTransition()
