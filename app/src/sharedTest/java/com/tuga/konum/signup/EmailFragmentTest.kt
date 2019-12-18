@@ -73,7 +73,7 @@ class EmailFragmentTest {
 
   private fun launchFragment(navController: NavController?) {
     val bundle = EmailFragmentArgs(user).toBundle()
-    val scenario = launchFragmentInContainer<EmailFragment>(bundle, style.MaterialTheme)
+    val scenario = launchFragmentInContainer<EmailFragment>(bundle, style.Theme_Konum_DayNight)
     scenario.onFragment {
       Navigation.setViewNavController(it.view!!, navController)
     }

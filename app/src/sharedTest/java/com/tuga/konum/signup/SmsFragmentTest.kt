@@ -50,7 +50,7 @@ class SmsFragmentTest {
 
   private fun launchFragment(navController: NavController?) {
     val bundle = SmsFragmentArgs(user).toBundle()
-    val scenario = launchFragmentInContainer<SmsFragment>(bundle, style.MaterialTheme)
+    val scenario = launchFragmentInContainer<SmsFragment>(bundle, style.Theme_Konum_DayNight)
     scenario.onFragment {
       Navigation.setViewNavController(it.view!!, navController)
     }

@@ -46,7 +46,6 @@ class ProfileFragmentTest {
 
     onView(withId(R.id.btnProfileNext)).check(matches(isEnabled()))
 
-
   }
 
   @Test
@@ -63,7 +62,7 @@ class ProfileFragmentTest {
 
   private fun launchFragment(navController: NavController?) {
     val bundle = ProfileFragmentArgs(user).toBundle()
-    val scenario = launchFragmentInContainer<ProfileFragment>(bundle, style.MaterialTheme)
+    val scenario = launchFragmentInContainer<ProfileFragment>(bundle, style.Theme_Konum_DayNight)
     scenario.onFragment {
       Navigation.setViewNavController(it.view!!, navController)
     }
