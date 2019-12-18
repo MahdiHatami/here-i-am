@@ -46,13 +46,13 @@ import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.shape.Shapeable
 import com.tuga.konum.R
 import com.tuga.konum.util.MaterialContainerTransitionDrawable.PROGRESS
-import com.tuga.konum.view.material.CornerRounding
-import com.tuga.konum.view.material.descendantBackgroundColor
-import com.tuga.konum.view.material.drawToBitmap
-import com.tuga.konum.view.material.findAncestorById
-import com.tuga.konum.view.material.toCornerRounding
-import com.tuga.konum.view.material.toFloatArray
-import com.tuga.konum.view.material.withAlpha
+import com.tuga.konum.extension.CornerRounding
+import com.tuga.konum.extension.descendantBackgroundColor
+import com.tuga.konum.extension.drawToBitmap
+import com.tuga.konum.extension.findAncestorById
+import com.tuga.konum.extension.toCornerRounding
+import com.tuga.konum.extension.toFloatArray
+import com.tuga.konum.extension.withAlpha
 
 @Px private const val BITMAP_PADDING_BOTTOM = 1
 private const val PROP_BOUNDS = "materialContainerTransition:bounds"

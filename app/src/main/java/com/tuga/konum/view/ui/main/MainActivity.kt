@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -13,9 +14,9 @@ import androidx.navigation.findNavController
 import com.tuga.konum.R
 import com.tuga.konum.R.menu
 import com.tuga.konum.databinding.ActivityMainBinding
-import com.tuga.konum.view.material.BottomNavDrawerFragment
-import com.tuga.konum.view.material.ChangeSettingsMenuStateAction
-import com.tuga.konum.view.material.ShowHideFabStateAction
+import com.tuga.konum.view.ui.main.bottomNav.BottomNavDrawerFragment
+import com.tuga.konum.view.ui.main.bottomNav.ChangeSettingsMenuStateAction
+import com.tuga.konum.view.ui.main.bottomNav.ShowHideFabStateAction
 import com.tuga.konum.view.material.contentView
 import com.tuga.konum.view.ui.main.compose.ComposeFragmentDirections
 import com.tuga.konum.view.ui.main.place.PlacesFragmentDirections
@@ -36,6 +37,8 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setUpBottomNavigationAndFab()
+    val nightMode = AppCompatDelegate.MODE_NIGHT_YES
+    delegate.localNightMode = nightMode
   }
 
   private fun setUpBottomNavigationAndFab() {
@@ -60,13 +63,17 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
     bottomNavDrawer.apply {
       //      addOnSlideAction(HalfClockwiseRotateSlideAction(binding.bottomAppBarChevron))
 //      addOnSlideAction(AlphaSlideAction(binding.bottomAppBarTitle, true))
-      addOnStateChangedAction(ShowHideFabStateAction(binding.fab))
+      addOnStateChangedAction(
+        ShowHideFabStateAction(
+          binding.fab
+        )
+      )
       addOnStateChangedAction(ChangeSettingsMenuStateAction { showSettings ->
         // Toggle between the current destination's BAB menu and the menu which should
         // be displayed when the BottomNavigationDrawer is open.
         binding.bottomAppBar.replaceMenu(
           if (showSettings) {
-            R.menu.bottom_app_bar_settings_menu
+            menu.bottom_app_bar_settings_menu
           } else {
             getBottomAppBarMenuForDestination()
           }

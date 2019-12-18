@@ -1,31 +1,13 @@
-/*
- * Copyright 2019 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package com.tuga.konum.view.material
+package com.tuga.konum.view.ui.main.bottomNav
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.tuga.konum.databinding.NavDividerItemLayoutBinding
-import com.tuga.konum.databinding.NavEmailFolderItemLayoutBinding
 import com.tuga.konum.databinding.NavMenuItemLayoutBinding
 
 private const val VIEW_TYPE_NAV_MENU_ITEM = 4
 private const val VIEW_TYPE_NAV_DIVIDER = 6
-private const val VIEW_TYPE_NAV_EMAIL_FOLDER_ITEM = 5
 
 class NavigationAdapter(
   private val listener: NavigationAdapterListener
@@ -35,14 +17,12 @@ class NavigationAdapter(
 
   interface NavigationAdapterListener {
     fun onNavMenuItemClicked(item: NavigationModelItem.NavMenuItem)
-    fun onNavEmailFolderClicked(folder: NavigationModelItem.NavEmailFolder)
   }
 
   override fun getItemViewType(position: Int): Int {
     return when (getItem(position)) {
       is NavigationModelItem.NavMenuItem -> VIEW_TYPE_NAV_MENU_ITEM
       is NavigationModelItem.NavDivider -> VIEW_TYPE_NAV_DIVIDER
-      is NavigationModelItem.NavEmailFolder -> VIEW_TYPE_NAV_EMAIL_FOLDER_ITEM
       else -> throw RuntimeException("Unsupported ItemViewType for obj ${getItem(position)}")
     }
   }
@@ -67,14 +47,6 @@ class NavigationAdapter(
           parent,
           false
         )
-      )
-      VIEW_TYPE_NAV_EMAIL_FOLDER_ITEM -> NavigationViewHolder.EmailFolderViewHolder(
-        NavEmailFolderItemLayoutBinding.inflate(
-          LayoutInflater.from(parent.context),
-          parent,
-          false
-        ),
-        listener
       )
       else -> throw RuntimeException("Unsupported view holder type")
     } as NavigationViewHolder<NavigationModelItem>

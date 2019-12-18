@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.tuga.konum.view.material
+package com.tuga.konum.view.ui.main.bottomNav
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
  * An action to be performed when a bottom sheet's state is changed.
  */
 interface OnStateChangedAction {
-    fun onStateChanged(sheet: View, newState: Int)
+  fun onStateChanged(sheet: View, newState: Int)
 }
 
 /**
@@ -33,22 +33,22 @@ interface OnStateChangedAction {
  * used.
  */
 class ChangeSettingsMenuStateAction(
-    private val onShouldShowSettingsMenu: (showSettings: Boolean) -> Unit
+  private val onShouldShowSettingsMenu: (showSettings: Boolean) -> Unit
 ) : OnStateChangedAction {
 
-    private var hasCalledShowSettingsMenu: Boolean = false
+  private var hasCalledShowSettingsMenu: Boolean = false
 
-    override fun onStateChanged(sheet: View, newState: Int) {
-        if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-            hasCalledShowSettingsMenu = false
-            onShouldShowSettingsMenu(false)
-        } else {
-            if (!hasCalledShowSettingsMenu) {
-                hasCalledShowSettingsMenu = true
-                onShouldShowSettingsMenu(true)
-            }
-        }
+  override fun onStateChanged(sheet: View, newState: Int) {
+    if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+      hasCalledShowSettingsMenu = false
+      onShouldShowSettingsMenu(false)
+    } else {
+      if (!hasCalledShowSettingsMenu) {
+        hasCalledShowSettingsMenu = true
+        onShouldShowSettingsMenu(true)
+      }
     }
+  }
 }
 
 /**
@@ -56,16 +56,16 @@ class ChangeSettingsMenuStateAction(
  * when the sheet is not hidden.
  */
 class ShowHideFabStateAction(
-    private val fab: FloatingActionButton
+  private val fab: FloatingActionButton
 ) : OnStateChangedAction {
 
-    override fun onStateChanged(sheet: View, newState: Int) {
-        if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-            fab.show()
-        } else {
-            fab.hide()
-        }
+  override fun onStateChanged(sheet: View, newState: Int) {
+    if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+      fab.show()
+    } else {
+      fab.hide()
     }
+  }
 }
 
 /**
@@ -77,17 +77,17 @@ class ShowHideFabStateAction(
  * hidden when the sheet is shown (not hidden).
  */
 class VisibilityStateAction(
-    private val view: View,
-    private val reverse: Boolean = false
+  private val view: View,
+  private val reverse: Boolean = false
 ) : OnStateChangedAction {
-    override fun onStateChanged(sheet: View, newState: Int) {
-        val stateHiddenVisibility = if (!reverse) View.GONE else View.VISIBLE
-        val stateDefaultVisibility = if (!reverse) View.VISIBLE else View.GONE
-        when (newState) {
-            BottomSheetBehavior.STATE_HIDDEN -> view.visibility = stateHiddenVisibility
-            else -> view.visibility = stateDefaultVisibility
-        }
+  override fun onStateChanged(sheet: View, newState: Int) {
+    val stateHiddenVisibility = if (!reverse) View.GONE else View.VISIBLE
+    val stateDefaultVisibility = if (!reverse) View.VISIBLE else View.GONE
+    when (newState) {
+      BottomSheetBehavior.STATE_HIDDEN -> view.visibility = stateHiddenVisibility
+      else -> view.visibility = stateDefaultVisibility
     }
+  }
 }
 
 /**
@@ -97,9 +97,9 @@ class VisibilityStateAction(
  * opened to the half-expanded state, which can happen if the sheet is hidden while scrolled.
  */
 class ScrollToTopStateAction(
-    private val recyclerView: RecyclerView
+  private val recyclerView: RecyclerView
 ) : OnStateChangedAction {
-    override fun onStateChanged(sheet: View, newState: Int) {
-        if (newState == BottomSheetBehavior.STATE_HIDDEN) recyclerView.scrollToPosition(0)
-    }
+  override fun onStateChanged(sheet: View, newState: Int) {
+    if (newState == BottomSheetBehavior.STATE_HIDDEN) recyclerView.scrollToPosition(0)
+  }
 }

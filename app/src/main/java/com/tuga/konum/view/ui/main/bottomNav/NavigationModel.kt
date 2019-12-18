@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.tuga.konum.view.material
+package com.tuga.konum.view.ui.main.bottomNav
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tuga.konum.view.material.NavigationModelItem.NavMenuItem
+import com.tuga.konum.view.ui.main.bottomNav.NavigationModelItem.NavMenuItem
 import com.tuga.konum.R
 
 /**
@@ -92,7 +92,8 @@ object NavigationModel {
   }
 
   private fun postListUpdate() {
-    val newList = navigationMenuItems
+    val newList =
+      navigationMenuItems
     _navigationList.value = newList
   }
 }

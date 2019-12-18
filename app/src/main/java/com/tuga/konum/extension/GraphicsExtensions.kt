@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.tuga.konum.view.material
+package com.tuga.konum.extension
 
 import android.graphics.Canvas
 import android.graphics.Rect

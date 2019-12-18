@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.tuga.konum.R
 import com.tuga.konum.databinding.FragmentPlacesBinding
 import com.tuga.konum.util.MaterialContainerTransition
-import com.tuga.konum.view.material.themeInterpolator
+import com.tuga.konum.extension.themeInterpolator
 
 class PlacesFragment : Fragment() {
 

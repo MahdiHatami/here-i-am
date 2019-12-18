@@ -13,7 +13,7 @@
  *   limitations under the License.
  */
 
-package com.tuga.konum.view.material
+package com.tuga.konum.binding
 
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
@@ -38,6 +38,7 @@ import com.bumptech.glide.request.target.Target
 import com.google.android.material.chip.Chip
 import com.google.android.material.elevation.ElevationOverlayProvider
 import com.tuga.konum.R
+import com.tuga.konum.extension.getDrawableOrNull
 
 @BindingAdapter(
     "popupElevationOverlay"
@@ -274,14 +275,20 @@ class InitialPadding(val left: Int, val top: Int, val right: Int, val bottom: In
 
 class InitialMargin(val left: Int, val top: Int, val right: Int, val bottom: Int)
 
-private fun recordInitialPaddingForView(view: View) = InitialPadding(
-    view.paddingLeft, view.paddingTop, view.paddingRight, view.paddingBottom
-)
+private fun recordInitialPaddingForView(view: View) =
+    InitialPadding(
+        view.paddingLeft, view.paddingTop, view.paddingRight, view.paddingBottom
+    )
 
 private fun recordInitialMarginForView(view: View): InitialMargin {
     val lp = view.layoutParams as? ViewGroup.MarginLayoutParams
         ?: throw IllegalArgumentException("Invalid view layout params")
-    return InitialMargin(lp.leftMargin, lp.topMargin, lp.rightMargin, lp.bottomMargin)
+    return InitialMargin(
+        lp.leftMargin,
+        lp.topMargin,
+        lp.rightMargin,
+        lp.bottomMargin
+    )
 }
 
 private fun recordInitialHeightForView(view: View): Int {

@@ -19,7 +19,7 @@ package com.tuga.konum.util
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 import com.google.android.material.animation.ArgbEvaluatorCompat
-import com.tuga.konum.view.material.CornerRounding
+import com.tuga.konum.extension.CornerRounding
 import kotlin.math.roundToInt
 
 /**
@@ -105,34 +105,34 @@ fun lerp(
     if (fraction > endFraction) return endValue
 
     return CornerRounding(
-        lerp(
-            startValue.topLeftRadius,
-            endValue.topLeftRadius,
-            startFraction,
-            endFraction,
-            fraction
-        ),
-        lerp(
-            startValue.topRightRadius,
-            endValue.topRightRadius,
-            startFraction,
-            endFraction,
-            fraction
-        ),
-        lerp(
-            startValue.bottomRightRadius,
-            endValue.bottomRightRadius,
-            startFraction,
-            endFraction,
-            fraction
-        ),
-        lerp(
-            startValue.bottomLeftRadius,
-            endValue.bottomLeftRadius,
-            startFraction,
-            endFraction,
-            fraction
-        )
+      lerp(
+        startValue.topLeftRadius,
+        endValue.topLeftRadius,
+        startFraction,
+        endFraction,
+        fraction
+      ),
+      lerp(
+        startValue.topRightRadius,
+        endValue.topRightRadius,
+        startFraction,
+        endFraction,
+        fraction
+      ),
+      lerp(
+        startValue.bottomRightRadius,
+        endValue.bottomRightRadius,
+        startFraction,
+        endFraction,
+        fraction
+      ),
+      lerp(
+        startValue.bottomLeftRadius,
+        endValue.bottomLeftRadius,
+        startFraction,
+        endFraction,
+        fraction
+      )
     )
 }
 

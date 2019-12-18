@@ -15,12 +15,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-  <data>
-    <variable
-        name="email"
-        type="com.tuga.konum.view.material.data.Email"
-        />
-  </data>
 
   <androidx.core.widget.NestedScrollView
       android:id="@+id/nested_scroll_view"
@@ -69,7 +63,6 @@
             android:hint="@string/compose_subject_hint"
             android:minHeight="@dimen/min_touch_target_size"
             android:paddingVertical="@dimen/grid_1"
-            android:text="@{email.subject}"
             android:textAppearance="?attr/textAppearanceHeadline5"
             app:layout_constraintEnd_toStartOf="@+id/send_icon"
             app:layout_constraintStart_toEndOf="@id/close_icon"
@@ -203,7 +196,6 @@
             android:hint="@string/compose_body_hint"
             android:minHeight="250dp"
             android:paddingBottom="@dimen/grid_4"
-            android:text="@{email.body}"
             android:textAppearance="?attr/textAppearanceBody1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
