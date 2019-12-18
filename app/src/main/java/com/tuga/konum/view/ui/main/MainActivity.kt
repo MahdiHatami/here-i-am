@@ -4,15 +4,17 @@ import android.app.usage.UsageEvents.Event.NONE
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.ColorInt
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.tuga.konum.R
-import com.tuga.konum.R.menu
+import com.tuga.konum.R.color
 import com.tuga.konum.databinding.ActivityMainBinding
 import com.tuga.konum.view.ui.main.bottomNav.BottomNavDrawerFragment
 import com.tuga.konum.view.ui.main.bottomNav.ChangeSettingsMenuStateAction
@@ -37,8 +39,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setUpBottomNavigationAndFab()
-    val nightMode = AppCompatDelegate.MODE_NIGHT_YES
-    delegate.localNightMode = nightMode
+    changeNavBarColorToPrimary()
   }
 
   private fun setUpBottomNavigationAndFab() {
@@ -73,7 +74,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         // be displayed when the BottomNavigationDrawer is open.
         binding.bottomAppBar.replaceMenu(
           if (showSettings) {
-            menu.bottom_app_bar_settings_menu
+            R.menu.bottom_app_bar_settings_menu
           } else {
             getBottomAppBarMenuForDestination()
           }
@@ -109,9 +110,9 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
   private fun getBottomAppBarMenuForDestination(destination: NavDestination? = null): Int {
     val dest = destination ?: navController.currentDestination
     return when (dest?.id) {
-      R.id.peopleFragment -> menu.bottom_app_bar_home_menu
-      R.id.placesFragment -> menu.bottom_app_bar_places_menu
-      else -> menu.bottom_app_bar_home_menu
+      R.id.peopleFragment -> R.menu.bottom_app_bar_home_menu
+      R.id.placesFragment -> R.menu.bottom_app_bar_places_menu
+      else -> R.menu.bottom_app_bar_home_menu
     }
   }
 
@@ -179,11 +180,10 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
       fab.setImageState(intArrayOf(-android.R.attr.state_activated), true)
       bottomAppBar.visibility = View.VISIBLE
       bottomAppBar.replaceMenu(menuRes)
-      fab.contentDescription = getString(R.string.fab_compose_email_content_description)
-//      bottomAppBarTitle.visibility = View.VISIBLE
       bottomAppBar.performShow()
       fab.show()
     }
+    changeNavBarColorToPrimary()
   }
 
   private fun setBottomAppBarForPlaces() {
@@ -192,6 +192,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
       fab.hide()
       bottomAppBar.visibility = View.GONE
     }
+    changeNavBarColorDefault()
   }
 
   private fun setBottomAppBarForSettings() {
@@ -200,15 +201,29 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
       fab.hide()
       bottomAppBar.visibility = View.GONE
     }
+    changeNavBarColorDefault()
   }
 
   private fun setBottomAppBarForCompose() {
     binding.run {
       bottomAppBar.performHide()
       fab.hide()
-      // Hide the BottomAppBar to avoid it showing above the keyboard
-      // when composing a new email.
       bottomAppBar.visibility = View.GONE
+    }
+    changeNavBarColorDefault()
+  }
+
+  private fun changeNavBarColorToPrimary() {
+    this.let {
+      val color = ContextCompat.getColor(it, color.konum_blue_800)
+      window.navigationBarColor = color
+    }
+  }
+
+  private fun changeNavBarColorDefault() {
+    this.let {
+      val color = ContextCompat.getColor(it, color.nav_bar)
+      window.navigationBarColor = color
     }
   }
 
