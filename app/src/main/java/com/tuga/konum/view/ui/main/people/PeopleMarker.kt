@@ -21,28 +21,26 @@ import com.tuga.konum.R
 import de.hdodenhof.circleimageview.CircleImageView
 import javax.inject.Inject
 
+
 class PeopleMarker @Inject constructor(
   private val context: Context
 ) {
 
+
   @RequiresApi(VERSION_CODES.O)
-  fun getBitmapFromView(
-    layoutId: Int,
-    resource: Int,
-    callback: (Bitmap) -> Unit
-  ) {
+  fun getBitmapFromView(@DrawableRes userImage: Int, callback: (Bitmap) -> Unit) {
     val view: View =
       (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
-        layoutId,
+        R.layout.custom_marker_layout,
         null
       )
-    (view.findViewById<View>(resource) as CircleImageView).apply {
-      setImageResource(resource)
-    }
+    (view.findViewById<View>(R.id.marker_user_icon) as CircleImageView).setImageResource(userImage)
 
     view.layoutParams = LayoutParams(50, LayoutParams.WRAP_CONTENT)
+
+    val displayMetrics = DisplayMetrics()
     (context as Activity).window?.let { window ->
-      val bitmap = Bitmap.createBitmap(view.width, view.height, ARGB_8888)
+      val bitmap = Bitmap.createBitmap(131, 131, ARGB_8888)
       val locationOfViewInWindow = IntArray(2)
       view.getLocationInWindow(locationOfViewInWindow)
       try {
@@ -68,33 +66,36 @@ class PeopleMarker @Inject constructor(
     }
   }
 
-  private fun createMarker(@NonNull @DrawableRes resource: Int, @NonNull @IdRes layoutId: Int): Bitmap {
-    val markerView: View =
+  private fun createMarker(
+    @NonNull @DrawableRes resource: Int, @NonNull @IdRes layoutId: Int
+  ): Bitmap {
+    val customMarkerView: View =
       (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
         .inflate(R.layout.custom_marker_layout, null)
-    (markerView.findViewById<View>(layoutId) as CircleImageView).apply {
+    (customMarkerView.findViewById<View>(layoutId) as CircleImageView).apply {
       setImageResource(resource)
     }
-
     val displayMetrics = DisplayMetrics()
     (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
-    markerView.layoutParams = LayoutParams(52, LayoutParams.WRAP_CONTENT)
-    markerView.measure(0, 0)
-    markerView.layout(0, 0, 0, 0)
-    markerView.buildDrawingCache()
-
-    val bitmap: Bitmap = convertMarkerLayoutToBitmap(markerView)
+    customMarkerView.layoutParams = LayoutParams(52, LayoutParams.WRAP_CONTENT)
+    customMarkerView.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
+    customMarkerView.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
+    customMarkerView.buildDrawingCache()
+    val bitmap: Bitmap = Bitmap.createBitmap(
+      customMarkerView.measuredWidth,
+      customMarkerView.measuredHeight,
+      Bitmap.Config.ARGB_8888
+    )
     val canvas = Canvas(bitmap)
-    markerView.draw(canvas)
+    customMarkerView.draw(canvas)
     return bitmap
   }
 
   private fun convertMarkerLayoutToBitmap(marker: View): Bitmap {
-    val bitmap: Bitmap = Bitmap.createBitmap(
+    return Bitmap.createBitmap(
       marker.measuredWidth,
       marker.measuredHeight,
       ARGB_8888
     )
-    return bitmap
   }
 }

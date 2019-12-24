@@ -3,13 +3,9 @@ package com.tuga.konum.view.ui.main.people
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
-import android.os.Build
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
-import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +17,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -66,8 +61,7 @@ class PeopleFragment : DaggerFragment() {
     val peopleMarker = PeopleMarker(requireContext())
     if (VERSION.SDK_INT >= VERSION_CODES.O) {
       peopleMarker.getBitmapFromView(
-        R.layout.custom_marker_layout,
-        R.id.marker_user_icon
+        R.drawable.avatar_2
       ) { bitmap ->
         MarkerOptions()
           .position(malatya)
@@ -84,7 +78,7 @@ class PeopleFragment : DaggerFragment() {
 //          )
 //        )
 //    ).title = "iPragmatech Solutions Pvt Lmt"
-//
+
     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(malatya, 15f))
 
   }
