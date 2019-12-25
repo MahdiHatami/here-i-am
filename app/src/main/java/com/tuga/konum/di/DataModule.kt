@@ -1,12 +1,20 @@
 package com.tuga.konum.di
 
+import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.tuga.konum.BuildConfig
 import com.tuga.konum.base.checkMainThread
-import com.tuga.konum.data.source.remote.KonumService
 import com.tuga.konum.base.delegatingCallFactory
+import com.tuga.konum.data.source.remote.KonumService
+import com.tuga.konum.domain.service.TrackingService
+import com.tuga.konum.domain.sources.LocationSource
+import com.tuga.konum.domain.sources.TrackingSource
+import com.tuga.konum.providers.LocationProvider
+import com.tuga.konum.providers.TrackingProvider
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
@@ -96,4 +104,21 @@ object DataModule {
   @Provides
   @Singleton
   internal fun provideKonumService(retrofit: Retrofit): KonumService = retrofit.create()
+
+  @Provides
+  fun provideLocationSource(fusedLocationProviderClient: FusedLocationProviderClient): LocationSource =
+    LocationProvider(fusedLocationProviderClient)
+
+  @Provides
+  fun provideTrackingSource(
+    trackingService: TrackingService,
+    application: Application
+  ): TrackingSource =
+    TrackingProvider(application, trackingService)
+
+  @Provides
+  @Singleton
+  fun provideSharedPreference(context: Context): SharedPreferences {
+    return context.getSharedPreferences("konum-shared", Context.MODE_PRIVATE)
+  }
 }

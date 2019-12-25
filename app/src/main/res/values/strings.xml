@@ -57,4 +57,16 @@
   <string name="create_new_circle_description">We\'ll give you a code to share</string>
   <string name="enter_circle_code_correctly">Please enter code correctly</string>
   <string name="could_not_join_to_network">Could not join to circle. please check the code and try again</string>
+
+  <string name="track_notification_channelid">tracking_service</string>
+  <string name="track_service_name">Tracking Foreground Service</string>
+  <string name="tracking_notification">Your tracking is on.</string>
+  <string name="sync_track">Do you want to sync this track ?</string>
+
+  <string name="notification_protecting_title">Protecting your apps</string>
+  <string name="notification_protecting_description">Lock your apps to protect your privacy.</string>
+
+  <string name="notification_permission_need_title">Enable permission to protection</string>
+  <string name="notification_permission_need_description">Please enable your permissions to use app locker.</string>
+
 </resources>
