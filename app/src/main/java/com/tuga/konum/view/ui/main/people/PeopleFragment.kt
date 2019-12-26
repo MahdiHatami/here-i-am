@@ -26,12 +26,24 @@ class PeopleFragment : DaggerFragment() {
 
   private lateinit var binding: FragmentPeopleBinding
 
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    if (!viewModel.isTracking()) {
+      viewModel.startTracker()
+    }
+  }
+
+  override fun onResume() {
+    super.onResume()
+    viewModel.getCurrentLocation()
+  }
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-
     binding = DataBindingUtil.inflate(inflater, R.layout.fragment_people, container, false)
     binding.viewModel = viewModel
     return binding.root

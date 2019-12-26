@@ -4,11 +4,9 @@ import com.tuga.konum.domain.repository.TrackRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class TrackingInteractor @Inject constructor(
   private val repository: TrackRepository
-) :
-  TrackingUseCases {
+) : TrackingUseCases {
 
   override fun getLastLocation() = repository.getLastLocation()
 

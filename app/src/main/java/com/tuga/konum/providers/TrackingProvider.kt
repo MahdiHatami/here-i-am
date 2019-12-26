@@ -10,8 +10,7 @@ import javax.inject.Inject
 
 class TrackingProvider @Inject constructor(
   val application: Context, val service: TrackingService
-) :
-  TrackingSource {
+) : TrackingSource {
 
   private val intent = Intent(application, service::class.java)
 
