@@ -15,6 +15,7 @@ class GetCheckVerificationCodeUserCase @Inject constructor(
 ) : UseCase.ResourceUseCase<Params, Boolean> {
   override suspend fun executeAsync(params: Params): Resource<Boolean> {
     return try {
+      Resource.loading("Loading verification code")
       val value = userRepository.checkVerificationCode(params.checkVerificationCodeDto)
       if (!value.result) return Resource.empty(errorFactory.createEmptyErrorMessage())
       Resource.success(value.result)

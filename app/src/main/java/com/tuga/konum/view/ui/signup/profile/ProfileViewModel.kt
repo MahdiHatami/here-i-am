@@ -14,6 +14,7 @@ import com.theartofdev.edmodo.cropper.CropImage
 import com.tuga.konum.R.string
 import com.tuga.konum.base.Event
 import com.tuga.konum.base.Resource
+import com.tuga.konum.base.Status.LOADING
 import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.domain.usecase.registration.GetCreateUserUseCase
 import com.tuga.konum.domain.usecase.registration.GetCreateUserUseCase.Params
@@ -134,6 +135,8 @@ class ProfileViewModel @Inject constructor(
 
     val response: Resource<Boolean> = getCreateUserUseCase.executeAsync(Params(user))
 
+    val isLoading = response.status == LOADING
+    // TODO: 12/30/19
     if (response.data != null && response.data) {
       _snackbarText.postValue(Event(string.registration_successful))
       delay(1000)
