@@ -133,7 +133,7 @@ class ProfileViewModel @Inject constructor(
   fun finishSignup() = viewModelScope.launch(Dispatchers.IO) {
     user.username = username.value.toString()
 
-    val response: Resource<Boolean> = getCreateUserUseCase.executeAsync(Params(user))
+    val response = getCreateUserUseCase.executeAsync(Params(user))
 
     val isLoading = response.status == LOADING
     // TODO: 12/30/19

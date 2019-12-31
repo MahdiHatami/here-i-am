@@ -11,6 +11,7 @@ import com.tuga.konum.domain.usecase.circle.GetCreateCircleUseCase
 import com.tuga.konum.domain.usecase.circle.GetCreateCircleUseCase.Params
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class CircleViewModel @Inject constructor(
@@ -50,6 +51,13 @@ class CircleViewModel @Inject constructor(
 
   private val _code6Focus = MutableLiveData<Event<Boolean>>()
   val code6Focus: LiveData<Event<Boolean>> = _code6Focus
+
+  private val _isLoading = MutableLiveData<Boolean>()
+  val isLoading: LiveData<Boolean> = _isLoading
+
+  init {
+    _isLoading.value = true
+  }
 
   fun onCode1Changed(text: CharSequence) {
     if (text.length == 1) _code2Focus.value = Event(true)
@@ -104,13 +112,19 @@ class CircleViewModel @Inject constructor(
       return
     }
 
+    _isLoading.value = false
+
     viewModelScope.launch(Dispatchers.IO) {
       val response = getCreateCircleUseCase.executeAsync(Params(CreateCircleDto()))
+      Timber.d("$response")
       // fire event to navigate
-      if (response.data as Boolean)
+      if (response as Boolean)
         _navigateToHomeAction.postValue(Event(Unit))
       else
         _snackbarText.postValue(Event(string.sms_code_not_correct))
+
+      _isLoading.postValue(true)
+
     }
   }
 

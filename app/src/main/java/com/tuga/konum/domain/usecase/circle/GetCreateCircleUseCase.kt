@@ -16,9 +16,9 @@ class GetCreateCircleUseCase @Inject constructor(
   override suspend fun executeAsync(params: Params): Resource<Boolean> {
     return try {
       val value = circleRepository.createCircle(params.createCircleDto)
-      if (!value.result)
+      if (!value)
         return Resource.empty(errorFactory.createEmptyErrorMessage())
-      Resource.success(value.result)
+      Resource.success(value)
     } catch (e: Exception) {
       Resource.error(errorFactory.createApiErrorMessage(e))
     }

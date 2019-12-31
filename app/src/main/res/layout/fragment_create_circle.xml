@@ -119,6 +119,7 @@
           android:layout_width="150dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="16dp"
+          android:enabled="@{viewModel.isLoading}"
           android:onClick="@{() -> viewModel.joinCircleOnClick()}"
           android:text="@string/submit"
           android:textColor="@color/white"
@@ -180,6 +181,7 @@
           app:layout_constraintTop_toBottomOf="@+id/textView7"
           />
       <TextView
+          android:id="@+id/textView8"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/create_new_circle_description"
@@ -187,7 +189,6 @@
           app:layout_constraintStart_toStartOf="@+id/btnCreateNewCircle"
           app:layout_constraintTop_toBottomOf="@+id/btnCreateNewCircle"
           />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

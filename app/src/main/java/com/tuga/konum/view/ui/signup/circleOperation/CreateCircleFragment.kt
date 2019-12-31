@@ -43,7 +43,6 @@ class CreateCircleFragment : DaggerFragment() {
     super.onActivityCreated(savedInstanceState)
 
     setupEditText()
-
     setupSnackbar()
 
     viewModel.navigateToHomeAction.observe(viewLifecycleOwner,
