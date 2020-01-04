@@ -6,6 +6,7 @@ import com.tuga.konum.domain.repository.UserRepository
 import com.tuga.konum.domain.repository.UserRepositoryImpl
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import javax.inject.Singleton
 
 @Module

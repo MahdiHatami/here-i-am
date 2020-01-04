@@ -23,4 +23,7 @@ class DatabaseModule {
   @Singleton
   fun provideUserDao(db: KonumDatabase) = db.userDao()
 
+  @Provides
+  @Singleton
+  fun provideTrackDao(db: KonumDatabase) = db.trackingDao()
 }

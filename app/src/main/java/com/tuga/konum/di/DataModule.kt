@@ -4,11 +4,13 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.tuga.konum.BuildConfig
 import com.tuga.konum.base.checkMainThread
 import com.tuga.konum.base.delegatingCallFactory
+import com.tuga.konum.data.PrefStorage
 import com.tuga.konum.data.source.remote.KonumService
 import com.tuga.konum.domain.service.TrackingService
 import com.tuga.konum.domain.sources.LocationSource
@@ -121,4 +123,17 @@ object DataModule {
   fun provideSharedPreference(context: Context): SharedPreferences {
     return context.getSharedPreferences("konum-shared", Context.MODE_PRIVATE)
   }
+
+  @Singleton
+  @Provides
+  fun provideFusedLocationProviderClient(context: Context): FusedLocationProviderClient =
+    LocationServices.getFusedLocationProviderClient(context)
+
+  @Provides
+  @Singleton
+  fun providePrefStorage(
+    sharedPreferences: SharedPreferences,
+    @InternalApi gson: Gson
+  ): PrefStorage =
+    PrefStorage(sharedPreferences, gson)
 }

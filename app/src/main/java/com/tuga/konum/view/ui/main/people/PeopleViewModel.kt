@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
+import com.tuga.konum.di.SCHEDULER_MAIN_THREAD
 import com.tuga.konum.domain.usecase.tracking.TrackingUseCases
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -14,9 +15,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
+import javax.inject.Named
 
 class PeopleViewModel @Inject constructor(
-  private val trackingUseCases: TrackingUseCases
+  private val trackingUseCases: TrackingUseCases,
+  @Named(SCHEDULER_MAIN_THREAD) val observeOnScheduler: Scheduler
 ) : ViewModel() {
   private val disposable = CompositeDisposable()
   private val trackingDisposable = CompositeDisposable()
@@ -24,11 +27,15 @@ class PeopleViewModel @Inject constructor(
   private val location = MutableLiveData<LatLng>()
   private val error = MutableLiveData<String>()
 
+  init {
+    startTracker()
+  }
+
   fun isTracking() = trackingUseCases.isTracking()
 
   fun startTracker() {
     trackingUseCases.startTracking()
-      ?.observeOn(Schedulers.io())
+      ?.observeOn(observeOnScheduler)
       ?.subscribe(
         this::onLocationReceived,
         this::onError
@@ -43,6 +50,7 @@ class PeopleViewModel @Inject constructor(
 
   private fun onError(exception: Throwable) {
     error.value = exception.message
+    Timber.d("location: $error")
   }
 
   fun getCurrentLocation() =
