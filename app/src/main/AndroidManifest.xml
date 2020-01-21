@@ -3,11 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tuga.konum">
 
-  <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality.
-    -->
+  <!--  The ACCESS_COARSE/FINE_LOCATION permissions are not required to use-->
+  <!--  Google Maps Android API v2, but you must specify either coarse or fine-->
+  <!--  location permissions for the 'MyLocation' functionality.-->
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.CAMERA" />
@@ -24,8 +22,11 @@
       android:supportsRtl="true"
       android:theme="@style/Theme.Konum.DayNight"
       android:usesCleartextTraffic="true"
-      tools:ignore="AllowBackup,GoogleAppIndexingWarning"
-      tools:targetApi="m">
+      tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+
+    <meta-data
+        android:name="preloaded_fonts"
+        android:resource="@array/preloaded_fonts" />
 
     <meta-data
         android:name="com.google.android.geo.API_KEY"
@@ -39,9 +40,9 @@
         android:windowSoftInputMode="adjustResize">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
-
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
+
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
 
