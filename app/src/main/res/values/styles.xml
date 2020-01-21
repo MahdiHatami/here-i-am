@@ -1,55 +1,29 @@
 <resources>
 
-  <!-- Base application theme. -->
-<!--  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-<!--    &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-<!--    <item name="colorPrimary">@color/primaryColor</item>-->
-<!--    <item name="colorPrimaryDark">@color/primaryColorDark</item>-->
-<!--    <item name="colorAccent">@color/colorAccent</item>-->
-<!--  </style>-->
-
-  <style name="MaterialTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
-    <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/primaryColor</item>
-    <item name="colorPrimaryDark">@color/primaryDarkColor</item>
-    <item name="colorAccent">@color/accentColor</item>
-
-
-    <!-- New Theming attributes -->
-
-    <item name="materialButtonStyle">
-      @style/Widget.MaterialComponents.Button
-    </item>
+  <style name="Widget.Konum.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+    <!--Remove any scrim insets applied by NavigationView for system bars-->
+    <item name="insetForeground">@android:color/transparent</item>
+    <!--Set the background color of NavigationView-->
+    <item name="android:background">@android:color/transparent</item>
+    <item name="elevation">0dp</item>
+    <item name="itemTextAppearance">?attr/textAppearanceBody2</item>
+    <item name="itemTextColor">@color/color_on_surface_emphasis_medium</item>
+    <item name="itemIconTint">@color/color_on_surface_emphasis_medium</item>
   </style>
 
-  <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
-    <item name="colorButtonNormal">@color/primaryColor</item>
-    <item name="android:colorButtonNormal">@color/primaryColor</item>
-    <item name="android:textColor">@color/white</item>
+  <style name="Widget.Konum.Chip.Entry" parent="Widget.MaterialComponents.Chip.Entry">
+    <item name="closeIconSize">0dp</item>
+    <item name="closeIconEnabled">false</item>
+    <item name="chipIcon">@drawable/avatar_none</item>
+    <item name="chipIconSize">@dimen/chip_icon_diameter</item>
+    <item name="chipStartPadding">0dp</item>
+    <item name="android:checkable">false</item>
   </style>
 
-  <style name="signupExtendedButton">
-    <item name="android:layout_margin">8dp</item>
-  </style>
-
-  <!-- set the rounded drawable as background to your bottom sheet -->
-  <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
-    <item name="android:background">@drawable/bg_bottom_sheet_dialog_fragment</item>
-  </style>
-
-  <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
-    <item name="android:windowIsFloating">false</item>
-    <item name="bottomSheetStyle">@style/BottomSheet</item>
-  </style>
-
-  <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog">
-    <item name="android:statusBarColor">@android:color/transparent</item>
-    <item name="android:navigationBarColor">@color/white</item>
-  </style>
 
   <style name="EditTextVerification">
     <item name="android:textSize">14sp</item>
-    <item name="android:textColor">@color/primaryColor</item>
+    <item name="android:textColor">@color/konum_black_800</item>
     <item name="android:maxLength">1</item>
     <item name="android:maxLines">1</item>
     <item name="android:gravity">center</item>
@@ -61,7 +35,7 @@
     <item name="android:layout_width">25dp</item>
     <item name="android:layout_height">40dp</item>
     <item name="android:textSize">14sp</item>
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/konum_black_800</item>
     <item name="android:maxLength">1</item>
     <item name="android:maxLines">1</item>
     <item name="android:gravity">center</item>
@@ -73,6 +47,10 @@
   <style name="CircularOutlineButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
     <item name="textAllCaps">false</item>
     <item name="cornerRadius">20dp</item>
-    <item name="strokeColor">@color/primaryColor</item>
+    <item name="strokeColor">@color/konum_blue_800</item>
+  </style>
+
+  <style name="signupExtendedButton">
+    <item name="android:layout_margin">8dp</item>
   </style>
 </resources>

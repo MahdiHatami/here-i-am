@@ -3,12 +3,14 @@ package com.tuga.konum.view.ui.signup
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.tuga.konum.R
+import com.tuga.konum.R.color
 import com.tuga.konum.base.ext.actAsFluid
 import com.tuga.konum.databinding.ActivitySignupBinding
 import kotlinx.android.synthetic.main.activity_signup.navHostSignupFragment
@@ -23,6 +25,11 @@ class SignupActivity : AppCompatActivity(){
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = DataBindingUtil.setContentView(this, R.layout.activity_signup)
+
+    this.let {
+      val color = ContextCompat.getColor(it, color.konum_blue_800)
+      window.statusBarColor= color
+    }
 
     actAsFluid()
 

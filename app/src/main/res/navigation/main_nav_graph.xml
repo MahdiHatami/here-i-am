@@ -10,4 +10,36 @@
       android:name="com.tuga.konum.view.ui.main.people.PeopleFragment"
       android:label="fragment_peaple"
       tools:layout="@layout/fragment_people" />
+
+  <!--  compose fragment-->
+  <fragment
+      android:id="@+id/settingsFragment"
+      android:name="com.tuga.konum.view.ui.main.setting.SettingsFragment"
+      android:label="fragment_settings"
+      tools:layout="@layout/fragment_settings" />
+  <action
+      android:id="@+id/action_global_settingsFragment"
+      app:destination="@id/settingsFragment" />
+
+  <!--  compose fragment-->
+  <fragment
+      android:id="@+id/composeFragment"
+      android:name="com.tuga.konum.view.ui.main.compose.ComposeFragment"
+      android:label="ComposeFragment"
+      tools:layout="@layout/fragment_compose">
+  </fragment>
+  <action
+      android:id="@+id/action_global_composeFragment"
+      app:destination="@+id/composeFragment" />
+
+  <!--  places fragment-->
+  <fragment
+      android:id="@+id/placesFragment"
+      android:name="com.tuga.konum.view.ui.main.place.PlacesFragment"
+      android:label="fragment_places"
+      tools:layout="@layout/fragment_places" />
+  <action
+      android:id="@+id/action_global_placesFragment"
+      app:destination="@+id/placesFragment" />
+
 </navigation>

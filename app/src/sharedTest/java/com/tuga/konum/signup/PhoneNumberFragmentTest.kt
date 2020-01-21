@@ -72,7 +72,7 @@ class PhoneNumberFragmentTest {
   }
 
   private fun launchFragment(navController: NavController?) {
-    val scenario = launchFragmentInContainer<PhoneNumberFragment>(null, R.style.MaterialTheme)
+    val scenario = launchFragmentInContainer<PhoneNumberFragment>(null, R.style.Theme_Konum_DayNight)
     scenario.onFragment {
       Navigation.setViewNavController(it.view!!, navController)
     }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Shape-->
+    <style name="ShapeAppearance.Konum.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/konum_small_component_corner_radius</item>
+    </style>
+
+    <style name="ShapeAppearance.Konum.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/konum_medium_component_corner_radius</item>
+    </style>
+
+    <style name="ShapeAppearance.Konum.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/konum_large_component_corner_radius</item>
+    </style>
+
+    <!--ShapeAppearance overlay for components which can be 'marked' by rounding their top left -->
+    <!--corner - ie. email cards which have been starred-->
+    <style name="ShapeAppearanceOverlay.Konum.MediumComponent.Marked" parent="">
+        <item name="cornerSizeTopLeft">@dimen/konum_small_component_corner_radius</item>
+    </style>
+
+    <dimen name="konum_small_component_corner_radius">24dp</dimen>
+    <dimen name="konum_medium_component_corner_radius">0dp</dimen>
+    <dimen name="konum_large_component_corner_radius">12dp</dimen>
+
+</resources>

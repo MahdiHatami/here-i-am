@@ -5,6 +5,6 @@
   <stroke
       android:width="3dp"
       android:color="@color/circleCodeBackground" />
-  <solid android:color="@color/white" />
+  <solid android:color="@color/konum_white_50" />
 
 </shape>
