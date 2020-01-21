@@ -18,7 +18,6 @@ import com.theartofdev.edmodo.cropper.CropImage
 import com.tuga.konum.R
 import com.tuga.konum.base.EventObserver
 import com.tuga.konum.databinding.FragmentProfileBinding
-import com.tuga.konum.domain.models.entity.User
 import com.tuga.konum.extension.onTextChanged
 import com.tuga.konum.extension.setupSnackbar
 import com.tuga.konum.permission.PermissionManager
