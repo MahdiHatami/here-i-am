@@ -129,7 +129,6 @@
       <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:background="@color/color_on_surface_divider"
           />
       <TextView
           android:id="@+id/source_gallery"
@@ -147,7 +146,6 @@
       <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:background="@color/color_on_surface_divider"
           />
       <TextView
           android:id="@+id/sourceCancel"
