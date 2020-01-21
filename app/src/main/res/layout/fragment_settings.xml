@@ -14,6 +14,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
+
+  <data>
+    <variable
+        name="viewModel"
+        type="com.tuga.konum.view.ui.main.setting.SettingsViewModel"
+        />
+  </data>
+
   <androidx.core.widget.NestedScrollView
       android:id="@+id/nested_scroll_view"
       android:layout_width="match_parent"
@@ -59,6 +67,7 @@
             android:layout_marginHorizontal="@dimen/grid_2"
             android:background="@android:color/transparent"
             android:hint="@string/compose_subject_hint"
+            android:inputType="text"
             android:minHeight="@dimen/min_touch_target_size"
             android:paddingVertical="@dimen/grid_1"
             android:text="Settings"
@@ -79,6 +88,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/subject_edit_text"
+            />
+        <TextView
+            android:id="@+id/textDarkMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Dark Mode"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subject_divider"
+            />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchDarkMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textDarkMode"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textDarkMode"
+            app:useMaterialThemeColors="false"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
