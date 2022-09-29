@@ -1,4 +1,4 @@
-# Basic sample android app for understanding Clean Architecture and learning to unit and instrumentation test for such an app
+# Basic sample android app for understanding Clean Architecture and learning to unit and instrumentation tests.
 [![CircleCI](https://circleci.com/gh/MahdiHatami/here-i-am.svg?style=svg&circle-token=854e87b299d7b2e30a09ff618c27e64698803950)](<LINK>)
 
 # Structure
